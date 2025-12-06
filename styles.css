@@ -179,10 +179,6 @@ body {
     background: var(--gray-950);
 }
 
-/* Alternate slide backgrounds */
-.slide:nth-child(even) {
-    background: var(--gray-900);
-}
 
 .slide.active {
     opacity: 1;
@@ -1335,5 +1331,10 @@ body {
         scroll-snap-stop: always;
         min-height: 100vh;
         min-height: 100dvh;
+    }
+
+    /* Alternate slide backgrounds on mobile only */
+    .slide:nth-child(even) {
+        background: var(--gray-800);
     }
 }
