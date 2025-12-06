@@ -239,12 +239,21 @@ body {
 }
 
 .logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
     margin-bottom: 2rem;
 }
 
 .logo__img {
     width: 80px;
     height: 80px;
+}
+
+.logo__wordmark {
+    height: 32px;
+    width: auto;
 }
 
 .title {
