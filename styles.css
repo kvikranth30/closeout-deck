@@ -238,22 +238,10 @@ body {
     background: radial-gradient(ellipse at center, var(--gray-900) 0%, var(--gray-950) 70%);
 }
 
-.logo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 2.5rem;
-}
-
-.logo__icon {
-    width: 56px;
-    height: 56px;
-}
-
-.logo__wordmark {
-    height: 20px;
+.logo-vertical {
     width: auto;
+    height: 100px;
+    margin-bottom: 2rem;
 }
 
 .title {
