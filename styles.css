@@ -256,6 +256,7 @@ body {
 
     .slide__content {
         padding-top: 4rem;
+        padding-bottom: 4rem;
     }
 
     .integrations-column h3 {
