@@ -245,12 +245,17 @@ body {
     }
 
     .tagline {
-        font-size: 0.7rem;
-        letter-spacing: 0.05em;
+        font-size: 0.55rem;
+        letter-spacing: 0.02em;
+        white-space: nowrap;
     }
 
     .tagline-box {
-        padding: 0.6rem 1rem;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .slide__content {
+        padding-top: 4rem;
     }
 
     .integrations-column h3 {
