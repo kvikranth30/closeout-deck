@@ -241,7 +241,7 @@ body {
 .logo-vertical {
     width: auto;
     height: 140px;
-    margin-bottom: 0;
+    margin-bottom: -0.5rem;
 }
 
 .title {
