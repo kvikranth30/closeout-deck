@@ -1308,18 +1308,27 @@ body {
 }
 
 /* ============================================
-   MOBILE SCROLL INDICATORS
+   MOBILE VERTICAL PAGING
    ============================================ */
 @media (max-width: 768px) {
-    .slide {
-        scroll-snap-align: start;
+    html {
+        scroll-snap-type: y mandatory;
+        overflow-y: scroll;
+    }
+
+    body {
+        overflow-y: scroll;
+        scroll-snap-type: y mandatory;
     }
 
     .deck {
         scroll-snap-type: y mandatory;
     }
 
-    body {
-        scroll-snap-type: y mandatory;
+    .slide {
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        min-height: 100vh;
+        min-height: 100dvh;
     }
 }
