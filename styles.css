@@ -179,6 +179,11 @@ body {
     background: var(--gray-950);
 }
 
+/* Alternate slide backgrounds */
+.slide:nth-child(even) {
+    background: var(--gray-900);
+}
+
 .slide.active {
     opacity: 1;
     visibility: visible;
