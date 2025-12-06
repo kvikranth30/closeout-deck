@@ -235,12 +235,26 @@ body {
     .slide__title {
         text-align: center;
         font-size: clamp(2rem, 6vw, 3rem);
+        margin-bottom: 3rem;
     }
 
     .slide__lead {
         text-align: center;
         margin-left: auto;
         margin-right: auto;
+    }
+
+    .tagline {
+        font-size: 0.7rem;
+        letter-spacing: 0.05em;
+    }
+
+    .tagline-box {
+        padding: 0.6rem 1rem;
+    }
+
+    .integrations-column h3 {
+        justify-content: center;
     }
 }
 
