@@ -1,0 +1,5 @@
+Employee ID,Employee Name,Date,Clock In,Clock Out,Status,Device ID
+EMP-123,John Doe,2024-12-03,7:15 AM,4:02 PM,Complete,iPhone-8X92
+EMP-456,Jane Smith,2024-12-03,6:58 AM,3:30 PM,Complete,Android-K182
+EMP-789,Robert Johnson,2024-12-03,7:22 AM,4:15 PM,Complete,iPhone-3J91
+EMP-234,Maria Garcia,2024-12-03,6:45 AM,3:00 PM,Early Exit,Android-P872

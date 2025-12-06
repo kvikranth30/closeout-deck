@@ -1,0 +1,2136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HyperTrack Closeout - AI-Powered Timesheet Reconciliation</title>
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif;
+            background: #F8F9FA;
+            color: #1a1a2e;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid #E1E1E1;
+            padding: 16px 0;
+            margin-bottom: 30px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-logo {
+            width: 40px;
+            height: 40px;
+        }
+
+        .header h1 {
+            font-size: 1.25rem;
+            color: #1a1a2e;
+            margin-bottom: 0;
+        }
+
+        .header p {
+            font-size: 0.8rem;
+            color: #868686;
+        }
+
+        .btn-clear {
+            background: transparent;
+            border: 1px solid #E1E1E1;
+            color: #868686;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .btn-clear:hover {
+            background: #F8F9FA;
+            border-color: #27A359;
+            color: #27A359;
+        }
+
+        /* Drop Zone */
+        .drop-zone {
+            border: 2px dashed #E1E1E1;
+            border-radius: 5px;
+            padding: 60px 40px;
+            text-align: center;
+            background: white;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .drop-zone:hover {
+            border-color: #27A359;
+            background: #BCDACB20;
+        }
+
+        .drop-zone.drag-over {
+            border-color: #27A359;
+            border-style: solid;
+            background: #BCDACB40;
+            transform: scale(1.01);
+        }
+
+        .drop-zone-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+
+        .drop-zone h2 {
+            color: #1a1a2e;
+            margin-bottom: 8px;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .drop-zone p {
+            color: #868686;
+            margin-bottom: 16px;
+        }
+
+        .btn-browse {
+            background: white;
+            color: #1a1a2e;
+            border: 1px solid #E1E1E1;
+            padding: 10px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .btn-browse:hover {
+            border-color: #27A359;
+            color: #27A359;
+        }
+
+        .btn-test-data {
+            background: #27A359;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-left: 12px;
+            transition: all 0.2s;
+        }
+
+        .btn-test-data:hover {
+            background: #1f8a48;
+        }
+
+        .btn-test-data:disabled {
+            background: #E1E1E1;
+            color: #868686;
+            cursor: not-allowed;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .supported-types {
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        /* Uploaded Files Section */
+        .uploaded-section {
+            background: white;
+            border-radius: 5px;
+            border: 1px solid #E1E1E1;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .uploaded-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .uploaded-header h3 {
+            font-size: 0.95rem;
+            color: #1a1a2e;
+            font-weight: 600;
+        }
+
+        .btn-add-more {
+            background: white;
+            border: 1px solid #E1E1E1;
+            color: #868686;
+            padding: 6px 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .btn-add-more:hover {
+            border-color: #27A359;
+            color: #27A359;
+        }
+
+        .files-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .file-card {
+            background: #F8F9FA;
+            border: 1px solid #E1E1E1;
+            border-radius: 5px;
+            padding: 16px;
+            width: 120px;
+            text-align: center;
+            position: relative;
+        }
+
+        .file-card-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .file-card-name {
+            font-size: 0.8rem;
+            color: #868686;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .file-card-remove {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background: #ef4444;
+            color: white;
+            border: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 0.7rem;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .file-card:hover .file-card-remove {
+            opacity: 1;
+        }
+
+        .btn-analyze {
+            background: #27A359;
+            color: white;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: block;
+            margin: 0 auto;
+            transition: all 0.2s;
+        }
+
+        .btn-analyze:hover:not(:disabled) {
+            background: #1f8a48;
+        }
+
+        .btn-analyze:disabled {
+            background: #E1E1E1;
+            color: #868686;
+            cursor: not-allowed;
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 5px;
+            border: 1px solid #E1E1E1;
+        }
+
+        .loading h3 {
+            color: #1a1a2e;
+            margin-bottom: 24px;
+            font-size: 1rem;
+        }
+
+        .loading p {
+            color: #868686;
+            margin-top: 16px;
+        }
+
+        .progress-loader {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .progress-loader-bar {
+            background: #E3E8F0;
+            border-radius: 5px;
+            height: 32px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-loader-fill {
+            background: #27A359;
+            height: 100%;
+            border-radius: 5px;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 60px;
+        }
+
+        .progress-loader-text {
+            color: white;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+
+        .progress-loader-status {
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: #868686;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid #E1E1E1;
+            border-top-color: #27A359;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Results Section */
+        .results-section {
+            background: white;
+            border-radius: 5px;
+            border: 1px solid #E1E1E1;
+            padding: 24px;
+            margin-top: 24px;
+        }
+
+        .results-section h3 {
+            color: #1a1a2e;
+            margin-bottom: 16px;
+            font-size: 0.95rem;
+        }
+
+        /* Sources Table */
+        .sources-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 24px;
+        }
+
+        .sources-table th,
+        .sources-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #E1E1E1;
+        }
+
+        .sources-table th {
+            background: #F8F9FA;
+            font-weight: 600;
+            color: #1a1a2e;
+            font-size: 0.8rem;
+        }
+
+        .sources-table td {
+            font-size: 0.85rem;
+        }
+
+        .source-icon {
+            margin-right: 8px;
+        }
+
+        /* Divider */
+        .divider {
+            border: none;
+            border-top: 1px solid #E1E1E1;
+            margin: 24px 0;
+        }
+
+        /* Reconciled Card */
+        .reconciled-card {
+            background: #BCDACB20;
+            border: 1px solid #27A359;
+            border-radius: 5px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .reconciled-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .reconciled-header h3 {
+            color: #1a1a2e;
+            margin: 0;
+        }
+
+        .reconciled-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .reconciled-detail {
+            font-size: 0.9rem;
+        }
+
+        .reconciled-detail strong {
+            color: #1a1a2e;
+        }
+
+        .reconciled-total {
+            background: #27A359;
+            color: white;
+            padding: 16px;
+            border-radius: 5px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .reconciled-total .hours {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .reasoning {
+            background: white;
+            border-radius: 5px;
+            padding: 16px;
+        }
+
+        .reasoning-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+
+        .reasoning p {
+            font-size: 0.85rem;
+            color: #868686;
+            font-style: italic;
+        }
+
+        /* Data Quality Section */
+        .quality-section {
+            background: #F8F9FA;
+            border-radius: 5px;
+            padding: 24px;
+        }
+
+        .quality-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .quality-header h3 {
+            margin: 0;
+        }
+
+        .quality-summary {
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+            color: #868686;
+        }
+
+        .quality-checklist {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .quality-checklist li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+        }
+
+        .quality-checklist .check {
+            color: #27A359;
+        }
+
+        .quality-checklist .missing {
+            color: #868686;
+        }
+
+        .progress-bar-container {
+            background: #E3E8F0;
+            border-radius: 5px;
+            height: 24px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        .progress-bar {
+            background: #27A359;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: white;
+            transition: width 0.5s ease;
+        }
+
+        .recommendation {
+            background: #BCDACB40;
+            border-left: 3px solid #27A359;
+            padding: 12px 16px;
+            border-radius: 0 5px 5px 0;
+            font-size: 0.85rem;
+        }
+
+        .recommendation-icon {
+            margin-right: 8px;
+        }
+
+        /* Reconciliation Table */
+        .reconciliation-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.85rem;
+        }
+
+        .reconciliation-table th {
+            background: #E3E8F0;
+            color: #1a1a2e;
+            padding: 12px 8px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.75rem;
+            white-space: nowrap;
+        }
+
+        .reconciliation-table th.data-source-col {
+            text-align: center;
+            padding: 12px 6px;
+        }
+
+        .reconciliation-table td {
+            padding: 12px 8px;
+            border-bottom: 1px solid #E1E1E1;
+            vertical-align: middle;
+        }
+
+        .reconciliation-table td.data-source-col {
+            text-align: center;
+        }
+
+        .reconciliation-table tr:hover {
+            background: #F8F9FA;
+        }
+
+        .reconciliation-table .worker-name {
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+
+        .reconciliation-table .worker-id {
+            font-size: 0.7rem;
+            color: #868686;
+            display: block;
+        }
+
+        .confidence-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .confidence-high {
+            background: #BCDACB;
+            color: #27A359;
+        }
+
+        .confidence-medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .confidence-low {
+            background: #fecaca;
+            color: #991b1b;
+        }
+
+        .check-icon {
+            color: #27A359;
+            font-size: 1rem;
+        }
+
+        .missing-icon {
+            color: #E1E1E1;
+            font-size: 1rem;
+        }
+
+        .sources-count {
+            background: #BCDACB;
+            color: #27A359;
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-weight: 500;
+            font-size: 0.75rem;
+        }
+
+        .total-hours {
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+
+        /* Expandable rows */
+        .reconciliation-table tbody tr.data-row {
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .reconciliation-table tbody tr.data-row:hover {
+            background: #BCDACB20;
+        }
+
+        .reconciliation-table tbody tr.data-row.expanded {
+            background: #BCDACB20;
+            border-bottom: none;
+        }
+
+        .reconciliation-table tbody tr.data-row.expanded td {
+            border-bottom: none;
+        }
+
+        .expand-icon {
+            display: inline-block;
+            width: 20px;
+            color: #868686;
+            transition: transform 0.2s;
+        }
+
+        .data-row.expanded .expand-icon {
+            transform: rotate(90deg);
+        }
+
+        .expansion-row {
+            display: none;
+        }
+
+        .expansion-row.visible {
+            display: table-row;
+        }
+
+        .expansion-row td {
+            padding: 0;
+            background: #F8F9FA;
+        }
+
+        .expansion-content {
+            padding: 16px 24px 20px;
+            background: #F8F9FA;
+            border-left: 3px solid #27A359;
+            overflow: visible;
+            min-height: 50px;
+        }
+
+        .expansion-row.visible .expansion-content {
+            display: block;
+        }
+
+        /* Notes styling with color coding */
+        .notes-section {
+            margin-bottom: 16px;
+        }
+
+        .notes-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #868686;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .notes-text {
+            font-size: 0.85rem;
+            color: #1a1a2e;
+            line-height: 1.5;
+        }
+
+        .notes-text .highlight-positive {
+            background: #BCDACB;
+            color: #27A359;
+            padding: 1px 4px;
+            border-radius: 3px;
+        }
+
+        .notes-text .highlight-warning {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 1px 4px;
+            border-radius: 3px;
+        }
+
+        .notes-text .highlight-negative {
+            background: #fecaca;
+            color: #991b1b;
+            padding: 1px 4px;
+            border-radius: 3px;
+        }
+
+        .notes-text .highlight-info {
+            background: #E3E8F0;
+            color: #1a1a2e;
+            padding: 1px 4px;
+            border-radius: 3px;
+        }
+
+        /* Raw data table */
+        .raw-data-section {
+            margin-top: 12px;
+            max-width: 800px;
+            display: block;
+        }
+
+        .raw-data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            background: white;
+            border-radius: 5px;
+            overflow: visible;
+            border: 1px solid #E1E1E1;
+            table-layout: auto;
+            min-width: 300px;
+        }
+
+        .raw-data-table th {
+            background: #E3E8F0;
+            color: #1a1a2e;
+            padding: 8px 10px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .raw-data-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #E1E1E1;
+            color: #868686;
+        }
+
+        .raw-data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .source-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-size: 0.65rem;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .source-badge.mobile { background: #E3E8F0; color: #1a1a2e; }
+        .source-badge.location { background: #BCDACB; color: #27A359; }
+        .source-badge.supervisor { background: #fef3c7; color: #92400e; }
+        .source-badge.self-report { background: #f3e8ff; color: #7c3aed; }
+        .source-badge.customer { background: #fee2e2; color: #991b1b; }
+
+        .click-hint {
+            font-size: 0.75rem;
+            color: #868686;
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        /* Lightbox */
+        .lightbox-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .lightbox-content {
+            background: white;
+            border-radius: 5px;
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow: auto;
+            position: relative;
+        }
+
+        .lightbox-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid #E1E1E1;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 1;
+        }
+
+        .lightbox-header h4 {
+            margin: 0;
+            color: #1a1a2e;
+            font-size: 0.95rem;
+        }
+
+        .lightbox-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #868686;
+            padding: 4px 8px;
+            border-radius: 5px;
+            transition: all 0.2s;
+        }
+
+        .lightbox-close:hover {
+            background: #F8F9FA;
+            color: #1a1a2e;
+        }
+
+        .lightbox-body {
+            padding: 20px;
+            min-width: 400px;
+            max-width: 800px;
+        }
+
+        .lightbox-body img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .lightbox-body pre {
+            background: #F8F9FA;
+            padding: 16px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 0.8rem;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .lightbox-body table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+        }
+
+        .lightbox-body table th,
+        .lightbox-body table td {
+            padding: 8px 12px;
+            border: 1px solid #E1E1E1;
+            text-align: left;
+        }
+
+        .lightbox-body table th {
+            background: #E3E8F0;
+            font-weight: 600;
+        }
+
+        .lightbox-body table tr:nth-child(even) {
+            background: #F8F9FA;
+        }
+
+        .lightbox-body .pdf-notice {
+            text-align: center;
+            padding: 40px;
+            color: #868686;
+        }
+
+        .lightbox-body .pdf-notice .icon {
+            font-size: 4rem;
+            margin-bottom: 16px;
+        }
+
+        .file-card.clickable {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .file-card.clickable:hover {
+            border-color: #27A359;
+            background: #BCDACB20;
+            transform: translateY(-2px);
+        }
+
+        /* Error State */
+        .error-message {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+            padding: 16px;
+            border-radius: 5px;
+            margin-top: 16px;
+            font-size: 0.85rem;
+        }
+
+        .error-message button {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 12px;
+            font-size: 0.85rem;
+        }
+
+        /* Hidden file input */
+        #file-input {
+            display: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 12px;
+            }
+
+            .header h1 {
+                font-size: 1.25rem;
+            }
+
+            .drop-zone {
+                padding: 40px 20px;
+            }
+
+            .file-card {
+                width: 100px;
+            }
+
+            .reconciled-details {
+                grid-template-columns: 1fr;
+            }
+
+            .sources-table {
+                font-size: 0.8rem;
+            }
+
+            .sources-table th,
+            .sources-table td {
+                padding: 8px;
+            }
+
+            .raw-data-section {
+                max-width: 100%;
+            }
+        }
+
+        /* Ensure raw data is visible on desktop */
+        @media (min-width: 601px) {
+            .raw-data-section {
+                display: block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+            }
+
+            .raw-data-table {
+                display: table !important;
+                visibility: visible !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-content">
+            <div class="header-brand">
+                <svg class="header-logo" width="40" height="40" viewBox="0 0 162 162" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M68.6985 50.6585C68.6985 46.4218 74.7754 42.8421 81.9684 42.8421C89.1602 42.8421 95.2383 46.4218 95.2383 50.6585C95.2383 54.8952 89.1602 58.4737 81.9684 58.4737C74.7754 58.4737 68.6985 54.8952 68.6985 50.6585ZM137.917 49.048C138.306 49.7993 138.54 50.6258 138.54 51.4661V109.534C138.54 111.356 137.622 113.027 136.086 114.001L84.1026 147.173C83.2538 147.714 82.275 148 81.2687 148C80.2624 148 79.2837 147.715 78.4374 147.173L26.4551 114.004C24.9163 113.026 24 111.356 24 109.534V51.4661C24 50.5718 24.2412 49.7165 24.6588 48.9489C24.6763 48.9163 24.6913 48.8837 24.7088 48.8523C24.9138 48.4936 25.1463 48.15 25.4351 47.8427C25.4401 47.8377 25.4438 47.8314 25.4513 47.8239C25.7201 47.5405 26.0238 47.2946 26.3451 47.0777C26.3901 47.0476 26.4213 47.0049 26.4676 46.9761L78.4424 13.8228C79.2887 13.286 80.2662 13 81.2687 13C82.2713 13 83.2476 13.286 84.0939 13.8253L136.076 46.9761C136.086 46.9823 136.092 46.9924 136.102 46.9986C136.407 47.1981 136.694 47.4251 136.956 47.6884C136.981 47.7123 136.999 47.7411 137.021 47.7675C137.109 47.8578 137.179 47.9619 137.26 48.0584C137.445 48.2817 137.616 48.5125 137.764 48.762C137.819 48.8548 137.869 48.9502 137.917 49.048ZM82.7894 112.908V83.2369V112.908C81.7061 113.31 80.4772 113.196 79.4736 112.56L24 76.9474V83.9111L76.796 116.773C78.6123 117.924 80.7446 118.342 82.7894 118.034V139.474V118.034C84.0405 117.845 85.2587 117.385 86.3519 116.653L104.991 104.451C105.714 105.676 106.722 106.588 107.979 107.045C112.016 108.512 117.099 104.731 119.334 98.601C121.569 92.4708 120.109 86.3122 116.072 84.8455C112.036 83.3787 106.952 87.1592 104.717 93.2894C103.998 95.2602 103.662 97.234 103.67 99.0538L83.5689 112.509C83.3221 112.674 83.0603 112.807 82.7894 112.908ZM81.2706 24.3684L39.3651 51.3495L81.2706 78.3684L123.175 51.3483L81.2706 24.3684Z" fill="#00CE5B"/>
+                </svg>
+                <div>
+                    <h1>HyperTrack Closeout</h1>
+                    <p>AI-Powered Timesheet Reconciliation</p>
+                </div>
+            </div>
+            <button class="btn-clear" onclick="clearAll()">Clear All</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Drop Zone (shown when no files) -->
+        <div id="drop-zone" class="drop-zone">
+            <div class="drop-zone-icon">📄</div>
+            <h2>Drop your time data here</h2>
+            <p>Images, Excel, CSV — any format</p>
+            <div class="button-group">
+                <button class="btn-browse" onclick="event.stopPropagation(); document.getElementById('file-input').click()">Or click to browse</button>
+                <button id="btn-load-test" class="btn-test-data" onclick="event.stopPropagation(); loadTestData()">Load Test Data</button>
+            </div>
+            <p class="supported-types">Supported: .jpg .png .pdf .xlsx .xls .csv</p>
+        </div>
+
+        <!-- Uploaded Files Section (shown when files added) -->
+        <div id="uploaded-section" class="uploaded-section" style="display: none;">
+            <div class="uploaded-header">
+                <h3>Source Files (<span id="file-count">0</span>)</h3>
+                <button class="btn-add-more" onclick="document.getElementById('file-input').click()">+ Add More</button>
+            </div>
+            <div id="files-grid" class="files-grid"></div>
+            <button id="btn-analyze" class="btn-analyze" onclick="analyzeFiles()">🔍 Analyze & Reconcile</button>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loading-section" class="loading" style="display: none;">
+            <h3>Analyzing Time Data</h3>
+            <div class="progress-loader">
+                <div class="progress-loader-bar">
+                    <div id="progress-fill" class="progress-loader-fill" style="width: 0%">
+                        <span id="progress-text" class="progress-loader-text">0%</span>
+                    </div>
+                </div>
+                <div id="progress-status" class="progress-loader-status">
+                    <span class="spinner"></span>
+                    <span id="progress-status-text">Preparing files...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results-section" class="results-section" style="display: none;"></div>
+
+        <!-- Error Message -->
+        <div id="error-section" class="error-message" style="display: none;">
+            <p id="error-text"></p>
+            <button onclick="retryAnalysis()">Try Again</button>
+        </div>
+
+        <!-- Hidden file input -->
+        <input type="file" id="file-input" multiple accept=".jpg,.jpeg,.png,.gif,.webp,.pdf,.xlsx,.xls,.csv">
+
+        <!-- Lightbox for file preview -->
+        <div id="lightbox" class="lightbox-overlay" style="display: none;" onclick="closeLightbox(event)">
+            <div class="lightbox-content" onclick="event.stopPropagation()">
+                <div class="lightbox-header">
+                    <h4 id="lightbox-title">File Preview</h4>
+                    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+                </div>
+                <div id="lightbox-body" class="lightbox-body"></div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Configuration
+        // API Key - set your own key here or it will prompt on first use
+        let API_KEY = localStorage.getItem('anthropic_api_key') || '';
+        const MODEL = 'claude-opus-4-5-20251101';
+
+        const SYSTEM_PROMPT = `You are a timesheet reconciliation AI for HyperTrack Closeout. Your job is to analyze time and attendance data from multiple sources and produce a reconciled, validated timesheet.
+
+TASK:
+1. Extract worker identification from each source (name, ID, etc.)
+2. Extract clock-in and clock-out times from each source
+3. Identify the date of the shift
+4. Note the source type for each data point
+5. Reconcile conflicts between sources using these priorities:
+   - Location/GPS data (highest reliability for presence)
+   - Supervisor confirmations (authoritative)
+   - Customer system records (hardware/official)
+   - Mobile app clock-in/out
+   - Paper timesheets (can have transcription delays)
+   - Worker self-reports (lowest priority alone, good for corroboration)
+6. Produce a final reconciled timesheet with reasoning
+7. Include raw_data array showing each source's original clock times and notes
+8. Classify which of these 5 data source types were present:
+   - Customer System (paper, QR, hardware at facility)
+   - Mobile Clock-In (app-based time tracking)
+   - Location Data (GPS, geofence)
+   - Supervisor Confirmation (manager sign-off)
+   - Worker Self-Report (direct worker submission)
+
+OUTPUT FORMAT (JSON) - Return an array of workers, one per employee found:
+{
+  "workers": [
+    {
+      "worker_name": "John Doe",
+      "worker_id": "EMP-123",
+      "date": "2024-12-03",
+      "clock_in": "07:00",
+      "clock_out": "16:00",
+      "total_hours": 9.0,
+      "total_formatted": "9 hours 0 minutes",
+      "confidence_score": 0.95,
+      "data_sources": {
+        "customer_system": false,
+        "mobile_clock_in": true,
+        "location_data": true,
+        "supervisor_confirmation": true,
+        "worker_self_report": true
+      },
+      "reasoning": "Used location data for clock-in. Supervisor confirmed clock-out. All sources corroborate.",
+      "raw_data": [
+        { "source": "Mobile Clock-In", "clock_in": "7:15 AM", "clock_out": "4:02 PM", "notes": "Device: iPhone-8X92" },
+        { "source": "Location Data", "clock_in": "6:58 AM", "clock_out": "4:01 PM", "notes": "Geofence entry/exit" },
+        { "source": "Supervisor Log", "clock_in": "7:00 AM", "clock_out": "4:00 PM", "notes": "Confirmed" }
+      ]
+    },
+    {
+      "worker_name": "Jane Smith",
+      "worker_id": "EMP-456",
+      "date": "2024-12-03",
+      "clock_in": "07:00",
+      "clock_out": "15:30",
+      "total_hours": 8.5,
+      "total_formatted": "8 hours 30 minutes",
+      "confidence_score": 0.92,
+      "data_sources": {
+        "customer_system": false,
+        "mobile_clock_in": true,
+        "location_data": true,
+        "supervisor_confirmation": true,
+        "worker_self_report": true
+      },
+      "reasoning": "Early departure confirmed by supervisor (pre-approved).",
+      "raw_data": [
+        { "source": "Mobile Clock-In", "clock_in": "6:58 AM", "clock_out": "3:30 PM", "notes": "Device: Android-K182" },
+        { "source": "Supervisor Log", "clock_in": "7:00 AM", "clock_out": "3:30 PM", "notes": "Left early - pre-approved" }
+      ]
+    }
+  ],
+  "summary": {
+    "total_workers": 2,
+    "total_hours": 17.5,
+    "avg_confidence": 0.935,
+    "recommendation": "Add customer system data for higher verification."
+  }
+}
+
+If you cannot extract meaningful time data, explain why and what format would be helpful.`;
+
+        // State
+        let uploadedFiles = [];
+        let progressInterval = null;
+
+        // Precomputed fallback data based on test files
+        const FALLBACK_RESULTS = {
+            workers: [
+                {
+                    worker_name: "John Doe",
+                    worker_id: "EMP-123",
+                    date: "2024-12-03",
+                    clock_in: "07:00",
+                    clock_out: "16:00",
+                    total_hours: 9.0,
+                    total_formatted: "9 hours 0 minutes",
+                    confidence_score: 0.95,
+                    data_sources: {
+                        customer_system: false,
+                        mobile_clock_in: true,
+                        location_data: true,
+                        supervisor_confirmation: true,
+                        worker_self_report: true
+                    },
+                    reasoning: "Used location data for clock-in (06:58 geofence entry). Supervisor confirmed 16:00 clock-out. All 4 sources corroborate similar times.",
+                    raw_data: [
+                        { source: "Mobile Clock-In", clock_in: "7:15 AM", clock_out: "4:02 PM", notes: "Device: iPhone-8X92" },
+                        { source: "Location Data", clock_in: "6:58:32 AM", clock_out: "4:01:45 PM", notes: "ABC Warehouse - 543 min in geofence" },
+                        { source: "Supervisor Log", clock_in: "7:00 AM", clock_out: "4:00 PM", notes: "Good shift - stayed late to help with cleanup" },
+                        { source: "Self-Report", clock_in: "7:00 AM", clock_out: "4:00 PM", notes: "Regular shift no issues" }
+                    ]
+                },
+                {
+                    worker_name: "Jane Smith",
+                    worker_id: "EMP-456",
+                    date: "2024-12-03",
+                    clock_in: "07:00",
+                    clock_out: "15:30",
+                    total_hours: 8.5,
+                    total_formatted: "8 hours 30 minutes",
+                    confidence_score: 0.92,
+                    data_sources: {
+                        customer_system: false,
+                        mobile_clock_in: true,
+                        location_data: true,
+                        supervisor_confirmation: true,
+                        worker_self_report: true
+                    },
+                    reasoning: "Early departure at 15:30 confirmed by supervisor (pre-approved appointment). Location data shows 15:32 geofence exit.",
+                    raw_data: [
+                        { source: "Mobile Clock-In", clock_in: "6:58 AM", clock_out: "3:30 PM", notes: "Device: Android-K182" },
+                        { source: "Location Data", clock_in: "6:55:12 AM", clock_out: "3:32:08 PM", notes: "ABC Warehouse - 517 min in geofence" },
+                        { source: "Supervisor Log", clock_in: "7:00 AM", clock_out: "3:30 PM", notes: "Left early - pre-approved for appointment" },
+                        { source: "Self-Report", clock_in: "7:00 AM", clock_out: "3:30 PM", notes: "Left early for doctor appointment (pre-approved)" }
+                    ]
+                },
+                {
+                    worker_name: "Robert Johnson",
+                    worker_id: "EMP-789",
+                    date: "2024-12-03",
+                    clock_in: "07:30",
+                    clock_out: "16:15",
+                    total_hours: 8.75,
+                    total_formatted: "8 hours 45 minutes",
+                    confidence_score: 0.90,
+                    data_sources: {
+                        customer_system: false,
+                        mobile_clock_in: true,
+                        location_data: true,
+                        supervisor_confirmation: true,
+                        worker_self_report: true
+                    },
+                    reasoning: "Late arrival (07:30) due to traffic - confirmed by supervisor. Worker stayed late until 16:15 to make up time. All sources agree on adjusted schedule.",
+                    raw_data: [
+                        { source: "Mobile Clock-In", clock_in: "7:22 AM", clock_out: "4:15 PM", notes: "Device: iPhone-3J91" },
+                        { source: "Location Data", clock_in: "7:18:44 AM", clock_out: "4:12:33 PM", notes: "ABC Warehouse - 534 min in geofence" },
+                        { source: "Supervisor Log", clock_in: "7:30 AM", clock_out: "4:15 PM", notes: "Arrived late due to traffic - made up time" },
+                        { source: "Self-Report", clock_in: "7:30 AM", clock_out: "4:15 PM", notes: "Was late due to accident on I-95. Stayed late to make up." }
+                    ]
+                },
+                {
+                    worker_name: "Maria Garcia",
+                    worker_id: "EMP-234",
+                    date: "2024-12-03",
+                    clock_in: "06:45",
+                    clock_out: "15:00",
+                    total_hours: 8.25,
+                    total_formatted: "8 hours 15 minutes",
+                    confidence_score: 0.93,
+                    data_sources: {
+                        customer_system: false,
+                        mobile_clock_in: true,
+                        location_data: true,
+                        supervisor_confirmation: true,
+                        worker_self_report: true
+                    },
+                    reasoning: "Shortened shift as pre-scheduled. Location data confirms early 06:42 arrival. Mobile app flagged early exit but this was expected per schedule.",
+                    raw_data: [
+                        { source: "Mobile Clock-In", clock_in: "6:45 AM", clock_out: "3:00 PM", notes: "Device: Android-P872, Status: Early Exit" },
+                        { source: "Location Data", clock_in: "6:42:19 AM", clock_out: "3:03:27 PM", notes: "ABC Warehouse - 501 min in geofence" },
+                        { source: "Supervisor Log", clock_in: "6:45 AM", clock_out: "3:00 PM", notes: "Worked shortened shift as requested" },
+                        { source: "Self-Report", clock_in: "6:45 AM", clock_out: "3:00 PM", notes: "Shortened shift as scheduled" }
+                    ]
+                }
+            ],
+            summary: {
+                total_workers: 4,
+                total_hours: 34.5,
+                avg_confidence: 0.925,
+                recommendation: "Add customer system data (paper timesheets, QR codes) for higher verification confidence."
+            }
+        };
+
+        // Supported file types
+        const SUPPORTED_TYPES = {
+            'image/jpeg': 'image',
+            'image/png': 'image',
+            'image/gif': 'image',
+            'image/webp': 'image',
+            'application/pdf': 'pdf',
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'excel',
+            'application/vnd.ms-excel': 'excel',
+            'text/csv': 'csv'
+        };
+
+        const FILE_ICONS = {
+            'image': '📷',
+            'pdf': '📕',
+            'excel': '📊',
+            'csv': '📄'
+        };
+
+        // DOM Elements
+        const dropZone = document.getElementById('drop-zone');
+        const uploadedSection = document.getElementById('uploaded-section');
+        const filesGrid = document.getElementById('files-grid');
+        const fileCount = document.getElementById('file-count');
+        const fileInput = document.getElementById('file-input');
+        const loadingSection = document.getElementById('loading-section');
+        const resultsSection = document.getElementById('results-section');
+        const errorSection = document.getElementById('error-section');
+        const errorText = document.getElementById('error-text');
+
+        // Initialize drag and drop
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, preventDefaults, false);
+            document.body.addEventListener(eventName, preventDefaults, false);
+        });
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, highlight, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, unhighlight, false);
+        });
+
+        dropZone.addEventListener('drop', handleDrop, false);
+        dropZone.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', handleFileSelect);
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        function highlight() {
+            dropZone.classList.add('drag-over');
+        }
+
+        function unhighlight() {
+            dropZone.classList.remove('drag-over');
+        }
+
+        function handleDrop(e) {
+            const files = e.dataTransfer.files;
+            handleFiles(files);
+        }
+
+        function handleFileSelect(e) {
+            const files = e.target.files;
+            handleFiles(files);
+        }
+
+        function handleFiles(files) {
+            [...files].forEach(file => {
+                const fileType = getFileType(file);
+                if (fileType) {
+                    uploadedFiles.push({
+                        file: file,
+                        type: fileType,
+                        name: file.name
+                    });
+                } else {
+                    alert(`Unsupported file type: ${file.name}`);
+                }
+            });
+            updateUI();
+        }
+
+        function getFileType(file) {
+            // Check MIME type first
+            if (SUPPORTED_TYPES[file.type]) {
+                return SUPPORTED_TYPES[file.type];
+            }
+            // Fallback to extension
+            const ext = file.name.split('.').pop().toLowerCase();
+            const extMap = {
+                'jpg': 'image', 'jpeg': 'image', 'png': 'image', 'gif': 'image', 'webp': 'image',
+                'pdf': 'pdf',
+                'xlsx': 'excel', 'xls': 'excel',
+                'csv': 'csv'
+            };
+            return extMap[ext] || null;
+        }
+
+        function updateUI() {
+            if (uploadedFiles.length === 0) {
+                dropZone.style.display = 'block';
+                uploadedSection.style.display = 'none';
+            } else {
+                dropZone.style.display = 'none';
+                uploadedSection.style.display = 'block';
+                fileCount.textContent = uploadedFiles.length;
+                renderFileCards();
+            }
+        }
+
+        function renderFileCards() {
+            filesGrid.innerHTML = uploadedFiles.map((f, i) => `
+                <div class="file-card clickable" onclick="previewFile(${i})">
+                    <div class="file-card-icon">${FILE_ICONS[f.type]}</div>
+                    <div class="file-card-name" title="${f.name}">${f.name}</div>
+                    <button class="file-card-remove" onclick="event.stopPropagation(); removeFile(${i})">✕</button>
+                </div>
+            `).join('');
+        }
+
+        // Lightbox functions
+        async function previewFile(index) {
+            const f = uploadedFiles[index];
+            const lightbox = document.getElementById('lightbox');
+            const title = document.getElementById('lightbox-title');
+            const body = document.getElementById('lightbox-body');
+
+            title.textContent = f.name;
+
+            if (f.type === 'image') {
+                const base64 = await readFileAsBase64(f.file);
+                body.innerHTML = `<img src="${base64}" alt="${f.name}">`;
+            } else if (f.type === 'pdf') {
+                body.innerHTML = `
+                    <div class="pdf-notice">
+                        <div class="icon">📕</div>
+                        <p><strong>${f.name}</strong></p>
+                        <p>PDF preview not available in browser.<br>The file will be sent to AI for analysis.</p>
+                    </div>
+                `;
+            } else if (f.type === 'excel' || f.type === 'csv') {
+                try {
+                    const content = await readSpreadsheetForPreview(f.file);
+                    body.innerHTML = content;
+                } catch (err) {
+                    body.innerHTML = `<pre>Error reading file: ${err.message}</pre>`;
+                }
+            }
+
+            lightbox.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox(event) {
+            if (event && event.target !== event.currentTarget) return;
+            const lightbox = document.getElementById('lightbox');
+            lightbox.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        // Close lightbox with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        async function readSpreadsheetForPreview(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const data = new Uint8Array(e.target.result);
+                        const workbook = XLSX.read(data, { type: 'array' });
+
+                        let html = '';
+                        workbook.SheetNames.forEach(sheetName => {
+                            const sheet = workbook.Sheets[sheetName];
+                            const jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+                            if (jsonData.length > 0) {
+                                html += `<h4 style="margin-bottom: 12px;">${sheetName}</h4>`;
+                                html += '<table>';
+
+                                // Header row
+                                if (jsonData[0]) {
+                                    html += '<thead><tr>';
+                                    jsonData[0].forEach(cell => {
+                                        html += `<th>${cell || ''}</th>`;
+                                    });
+                                    html += '</tr></thead>';
+                                }
+
+                                // Data rows (limit to first 50 rows for preview)
+                                html += '<tbody>';
+                                const maxRows = Math.min(jsonData.length, 51);
+                                for (let i = 1; i < maxRows; i++) {
+                                    html += '<tr>';
+                                    (jsonData[i] || []).forEach(cell => {
+                                        html += `<td>${cell || ''}</td>`;
+                                    });
+                                    html += '</tr>';
+                                }
+                                if (jsonData.length > 51) {
+                                    html += `<tr><td colspan="${jsonData[0].length}" style="text-align: center; color: #64748b;">... and ${jsonData.length - 51} more rows</td></tr>`;
+                                }
+                                html += '</tbody></table>';
+                            }
+                        });
+
+                        resolve(html || '<pre>Empty file</pre>');
+                    } catch (err) {
+                        reject(err);
+                    }
+                };
+                reader.onerror = reject;
+                reader.readAsArrayBuffer(file);
+            });
+        }
+
+        function removeFile(index) {
+            uploadedFiles.splice(index, 1);
+            updateUI();
+        }
+
+        function clearAll() {
+            uploadedFiles = [];
+            resultsSection.style.display = 'none';
+            resultsSection.innerHTML = '';
+            errorSection.style.display = 'none';
+            loadingSection.style.display = 'none';
+            stopProgress();
+            updateUI();
+        }
+
+        // Progress tracking
+        function updateProgress(percent, status) {
+            const fill = document.getElementById('progress-fill');
+            const text = document.getElementById('progress-text');
+            const statusEl = document.getElementById('progress-status-text');
+
+            fill.style.width = `${Math.max(percent, 5)}%`;
+            text.textContent = `${Math.round(percent)}%`;
+            if (status) statusEl.textContent = status;
+        }
+
+        function startProgress() {
+            let progress = 0;
+            const stages = [
+                { target: 15, status: 'Preparing files...' },
+                { target: 30, status: 'Uploading to AI...' },
+                { target: 50, status: 'Analyzing time sources...' },
+                { target: 70, status: 'Cross-referencing data...' },
+                { target: 85, status: 'Reconciling timesheets...' },
+                { target: 95, status: 'Finalizing results...' }
+            ];
+            let stageIndex = 0;
+
+            updateProgress(0, stages[0].status);
+
+            progressInterval = setInterval(() => {
+                if (stageIndex < stages.length) {
+                    const stage = stages[stageIndex];
+                    if (progress < stage.target) {
+                        progress += Math.random() * 3 + 1;
+                        if (progress >= stage.target) {
+                            progress = stage.target;
+                            stageIndex++;
+                            if (stageIndex < stages.length) {
+                                updateProgress(progress, stages[stageIndex].status);
+                            }
+                        } else {
+                            updateProgress(progress, stage.status);
+                        }
+                    }
+                }
+            }, 200);
+        }
+
+        function stopProgress() {
+            if (progressInterval) {
+                clearInterval(progressInterval);
+                progressInterval = null;
+            }
+        }
+
+        function completeProgress() {
+            stopProgress();
+            updateProgress(100, 'Complete!');
+        }
+
+        async function analyzeFiles() {
+            if (uploadedFiles.length === 0) return;
+
+            // Check for API key
+            if (!API_KEY) {
+                const key = prompt('Password');
+                if (key && key.startsWith('sk-')) {
+                    API_KEY = key;
+                    localStorage.setItem('anthropic_api_key', key);
+                } else {
+                    // No valid key provided - show error
+                    console.log('No valid API key provided');
+                    errorText.textContent = 'Valid password required to analyze data.';
+                    errorSection.style.display = 'block';
+                    return;
+                }
+            }
+
+            // Show loading with progress
+            loadingSection.style.display = 'block';
+            errorSection.style.display = 'none';
+            resultsSection.style.display = 'none';
+            document.getElementById('btn-analyze').disabled = true;
+            startProgress();
+
+            let useFallback = false;
+
+            try {
+                // Process all files
+                const content = await buildMessageContent();
+
+                // Call Claude API
+                const response = await fetch('https://api.anthropic.com/v1/messages', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-api-key': API_KEY,
+                        'anthropic-version': '2023-06-01',
+                        'anthropic-dangerous-direct-browser-access': 'true'
+                    },
+                    body: JSON.stringify({
+                        model: MODEL,
+                        max_tokens: 4096,
+                        system: SYSTEM_PROMPT,
+                        messages: [{
+                            role: 'user',
+                            content: content
+                        }]
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error('API Error:', errorData);
+                    useFallback = true;
+                } else {
+                    const data = await response.json();
+                    const resultText = data.content[0].text;
+                    console.log('Raw API Response:', resultText);
+
+                    // Parse JSON from response
+                    const jsonMatch = resultText.match(/\{[\s\S]*\}/);
+                    if (jsonMatch) {
+                        try {
+                            const result = JSON.parse(jsonMatch[0]);
+                            console.log('Parsed result:', JSON.stringify(result, null, 2));
+
+                            // Convert API response to our worker-based format
+                            const normalizedResult = normalizeApiResponse(result);
+                            if (normalizedResult.workers && normalizedResult.workers.length > 0) {
+                                completeProgress();
+                                setTimeout(() => {
+                                    renderResults(normalizedResult);
+                                    loadingSection.style.display = 'none';
+                                }, 500);
+                                return;
+                            } else {
+                                console.warn('No workers in response, using fallback');
+                                useFallback = true;
+                            }
+                        } catch (parseError) {
+                            console.error('JSON Parse Error:', parseError);
+                            useFallback = true;
+                        }
+                    } else {
+                        console.warn('No JSON in response, using fallback');
+                        useFallback = true;
+                    }
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                useFallback = true;
+            }
+
+            // Show error if API failed (fallback data is kept but not shown without valid API)
+            if (useFallback) {
+                console.log('API failed - showing error');
+                stopProgress();
+                loadingSection.style.display = 'none';
+                errorText.textContent = 'Analysis failed. Please check your password and try again.';
+                errorSection.style.display = 'block';
+            }
+
+            document.getElementById('btn-analyze').disabled = false;
+        }
+
+        // Normalize API response to our expected format
+        function normalizeApiResponse(result) {
+            // If already in workers array format, return as-is
+            if (result.workers && Array.isArray(result.workers)) {
+                return result;
+            }
+
+            // Convert from sources + reconciled format to workers format
+            const workers = [];
+
+            // Check if reconciled is an array or single object
+            let reconciledList = result.reconciled;
+            if (!Array.isArray(reconciledList)) {
+                reconciledList = reconciledList ? [reconciledList] : [];
+            }
+
+            // If we have multiple reconciled entries, use those
+            if (reconciledList.length > 0) {
+                reconciledList.forEach(r => {
+                    workers.push({
+                        worker_name: r.worker_name || r.worker || r.employee_name || r.name || 'Unknown',
+                        worker_id: r.worker_id || r.employee_id || r.id || '',
+                        date: r.date || r.shift_date || '',
+                        clock_in: r.clock_in || r.start_time || r.start || '',
+                        clock_out: r.clock_out || r.end_time || r.end || '',
+                        total_hours: r.total_hours || 0,
+                        total_formatted: r.total_formatted || r.total_time || '',
+                        confidence_score: r.confidence_score || result.confidence_score || 0.8,
+                        data_sources: r.data_sources || result.data_sources_used || {},
+                        reasoning: r.reasoning || r.notes || ''
+                    });
+                });
+            }
+
+            // If sources has more workers than reconciled, extract from sources
+            if (result.sources && result.sources.length > workers.length) {
+                const workerMap = {};
+                result.sources.forEach(s => {
+                    const name = s.worker_name || s.employee_name || 'Unknown';
+                    if (!workerMap[name]) {
+                        workerMap[name] = {
+                            worker_name: name,
+                            worker_id: s.worker_id || s.employee_id || '',
+                            date: s.date || '',
+                            clock_in: s.clock_in || '',
+                            clock_out: s.clock_out || '',
+                            total_hours: 0,
+                            total_formatted: '',
+                            confidence_score: result.confidence_score || 0.8,
+                            data_sources: {},
+                            reasoning: ''
+                        };
+                    }
+                    // Mark data source as used
+                    if (s.source_type) {
+                        workerMap[name].data_sources[s.source_type] = true;
+                    }
+                });
+
+                // Only use source-derived workers if no reconciled data
+                if (workers.length === 0) {
+                    Object.values(workerMap).forEach(w => workers.push(w));
+                }
+            }
+
+            return {
+                workers: workers,
+                summary: {
+                    total_workers: workers.length,
+                    total_hours: workers.reduce((sum, w) => sum + (w.total_hours || 0), 0),
+                    avg_confidence: workers.length > 0
+                        ? workers.reduce((sum, w) => sum + (w.confidence_score || 0), 0) / workers.length
+                        : 0,
+                    recommendation: result.recommendation || ''
+                }
+            };
+        }
+
+        async function buildMessageContent() {
+            const content = [];
+
+            for (const f of uploadedFiles) {
+                if (f.type === 'image') {
+                    const base64 = await readFileAsBase64(f.file);
+                    const mediaType = f.file.type || 'image/jpeg';
+                    content.push({
+                        type: 'image',
+                        source: {
+                            type: 'base64',
+                            media_type: mediaType,
+                            data: base64.split(',')[1] // Remove data URL prefix
+                        }
+                    });
+                    content.push({
+                        type: 'text',
+                        text: `[Image file: ${f.name}]`
+                    });
+                } else if (f.type === 'pdf') {
+                    const base64 = await readFileAsBase64(f.file);
+                    content.push({
+                        type: 'document',
+                        source: {
+                            type: 'base64',
+                            media_type: 'application/pdf',
+                            data: base64.split(',')[1]
+                        }
+                    });
+                    content.push({
+                        type: 'text',
+                        text: `[PDF file: ${f.name}]`
+                    });
+                } else if (f.type === 'excel' || f.type === 'csv') {
+                    const text = await readSpreadsheet(f.file);
+                    content.push({
+                        type: 'text',
+                        text: `Source: ${f.name}\n\n${text}`
+                    });
+                }
+            }
+
+            content.push({
+                type: 'text',
+                text: 'Analyze these time sources and produce a reconciled timesheet in the specified JSON format.'
+            });
+
+            return content;
+        }
+
+        function readFileAsBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        async function readSpreadsheet(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const data = new Uint8Array(e.target.result);
+                        const workbook = XLSX.read(data, { type: 'array' });
+
+                        let result = '';
+                        workbook.SheetNames.forEach(sheetName => {
+                            const sheet = workbook.Sheets[sheetName];
+                            const csv = XLSX.utils.sheet_to_csv(sheet);
+                            result += `Sheet: ${sheetName}\n${csv}\n\n`;
+                        });
+                        resolve(result);
+                    } catch (err) {
+                        reject(err);
+                    }
+                };
+                reader.onerror = reject;
+                reader.readAsArrayBuffer(file);
+            });
+        }
+
+        function renderResults(result) {
+            const sourceTypes = [
+                { key: 'customer_system', label: 'Customer', icon: '📋' },
+                { key: 'mobile_clock_in', label: 'Mobile', icon: '📱' },
+                { key: 'location_data', label: 'Location', icon: '📍' },
+                { key: 'supervisor_confirmation', label: 'Supervisor', icon: '✍️' },
+                { key: 'worker_self_report', label: 'Self-Report', icon: '👤' }
+            ];
+
+            const workers = result.workers || [];
+            const colCount = 7 + sourceTypes.length; // Total columns for expansion row
+
+            // Calculate summary stats
+            const totalHours = workers.reduce((sum, w) => sum + (w.total_hours || 0), 0);
+            const avgConfidence = workers.length > 0
+                ? workers.reduce((sum, w) => sum + (w.confidence_score || 0), 0) / workers.length
+                : 0;
+
+            // Build header
+            const headerHtml = `
+                <div class="reconciled-header" style="margin-bottom: 20px;">
+                    <span>✅</span>
+                    <h3>RECONCILED TIMESHEETS</h3>
+                </div>
+                <p style="color: #64748b; margin-bottom: 8px;">
+                    ${workers.length} workers | ${totalHours.toFixed(1)} total hours | ${Math.round(avgConfidence * 100)}% avg confidence
+                </p>
+                <p class="click-hint">Click any row to see details and source data</p>
+            `;
+
+            // Build table with expandable rows
+            const tableHtml = `
+                <div style="overflow-x: auto;">
+                    <table class="reconciliation-table">
+                        <thead>
+                            <tr>
+                                <th>Worker</th>
+                                <th>Date</th>
+                                <th>Clock In</th>
+                                <th>Clock Out</th>
+                                <th>Total</th>
+                                <th>Sources</th>
+                                <th>Confidence</th>
+                                ${sourceTypes.map(s => `<th class="data-source-col" title="${s.label}">${s.icon}</th>`).join('')}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${workers.map((w, idx) => {
+                                const sourcesUsed = w.data_sources || {};
+                                const sourceCount = Object.values(sourcesUsed).filter(Boolean).length;
+                                const confidence = w.confidence_score || 0;
+                                const confidenceClass = confidence >= 0.9 ? 'confidence-high' :
+                                                       confidence >= 0.7 ? 'confidence-medium' : 'confidence-low';
+
+                                const totalFormatted = w.total_formatted ||
+                                    (w.total_hours ? `${Math.floor(w.total_hours)}h ${Math.round((w.total_hours % 1) * 60)}m` : '-');
+
+                                // Color code the reasoning text
+                                const colorCodedNotes = colorCodeNotes(w.reasoning || 'No reconciliation notes available.');
+
+                                // Build raw data table
+                                const rawDataHtml = w.raw_data && w.raw_data.length > 0 ? `
+                                    <div class="raw-data-section">
+                                        <div class="notes-label">Source Data</div>
+                                        <table class="raw-data-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Source</th>
+                                                    <th>Clock In</th>
+                                                    <th>Clock Out</th>
+                                                    <th>Notes</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                ${w.raw_data.map(rd => `
+                                                    <tr>
+                                                        <td><span class="source-badge ${getSourceBadgeClass(rd.source)}">${rd.source}</span></td>
+                                                        <td>${rd.clock_in || '-'}</td>
+                                                        <td>${rd.clock_out || '-'}</td>
+                                                        <td>${rd.notes || '-'}</td>
+                                                    </tr>
+                                                `).join('')}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                ` : '';
+
+                                return `
+                                    <tr class="data-row" onclick="toggleRow(${idx})">
+                                        <td>
+                                            <span class="expand-icon">▶</span>
+                                            <span class="worker-name">${w.worker_name || 'Unknown'}</span>
+                                            ${w.worker_id ? `<span class="worker-id">${w.worker_id}</span>` : ''}
+                                        </td>
+                                        <td>${formatDate(w.date)}</td>
+                                        <td>${formatTime(w.clock_in)}</td>
+                                        <td>${formatTime(w.clock_out)}</td>
+                                        <td class="total-hours">${totalFormatted}</td>
+                                        <td><span class="sources-count">${sourceCount}/5</span></td>
+                                        <td><span class="confidence-badge ${confidenceClass}">${Math.round(confidence * 100)}%</span></td>
+                                        ${sourceTypes.map(s => `
+                                            <td class="data-source-col">
+                                                ${sourcesUsed[s.key] ? '<span class="check-icon">✓</span>' : '<span class="missing-icon">-</span>'}
+                                            </td>
+                                        `).join('')}
+                                    </tr>
+                                    <tr class="expansion-row" id="expansion-${idx}">
+                                        <td colspan="${colCount}">
+                                            <div class="expansion-content">
+                                                <div class="notes-section">
+                                                    <div class="notes-label">Reconciliation Notes</div>
+                                                    <div class="notes-text">${colorCodedNotes}</div>
+                                                </div>
+                                                ${rawDataHtml}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                `;
+                            }).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+
+            // Build summary recommendation
+            const summaryHtml = result.summary && result.summary.recommendation ? `
+                <div class="recommendation" style="margin-top: 20px;">
+                    <span class="recommendation-icon">📊</span>
+                    ${result.summary.recommendation}
+                </div>
+            ` : '';
+
+            resultsSection.innerHTML = headerHtml + tableHtml + summaryHtml;
+            resultsSection.style.display = 'block';
+
+            // Scroll to results
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Toggle row expansion
+        function toggleRow(idx) {
+            const dataRow = document.querySelectorAll('.data-row')[idx];
+            const expansionRow = document.getElementById(`expansion-${idx}`);
+
+            if (dataRow && expansionRow) {
+                dataRow.classList.toggle('expanded');
+                expansionRow.classList.toggle('visible');
+            }
+        }
+
+        // Color code notes to highlight important information
+        function colorCodeNotes(text) {
+            if (!text) return '';
+
+            // Define patterns and their highlight classes
+            const patterns = [
+                // Positive patterns (green)
+                { regex: /\b(confirmed|corroborate|agree|consistent|approved|good|all sources)\b/gi, class: 'highlight-positive' },
+                // Warning patterns (yellow)
+                { regex: /\b(early|late|adjusted|departure|shortened|flagged)\b/gi, class: 'highlight-warning' },
+                // Negative/attention patterns (red)
+                { regex: /\b(missing|discrepancy|conflict|error|failed|issue|problem)\b/gi, class: 'highlight-negative' },
+                // Info patterns (blue)
+                { regex: /\b(geofence|location data|supervisor|mobile|pre-approved|pre-scheduled)\b/gi, class: 'highlight-info' }
+            ];
+
+            let result = text;
+            patterns.forEach(p => {
+                result = result.replace(p.regex, `<span class="${p.class}">$&</span>`);
+            });
+
+            return result;
+        }
+
+        // Get badge class for source type
+        function getSourceBadgeClass(source) {
+            const s = source.toLowerCase();
+            if (s.includes('mobile')) return 'mobile';
+            if (s.includes('location')) return 'location';
+            if (s.includes('supervisor')) return 'supervisor';
+            if (s.includes('self') || s.includes('report')) return 'self-report';
+            if (s.includes('customer') || s.includes('paper')) return 'customer';
+            return '';
+        }
+
+        function formatTime(timeStr) {
+            if (!timeStr) return '-';
+            // Handle various time formats
+            const match = timeStr.match(/(\d{1,2}):?(\d{2})/);
+            if (match) {
+                let hours = parseInt(match[1]);
+                const minutes = match[2];
+                const ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12 || 12;
+                return `${hours}:${minutes} ${ampm}`;
+            }
+            return timeStr;
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return '-';
+            try {
+                const date = new Date(dateStr);
+                return date.toLocaleDateString('en-US', {
+                    month: 'long',
+                    day: 'numeric',
+                    year: 'numeric'
+                });
+            } catch {
+                return dateStr;
+            }
+        }
+
+        function retryAnalysis() {
+            errorSection.style.display = 'none';
+            analyzeFiles();
+        }
+
+        // Load test data files
+        async function loadTestData() {
+            const btn = document.getElementById('btn-load-test');
+            btn.disabled = true;
+            btn.textContent = 'Loading...';
+
+            const testFiles = [
+                'test-data/mobile_clockin.csv',
+                'test-data/supervisor_log.csv',
+                'test-data/location_data.csv',
+                'test-data/worker_report.csv'
+            ];
+
+            try {
+                for (const filePath of testFiles) {
+                    const response = await fetch(filePath);
+                    if (!response.ok) throw new Error(`Failed to load ${filePath}`);
+
+                    const text = await response.text();
+                    const fileName = filePath.split('/').pop();
+
+                    // Create a File object from the text
+                    const blob = new Blob([text], { type: 'text/csv' });
+                    const file = new File([blob], fileName, { type: 'text/csv' });
+
+                    uploadedFiles.push({
+                        file: file,
+                        type: 'csv',
+                        name: fileName
+                    });
+                }
+
+                updateUI();
+                btn.disabled = false;
+                btn.textContent = 'Load Test Data';
+
+            } catch (error) {
+                console.error('Error loading test data:', error);
+                alert('Failed to load test data: ' + error.message);
+                btn.disabled = false;
+                btn.textContent = 'Load Test Data';
+            }
+        }
+    </script>
+</body>
+</html>

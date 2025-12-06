@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Paper Timesheet - Screenshot this for testing</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: #f5f5dc;
+            padding: 40px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .timesheet {
+            background: white;
+            border: 2px solid #333;
+            padding: 30px;
+            box-shadow: 4px 4px 10px rgba(0,0,0,0.3);
+            transform: rotate(-1deg);
+        }
+        h1 {
+            text-align: center;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+            font-size: 24px;
+        }
+        .row {
+            margin: 15px 0;
+            display: flex;
+        }
+        .label {
+            width: 140px;
+            font-weight: bold;
+        }
+        .value {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            border-bottom: 1px solid #999;
+            flex: 1;
+            padding-left: 10px;
+        }
+        .signature-row {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .signature {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 24px;
+            color: #00008B;
+        }
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="timesheet">
+        <h1>DAILY TIMESHEET</h1>
+
+        <div class="row">
+            <span class="label">Facility:</span>
+            <span class="value">ABC Warehouse</span>
+        </div>
+
+        <div class="row">
+            <span class="label">Date:</span>
+            <span class="value">December 3, 2024</span>
+        </div>
+
+        <div class="row">
+            <span class="label">Employee:</span>
+            <span class="value">John Doe</span>
+        </div>
+
+        <div class="row">
+            <span class="label">Badge #:</span>
+            <span class="value">EMP-123</span>
+        </div>
+
+        <hr style="margin: 20px 0;">
+
+        <div class="row">
+            <span class="label">Clock In:</span>
+            <span class="value">7:02 AM</span>
+        </div>
+
+        <div class="row">
+            <span class="label">Clock Out:</span>
+            <span class="value">3:58 PM</span>
+        </div>
+
+        <div class="signature-row">
+            <div>
+                <span class="label">Employee:</span>
+                <span class="signature">John Doe</span>
+            </div>
+            <div>
+                <span class="label">Supervisor:</span>
+                <span class="signature">M. Smith</span>
+            </div>
+        </div>
+
+        <div class="footer">
+            Form TS-2024 | ABC Warehouse Time Tracking
+        </div>
+    </div>
+
+    <p style="margin-top: 30px; text-align: center; color: #666;">
+        <strong>Instructions:</strong> Take a screenshot of this page to use as a test image.<br>
+        On Mac: Cmd+Shift+4, then drag to select the timesheet area.<br>
+        Save as paper_timesheet.jpg or .png
+    </p>
+</body>
+</html>

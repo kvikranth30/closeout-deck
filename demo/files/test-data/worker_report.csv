@@ -1,0 +1,5 @@
+submission_timestamp,employee_id,employee_name,shift_date,reported_start,reported_end,break_taken,notes
+2024-12-03T16:15:00,EMP-123,John Doe,2024-12-03,7:00 AM,4:00 PM,30 min lunch,Regular shift no issues
+2024-12-03T15:45:00,EMP-456,Jane Smith,2024-12-03,7:00 AM,3:30 PM,30 min lunch,Left early for doctor appointment (pre-approved)
+2024-12-03T16:30:00,EMP-789,Robert Johnson,2024-12-03,7:30 AM,4:15 PM,30 min lunch,Was late due to accident on I-95. Stayed late to make up.
+2024-12-03T15:10:00,EMP-234,Maria Garcia,2024-12-03,6:45 AM,3:00 PM,30 min lunch,Shortened shift as scheduled

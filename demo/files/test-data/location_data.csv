@@ -1,0 +1,5 @@
+employee_id,employee_name,date,first_geofence_entry,last_geofence_exit,location_name,total_time_in_geofence_minutes
+EMP-123,John Doe,2024-12-03,06:58:32,16:01:45,ABC Warehouse - Main Facility,543
+EMP-456,Jane Smith,2024-12-03,06:55:12,15:32:08,ABC Warehouse - Main Facility,517
+EMP-789,Robert Johnson,2024-12-03,07:18:44,16:12:33,ABC Warehouse - Main Facility,534
+EMP-234,Maria Garcia,2024-12-03,06:42:19,15:03:27,ABC Warehouse - Main Facility,501

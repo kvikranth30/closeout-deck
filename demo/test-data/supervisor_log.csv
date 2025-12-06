@@ -1,0 +1,5 @@
+date,employee_name,employee_id,confirmed_start,confirmed_end,supervisor,notes
+2024-12-03,John Doe,EMP-123,07:00,16:00,M. Smith,Good shift - stayed a few minutes late to help with cleanup
+2024-12-03,Jane Smith,EMP-456,07:00,15:30,M. Smith,Left early - pre-approved for appointment
+2024-12-03,Robert Johnson,EMP-789,07:30,16:15,M. Smith,Arrived late due to traffic - made up time
+2024-12-03,Maria Garcia,EMP-234,06:45,15:00,M. Smith,Worked shortened shift as requested
