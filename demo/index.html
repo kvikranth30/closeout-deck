@@ -122,8 +122,8 @@
         }
 
         .drop-zone:hover {
-            border-color: var(--green-500);
-            background: var(--green-glow);
+            border-color: var(--gray-500);
+            background: var(--gray-800);
         }
 
         .drop-zone.drag-over {
@@ -292,6 +292,14 @@
 
         .file-card:hover .file-card-remove {
             opacity: 1;
+        }
+
+        .file-card-zoom {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, calc(-60% - 5px));
+            font-size: 1.25rem;
         }
 
         /* Read-only mode for demo */
@@ -845,24 +853,36 @@
         /* Reconciliation Table */
         .reconciliation-table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0;
             margin: 20px 0;
             font-size: 0.85rem;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         .reconciliation-table th {
             background: var(--gray-800);
             color: var(--gray-100);
-            padding: 12px 8px;
+            padding: 16px 8px 16px 8px;
             text-align: left;
             font-weight: 600;
             font-size: 0.75rem;
             white-space: nowrap;
         }
 
+        .reconciliation-table th:first-child {
+            padding-left: 40px;
+        }
+
+        .reconciliation-table th:last-child {
+            padding-right: 40px;
+        }
+
         .reconciliation-table th.data-source-col {
             text-align: center;
             padding: 12px 6px;
+            vertical-align: middle;
         }
 
         .reconciliation-table td {
@@ -870,6 +890,14 @@
             border-bottom: 1px solid var(--gray-700);
             vertical-align: middle;
             white-space: nowrap;
+        }
+
+        .reconciliation-table td:first-child {
+            padding-left: 40px;
+        }
+
+        .reconciliation-table td:last-child {
+            padding-right: 40px;
         }
 
         .reconciliation-table td.data-source-col {
@@ -926,6 +954,7 @@
         .missing-icon {
             color: var(--gray-600);
             font-size: 1rem;
+            line-height: 1;
         }
 
         .sources-count {
@@ -954,11 +983,11 @@
         }
 
         .reconciliation-table tbody tr.data-row:hover {
-            background: var(--green-glow);
+            background: var(--gray-800);
         }
 
         .reconciliation-table tbody tr.data-row.expanded {
-            background: var(--green-glow);
+            background: var(--gray-950);
             border-bottom: none;
         }
 
@@ -966,15 +995,63 @@
             border-bottom: none;
         }
 
-        .expand-icon {
-            display: inline-block;
-            width: 20px;
-            color: var(--gray-500);
-            transition: transform 0.2s;
+        .source-icon-active {
+            font-size: 1rem;
+            line-height: 1;
         }
 
-        .data-row.expanded .expand-icon {
-            transform: rotate(90deg);
+        /* Custom instant tooltip */
+        .data-source-col {
+            position: relative;
+        }
+
+        .source-tooltip {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: default;
+            width: 24px;
+            height: 24px;
+        }
+
+        .source-tooltip .source-icon-active,
+        .source-tooltip .missing-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Header row emoji - ensure consistent positioning */
+        th.data-source-col .source-tooltip {
+            font-size: 1rem;
+            line-height: 1;
+        }
+
+        /* Force align the last header icon (Self-Report) */
+        th.data-source-col:last-child .source-tooltip {
+            transform: translateX(-16px);
+        }
+
+        .source-tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding-top: 6px;
+            font-size: 0.65rem;
+            color: var(--gray-400);
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.1s;
+            pointer-events: none;
+        }
+
+        .source-tooltip:hover::after {
+            opacity: 1;
         }
 
         .expansion-row {
@@ -1948,8 +2025,11 @@
         <!-- Uploaded Files Section (shown when files added) -->
         <div id="uploaded-section" class="uploaded-section" style="display: none;">
             <div class="uploaded-header">
-                <h3>Source Files (<span id="file-count">0</span>)</h3>
-                <button class="btn-add-more" onclick="document.getElementById('file-input').click()">+ Add More</button>
+                <h3>SOURCE DATA</h3>
+                <div style="display: flex; align-items: center; gap: 16px;">
+                    <span id="file-stats" style="color: var(--gray-400); font-size: 0.85rem;"></span>
+                    <button class="btn-add-more" onclick="document.getElementById('file-input').click()">+ Add More</button>
+                </div>
             </div>
             <div id="files-grid" class="files-grid"></div>
             <button id="btn-analyze" class="btn-analyze" onclick="analyzeFiles()">🔍 Analyze & Reconcile</button>
@@ -2309,7 +2389,7 @@ If you cannot extract meaningful time data, explain why and what format would be
         const dropZone = document.getElementById('drop-zone');
         const uploadedSection = document.getElementById('uploaded-section');
         const filesGrid = document.getElementById('files-grid');
-        const fileCount = document.getElementById('file-count');
+        const fileStats = document.getElementById('file-stats');
         const fileInput = document.getElementById('file-input');
         const loadingSection = document.getElementById('loading-section');
         const resultsSection = document.getElementById('results-section');
@@ -2389,6 +2469,14 @@ If you cannot extract meaningful time data, explain why and what format would be
             return extMap[ext] || null;
         }
 
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+        }
+
         function updateUI() {
             if (uploadedFiles.length === 0) {
                 dropZone.style.display = 'block';
@@ -2396,7 +2484,10 @@ If you cannot extract meaningful time data, explain why and what format would be
             } else {
                 dropZone.style.display = 'none';
                 uploadedSection.style.display = 'block';
-                fileCount.textContent = uploadedFiles.length;
+                // Calculate total file size
+                const totalSize = uploadedFiles.reduce((sum, f) => sum + (f.file ? f.file.size : 0), 0);
+                const sizeStr = totalSize > 0 ? ` | ${formatFileSize(totalSize)}` : '';
+                fileStats.textContent = `${uploadedFiles.length} file${uploadedFiles.length !== 1 ? 's' : ''}${sizeStr}`;
                 renderFileCards();
             }
         }
@@ -2406,6 +2497,7 @@ If you cannot extract meaningful time data, explain why and what format would be
                 <div class="file-card clickable" onclick="previewFile(${i})">
                     <div class="file-card-icon">${FILE_ICONS[f.type]}</div>
                     <div class="file-card-name" title="${f.name}">${f.name}</div>
+                    <span class="file-card-zoom">🔍</span>
                     <button class="file-card-remove" onclick="event.stopPropagation(); removeFile(${i})">✕</button>
                 </div>
             `).join('');
@@ -2895,7 +2987,7 @@ If you cannot extract meaningful time data, explain why and what format would be
                 { key: 'mobile_clock_in', label: 'Mobile', icon: '📱', desc: 'Mobile Clock-In: Worker clocked in/out via mobile app' },
                 { key: 'location_data', label: 'Location', icon: '📍', desc: 'Location Data: GPS/geofence verified worker presence' },
                 { key: 'supervisor_confirmation', label: 'Supervisor', icon: '✍️', desc: 'Supervisor: Manager confirmed work hours' },
-                { key: 'worker_self_report', label: 'Self-Report', icon: '👤', desc: 'Self-Report: Worker submitted their own timesheet' }
+                { key: 'worker_self_report', label: 'Self-Report', icon: '💬', desc: 'Self-Report: Worker submitted their own timesheet' }
             ];
 
             const workers = result.workers || [];
@@ -2911,11 +3003,10 @@ If you cannot extract meaningful time data, explain why and what format would be
             const headerHtml = `
                 <div class="reconciled-header" style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
                     <div style="display: flex; align-items: center; gap: 8px;">
-                        <span>✅</span>
                         <h3>RECONCILED TIMESHEETS</h3>
                     </div>
                     <div style="color: var(--gray-400); font-size: 0.85rem;">
-                        ${workers.length} workers · ${totalHours.toFixed(1)} hours · ${Math.round(avgConfidence * 100)}% confidence
+                        ${workers.length} workers | ${totalHours.toFixed(1)} hours | ${Math.round(avgConfidence * 100)}% confidence
                     </div>
                 </div>
             `;
@@ -2933,7 +3024,7 @@ If you cannot extract meaningful time data, explain why and what format would be
                                 <th>Total</th>
                                 <th>Sources</th>
                                 <th>Confidence</th>
-                                ${sourceTypes.map(s => `<th class="data-source-col" title="${s.desc}">${s.icon}</th>`).join('')}
+                                ${sourceTypes.map(s => `<th class="data-source-col"><span class="source-tooltip" data-tooltip="${s.label}">${s.icon}</span></th>`).join('')}
                             </tr>
                         </thead>
                         <tbody>
@@ -2980,7 +3071,6 @@ If you cannot extract meaningful time data, explain why and what format would be
                                 return `
                                     <tr class="data-row" onclick="toggleRow(${idx})">
                                         <td>
-                                            <span class="expand-icon">▶</span>
                                             <span class="worker-name">${w.worker_name || 'Unknown'}</span>
                                             ${w.worker_id ? `<span class="worker-id">${w.worker_id}</span>` : ''}
                                         </td>
@@ -2991,8 +3081,10 @@ If you cannot extract meaningful time data, explain why and what format would be
                                         <td><span class="sources-count">${sourceCount}/5</span></td>
                                         <td><span class="confidence-badge ${confidenceClass}">${Math.round(confidence * 100)}%</span></td>
                                         ${sourceTypes.map(s => `
-                                            <td class="data-source-col" title="${sourcesUsed[s.key] ? s.desc + ' - Available' : s.desc + ' - Not available'}">
-                                                ${sourcesUsed[s.key] ? '<span class="check-icon">✓</span>' : '<span class="missing-icon">-</span>'}
+                                            <td class="data-source-col">
+                                                <span class="source-tooltip" data-tooltip="${s.label}">
+                                                    ${sourcesUsed[s.key] ? `<span class="source-icon-active">${s.icon}</span>` : '<span class="missing-icon">-</span>'}
+                                                </span>
                                             </td>
                                         `).join('')}
                                     </tr>
@@ -3319,7 +3411,7 @@ If you cannot extract meaningful time data, explain why and what format would be
             dropZone.style.display = 'none';
             uploadedSection.style.display = 'block';
             uploadedSection.classList.add('read-only');
-            fileCount.textContent = uploadedFiles.length;
+            fileStats.textContent = `${uploadedFiles.length} files`;
             renderFileCards();
 
             // Show loading section with animated progress
