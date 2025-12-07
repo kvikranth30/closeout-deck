@@ -169,14 +169,14 @@
         .btn-test-data {
             background: var(--green-500);
             color: white;
-            border: none;
+            border: 1px solid var(--green-500);
             padding: 10px 24px;
             border-radius: 5px;
             cursor: pointer;
             font-size: 0.9rem;
             font-weight: 500;
-            margin-left: 12px;
             transition: all 0.2s;
+            box-sizing: border-box;
         }
 
         .btn-test-data:hover {
@@ -1383,8 +1383,14 @@
             /* Button alignment fix */
             .button-group {
                 flex-direction: column;
-                align-items: flex-start;
+                align-items: center;
                 gap: 10px;
+            }
+
+            .btn-browse,
+            .btn-test-data {
+                width: 200px;
+                text-align: center;
             }
 
             /* Lightbox - sticky header, scrollable body */
