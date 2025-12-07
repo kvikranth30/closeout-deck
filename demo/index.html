@@ -294,6 +294,13 @@
             opacity: 1;
         }
 
+        /* Read-only mode for demo */
+        .uploaded-section.read-only .btn-add-more,
+        .uploaded-section.read-only .btn-analyze,
+        .uploaded-section.read-only .file-card-remove {
+            display: none;
+        }
+
         .btn-analyze {
             background: var(--green-500);
             color: white;
@@ -2010,7 +2017,13 @@ If you cannot extract meaningful time data, explain why and what format would be
 
             title.textContent = f.name;
 
-            if (f.type === 'image') {
+            // Handle demo files with preview property (no actual file object)
+            if (f.preview && !f.file) {
+                const rows = f.preview.split('\n').map(row =>
+                    '<tr>' + row.split(',').map(cell => `<td>${cell}</td>`).join('') + '</tr>'
+                ).join('');
+                body.innerHTML = `<table class="preview-table"><tbody>${rows}</tbody></table>`;
+            } else if (f.type === 'image') {
                 const base64 = await readFileAsBase64(f.file);
                 body.innerHTML = `<img src="${base64}" alt="${f.name}">`;
             } else if (f.type === 'pdf') {
@@ -2857,11 +2870,26 @@ If you cannot extract meaningful time data, explain why and what format would be
 
             // Simulate brief loading delay for UX
             setTimeout(() => {
+                // Add demo files to show in the uploaded section
+                uploadedFiles = [
+                    { name: 'mobile_clockin.csv', type: 'csv', preview: 'Worker,Date,Clock In,Clock Out\nJohn Doe,2024-12-02,07:15,16:02\nJane Smith,2024-12-02,06:58,15:35\nRobert Johnson,2024-12-02,07:22,16:15\nMaria Garcia,2024-12-02,06:45,15:05' },
+                    { name: 'location_data.csv', type: 'csv', preview: 'Worker,Date,Geofence Entry,Geofence Exit,Location\nJohn Doe,2024-12-02,06:58:32,16:01:45,ABC Warehouse\nJane Smith,2024-12-02,06:55:18,15:32:22,ABC Warehouse\nRobert Johnson,2024-12-02,07:18:05,16:12:33,XYZ Distribution\nMaria Garcia,2024-12-02,06:42:11,15:03:48,Harbor Facility' },
+                    { name: 'supervisor_log.csv', type: 'csv', preview: 'Worker,Date,Clock In,Clock Out,Supervisor,Notes\nJohn Doe,2024-12-02,07:00,16:00,M. Smith,Good shift - stayed late\nJane Smith,2024-12-02,07:00,15:30,M. Smith,Left early - approved\nRobert Johnson,2024-12-02,07:15,16:00,K. Jones,Regular shift\nMaria Garcia,2024-12-02,06:45,15:00,K. Jones,Early start approved' },
+                    { name: 'worker_report.csv', type: 'csv', preview: 'Worker,Date,Start Time,End Time,Break,Notes\nJohn Doe,2024-12-02,07:00,16:00,30 min,Regular shift\nJane Smith,2024-12-02,07:00,15:30,30 min,Doctor appointment\nRobert Johnson,2024-12-02,07:15,16:00,30 min,No issues\nMaria Garcia,2024-12-02,06:45,15:00,30 min,Early shift' }
+                ];
+
+                // Show uploaded section in read-only mode
                 dropZone.style.display = 'none';
-                uploadedSection.style.display = 'none';
+                uploadedSection.style.display = 'block';
+                uploadedSection.classList.add('read-only');
+                fileCount.textContent = uploadedFiles.length;
+                renderFileCards();
+
+                // Hide loading/error, show results
                 loadingSection.style.display = 'none';
                 errorSection.style.display = 'none';
                 renderResults(FALLBACK_RESULTS);
+
                 btn.disabled = false;
                 btn.textContent = 'Load Test Data';
             }, 500);
