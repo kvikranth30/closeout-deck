@@ -1371,21 +1371,216 @@
         }
 
         @media (max-width: 768px) {
+            /* Hide horizontal scroll */
+            body {
+                overflow-x: hidden;
+            }
+
+            .container {
+                padding: 12px;
+            }
+
+            /* Header adjustments */
+            .reconciled-header {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 8px;
+            }
+
+            .reconciled-header h3 {
+                font-size: 1rem;
+            }
+
+            .reconciled-header > div:last-child {
+                font-size: 0.75rem !important;
+            }
+
+            /* Transform table to cards on mobile */
+            .reconciliation-table {
+                display: block;
+            }
+
+            .reconciliation-table thead {
+                display: none;
+            }
+
+            .reconciliation-table tbody {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .reconciliation-table tr.data-row {
+                display: flex;
+                flex-wrap: wrap;
+                background: var(--gray-850);
+                border: 1px solid var(--gray-700);
+                border-radius: 8px;
+                padding: 16px;
+                gap: 8px;
+            }
+
+            .reconciliation-table tr.data-row:hover {
+                background: var(--gray-800);
+            }
+
+            .reconciliation-table tr.data-row td {
+                border: none;
+                padding: 0;
+                white-space: normal;
+            }
+
+            /* Worker name - full width at top */
+            .reconciliation-table tr.data-row td:first-child {
+                width: 100%;
+                margin-bottom: 8px;
+                padding-bottom: 8px;
+                border-bottom: 1px solid var(--gray-700);
+            }
+
+            .reconciliation-table .worker-name {
+                font-size: 1rem;
+            }
+
+            /* Date */
+            .reconciliation-table tr.data-row td:nth-child(2) {
+                width: 100%;
+                font-size: 0.75rem;
+                color: var(--gray-500);
+                order: -1;
+                margin-bottom: 4px;
+            }
+
+            /* Time row */
+            .reconciliation-table tr.data-row td:nth-child(3),
+            .reconciliation-table tr.data-row td:nth-child(4),
+            .reconciliation-table tr.data-row td:nth-child(5) {
+                font-size: 0.85rem;
+            }
+
+            .reconciliation-table tr.data-row td:nth-child(3)::before {
+                content: 'In: ';
+                color: var(--gray-500);
+            }
+
+            .reconciliation-table tr.data-row td:nth-child(4)::before {
+                content: 'Out: ';
+                color: var(--gray-500);
+            }
+
+            .reconciliation-table tr.data-row td:nth-child(5) {
+                font-weight: 600;
+                color: var(--gray-100);
+            }
+
+            /* Sources and confidence on same row */
+            .reconciliation-table tr.data-row td:nth-child(6),
+            .reconciliation-table tr.data-row td:nth-child(7) {
+                margin-top: 8px;
+            }
+
+            /* Hide data source columns on mobile */
+            .reconciliation-table tr.data-row td.data-source-col {
+                display: none;
+            }
+
+            /* Expansion row mobile */
+            .reconciliation-table tr.expansion-row {
+                display: none;
+                background: var(--gray-800);
+                border-radius: 0 0 8px 8px;
+                margin-top: -12px;
+            }
+
+            .reconciliation-table tr.expansion-row.visible {
+                display: block;
+            }
+
+            .reconciliation-table tr.expansion-row td {
+                display: block;
+                padding: 0;
+            }
+
+            .expansion-content {
+                padding: 20px 16px 24px !important;
+            }
+
+            /* Payout/Route section mobile */
             .payout-route-row {
                 flex-direction: column;
+                gap: 16px;
             }
 
-            .route-section {
-                flex-direction: column;
-            }
-
-            .route-map {
-                flex: 0 0 auto;
+            .payout-section,
+            .route-wrapper {
                 width: 100%;
             }
 
             .payout-grid {
                 flex-direction: column;
+                gap: 8px;
+            }
+
+            .payout-card {
+                padding: 12px;
+            }
+
+            .payout-value {
+                font-size: 1.1rem !important;
+            }
+
+            .route-section {
+                flex-direction: row;
+                padding: 12px;
+            }
+
+            .route-map {
+                flex: 0 0 70px;
+                height: 50px;
+            }
+
+            .route-address {
+                max-width: 120px;
+            }
+
+            /* Notes section mobile */
+            .notes-section {
+                margin-bottom: 16px;
+            }
+
+            .notes-text {
+                font-size: 0.8rem;
+                line-height: 1.6;
+            }
+
+            /* Raw data table mobile */
+            .raw-data-section {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .raw-data-table {
+                font-size: 0.7rem;
+                min-width: 400px;
+            }
+
+            /* Source files grid */
+            .files-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 8px;
+            }
+
+            .file-card {
+                width: auto !important;
+                padding: 12px 8px;
+            }
+
+            .file-card-icon {
+                font-size: 1.5rem;
+            }
+
+            .file-card-name {
+                font-size: 0.7rem;
             }
         }
 
@@ -1612,38 +1807,42 @@
         }
 
         /* Responsive */
-        @media (max-width: 600px) {
-            .container {
-                padding: 12px;
-            }
-
+        /* Additional small screen adjustments */
+        @media (max-width: 500px) {
             .header h1 {
-                font-size: 1.25rem;
+                font-size: 1.1rem;
             }
 
             .drop-zone {
-                padding: 40px 20px;
+                padding: 30px 16px;
             }
 
-            .file-card {
-                width: 100px;
+            .drop-zone h2 {
+                font-size: 1rem;
             }
 
-            .reconciled-details {
-                grid-template-columns: 1fr;
-            }
-
-            .sources-table {
+            .drop-zone p {
                 font-size: 0.8rem;
             }
 
-            .sources-table th,
-            .sources-table td {
-                padding: 8px;
+            .button-group {
+                flex-direction: column;
+                gap: 8px;
             }
 
-            .raw-data-section {
-                max-width: 100%;
+            .btn-browse,
+            .btn-test-data {
+                width: 100%;
+            }
+
+            .uploaded-header {
+                flex-direction: column;
+                align-items: flex-start !important;
+                gap: 8px;
+            }
+
+            .uploaded-header h3 {
+                font-size: 0.9rem;
             }
         }
 
