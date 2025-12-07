@@ -2849,48 +2849,22 @@ If you cannot extract meaningful time data, explain why and what format would be
             renderResults(FALLBACK_RESULTS);
         }
 
-        // Load test data files
-        async function loadTestData() {
+        // Load test data - uses FALLBACK_RESULTS for demo
+        function loadTestData() {
             const btn = document.getElementById('btn-load-test');
             btn.disabled = true;
             btn.textContent = 'Loading...';
 
-            const testFiles = [
-                'test-data/mobile_clockin.csv',
-                'test-data/supervisor_log.csv',
-                'test-data/location_data.csv',
-                'test-data/worker_report.csv'
-            ];
-
-            try {
-                for (const filePath of testFiles) {
-                    const response = await fetch(filePath);
-                    if (!response.ok) throw new Error(`Failed to load ${filePath}`);
-
-                    const text = await response.text();
-                    const fileName = filePath.split('/').pop();
-
-                    // Create a File object from the text
-                    const blob = new Blob([text], { type: 'text/csv' });
-                    const file = new File([blob], fileName, { type: 'text/csv' });
-
-                    uploadedFiles.push({
-                        file: file,
-                        type: 'csv',
-                        name: fileName
-                    });
-                }
-
-                updateUI();
+            // Simulate brief loading delay for UX
+            setTimeout(() => {
+                dropZone.style.display = 'none';
+                uploadedSection.style.display = 'none';
+                loadingSection.style.display = 'none';
+                errorSection.style.display = 'none';
+                renderResults(FALLBACK_RESULTS);
                 btn.disabled = false;
                 btn.textContent = 'Load Test Data';
-
-            } catch (error) {
-                console.error('Error loading test data:', error);
-                alert('Failed to load test data: ' + error.message);
-                btn.disabled = false;
-                btn.textContent = 'Load Test Data';
-            }
+            }, 500);
         }
 
         // Route lightbox functions
