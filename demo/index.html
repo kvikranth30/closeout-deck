@@ -1380,6 +1380,45 @@
                 padding: 12px;
             }
 
+            /* Button alignment fix */
+            .button-group {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+                width: 100%;
+                max-width: 280px;
+                margin: 0 auto;
+            }
+
+            .btn-browse,
+            .btn-test-data {
+                width: 100%;
+                text-align: center;
+            }
+
+            /* Lightbox - sticky header, scrollable body */
+            .lightbox-content {
+                display: flex;
+                flex-direction: column;
+                max-height: 90vh;
+            }
+
+            .lightbox-header {
+                flex-shrink: 0;
+                position: sticky;
+                top: 0;
+                background: var(--gray-900);
+                z-index: 1;
+            }
+
+            .lightbox-body {
+                flex: 1;
+                overflow-y: auto;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                min-height: 0;
+            }
+
             /* Header adjustments */
             .reconciled-header {
                 flex-direction: column !important;
@@ -1395,7 +1434,7 @@
                 font-size: 0.75rem !important;
             }
 
-            /* Transform table to cards on mobile */
+            /* Worker cards - clean list design */
             .reconciliation-table {
                 display: block;
             }
@@ -1407,76 +1446,88 @@
             .reconciliation-table tbody {
                 display: flex;
                 flex-direction: column;
-                gap: 12px;
+                gap: 1px;
+                background: var(--gray-700);
+                border-radius: 8px;
+                overflow: hidden;
             }
 
             .reconciliation-table tr.data-row {
-                display: flex;
-                flex-wrap: wrap;
+                display: grid;
+                grid-template-columns: 1fr auto auto;
+                grid-template-rows: auto auto;
+                gap: 4px 12px;
                 background: var(--gray-850);
-                border: 1px solid var(--gray-700);
-                border-radius: 8px;
-                padding: 16px;
-                gap: 8px;
+                padding: 14px 16px;
+                align-items: center;
             }
 
-            .reconciliation-table tr.data-row:hover {
+            .reconciliation-table tr.data-row:active {
                 background: var(--gray-800);
             }
 
             .reconciliation-table tr.data-row td {
                 border: none;
                 padding: 0;
-                white-space: normal;
+                white-space: nowrap;
             }
 
-            /* Worker name - full width at top */
+            /* Worker name - top left */
             .reconciliation-table tr.data-row td:first-child {
-                width: 100%;
-                margin-bottom: 8px;
-                padding-bottom: 8px;
-                border-bottom: 1px solid var(--gray-700);
+                grid-column: 1;
+                grid-row: 1;
             }
 
             .reconciliation-table .worker-name {
-                font-size: 1rem;
+                font-size: 0.95rem;
+                font-weight: 600;
             }
 
-            /* Date */
+            .reconciliation-table .worker-id {
+                display: none;
+            }
+
+            /* Date - bottom left */
             .reconciliation-table tr.data-row td:nth-child(2) {
-                width: 100%;
+                grid-column: 1;
+                grid-row: 2;
                 font-size: 0.75rem;
                 color: var(--gray-500);
-                order: -1;
-                margin-bottom: 4px;
             }
 
-            /* Time row */
-            .reconciliation-table tr.data-row td:nth-child(3),
-            .reconciliation-table tr.data-row td:nth-child(4),
-            .reconciliation-table tr.data-row td:nth-child(5) {
-                font-size: 0.85rem;
+            /* Times - top right area */
+            .reconciliation-table tr.data-row td:nth-child(3) {
+                grid-column: 2;
+                grid-row: 1;
+                font-size: 0.8rem;
+                color: var(--gray-400);
             }
 
-            .reconciliation-table tr.data-row td:nth-child(3)::before {
-                content: 'In: ';
-                color: var(--gray-500);
+            .reconciliation-table tr.data-row td:nth-child(4) {
+                grid-column: 3;
+                grid-row: 1;
+                font-size: 0.8rem;
+                color: var(--gray-400);
             }
 
+            .reconciliation-table tr.data-row td:nth-child(3)::before,
             .reconciliation-table tr.data-row td:nth-child(4)::before {
-                content: 'Out: ';
-                color: var(--gray-500);
+                content: none;
             }
 
+            /* Total hours - bottom right */
             .reconciliation-table tr.data-row td:nth-child(5) {
-                font-weight: 600;
-                color: var(--gray-100);
+                grid-column: 2 / 4;
+                grid-row: 2;
+                text-align: right;
+                font-size: 0.75rem;
+                color: var(--gray-400);
             }
 
-            /* Sources and confidence on same row */
+            /* Hide sources count and confidence on mobile */
             .reconciliation-table tr.data-row td:nth-child(6),
             .reconciliation-table tr.data-row td:nth-child(7) {
-                margin-top: 8px;
+                display: none;
             }
 
             /* Hide data source columns on mobile */
@@ -1488,8 +1539,6 @@
             .reconciliation-table tr.expansion-row {
                 display: none;
                 background: var(--gray-800);
-                border-radius: 0 0 8px 8px;
-                margin-top: -12px;
             }
 
             .reconciliation-table tr.expansion-row.visible {
@@ -1517,8 +1566,13 @@
             }
 
             .payout-grid {
-                flex-direction: column;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
                 gap: 8px;
+            }
+
+            .payout-grid .payout-card:last-child {
+                grid-column: 1 / -1;
             }
 
             .payout-card {
@@ -1553,15 +1607,17 @@
                 line-height: 1.6;
             }
 
-            /* Raw data table mobile */
+            /* Raw data table mobile - horizontal scroll allowed */
             .raw-data-section {
                 overflow-x: auto;
                 -webkit-overflow-scrolling: touch;
+                margin: 0 -16px;
+                padding: 0 16px;
             }
 
             .raw-data-table {
                 font-size: 0.7rem;
-                min-width: 400px;
+                min-width: 450px;
             }
 
             /* Source files grid */
@@ -1825,16 +1881,6 @@
                 font-size: 0.8rem;
             }
 
-            .button-group {
-                flex-direction: column;
-                gap: 8px;
-            }
-
-            .btn-browse,
-            .btn-test-data {
-                width: 100%;
-            }
-
             .uploaded-header {
                 flex-direction: column;
                 align-items: flex-start !important;
@@ -1843,6 +1889,15 @@
 
             .uploaded-header h3 {
                 font-size: 0.9rem;
+            }
+
+            /* Even smaller payout cards */
+            .payout-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .payout-grid .payout-card:last-child {
+                grid-column: 1;
             }
         }
 
