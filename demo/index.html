@@ -209,6 +209,7 @@
             border: 1px solid var(--gray-700);
             padding: 24px;
             margin-bottom: 24px;
+            text-align: center;
         }
 
         .uploaded-header {
@@ -310,20 +311,33 @@
 
         .btn-analyze {
             background: var(--green-500);
-            color: white;
+            color: var(--gray-950);
             border: none;
-            padding: 12px 32px;
-            border-radius: 5px;
+            padding: 1rem 2rem;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 500;
-            display: block;
-            margin: 0 auto;
-            transition: all 0.2s;
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 1.5rem auto;
+            transition: all 0.3s ease;
+        }
+
+        .btn-analyze svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            fill: none;
         }
 
         .btn-analyze:hover:not(:disabled) {
-            background: var(--green-600);
+            background: var(--green-400);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px var(--green-glow-strong);
         }
 
         .btn-analyze:disabled {
@@ -2037,7 +2051,7 @@
                 </div>
             </div>
             <div id="files-grid" class="files-grid"></div>
-            <button id="btn-analyze" class="btn-analyze" onclick="analyzeFiles()">✨ Analyze & Reconcile</button>
+            <button id="btn-analyze" class="btn-analyze" onclick="analyzeFiles()"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z"/><path d="M5 19l.5 1.5L7 21l-1.5.5L5 23l-.5-1.5L3 21l1.5-.5L5 19z"/><path d="M19 3l.5 1.5L21 5l-1.5.5L19 7l-.5-1.5L17 5l1.5-.5L19 3z"/></svg>Analyze & Reconcile</button>
         </div>
 
         <!-- Loading State -->
