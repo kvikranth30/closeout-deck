@@ -1838,7 +1838,6 @@
 
         .lightbox-body {
             padding: 24px;
-            min-height: 400px;
         }
 
         .lightbox-body img {
@@ -2038,7 +2037,7 @@
                 </div>
             </div>
             <div id="files-grid" class="files-grid"></div>
-            <button id="btn-analyze" class="btn-analyze" onclick="analyzeFiles()">🔍 Analyze & Reconcile</button>
+            <button id="btn-analyze" class="btn-analyze" onclick="analyzeFiles()">✨ Analyze & Reconcile</button>
         </div>
 
         <!-- Loading State -->
@@ -2723,6 +2722,8 @@ If you cannot extract meaningful time data, explain why and what format would be
             // Check for demo password
             if (code === 'hypertrack') {
                 closeAccessModal();
+                // Hide the analyze button to focus attention on results
+                document.getElementById('btn-analyze').style.display = 'none';
                 runDemoAnalysis();
             } else {
                 error.classList.add('visible');
@@ -2876,9 +2877,10 @@ If you cannot extract meaningful time data, explain why and what format would be
                 loadingSection.style.display = 'none';
                 errorText.textContent = 'Analysis failed. Please check your password and try again.';
                 errorSection.style.display = 'block';
+                // Re-enable button only on failure so user can retry
+                document.getElementById('btn-analyze').disabled = false;
             }
-
-            document.getElementById('btn-analyze').disabled = false;
+            // On success, keep button disabled to focus attention on results
         }
 
         // Normalize API response to our expected format
