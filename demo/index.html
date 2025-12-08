@@ -2041,24 +2041,24 @@
             border-bottom: none;
         }
 
-        /* Source data row styling */
-        .source-data-row td {
+        /* Source data row styling - only for mobile lightbox */
+        .worker-lightbox .source-data-row td {
             padding-top: 14px;
             padding-bottom: 8px;
             border-bottom: none !important;
         }
 
-        .source-notes-row td {
+        .worker-lightbox .source-notes-row td {
             padding-top: 6px !important;
             padding-bottom: 16px !important;
             border-bottom: 1px solid var(--gray-700) !important;
         }
 
-        .source-notes-row:last-of-type td {
+        .worker-lightbox .source-notes-row:last-of-type td {
             border-bottom: none !important;
         }
 
-        .source-notes {
+        .worker-lightbox .source-notes {
             font-size: 0.75rem;
             color: var(--gray-400);
             line-height: 1.4;
@@ -2066,12 +2066,12 @@
         }
 
         /* Data row without notes - add bottom border */
-        .source-data-row:not(:has(+ .source-notes-row)) td {
+        .worker-lightbox .source-data-row:not(:has(+ .source-notes-row)) td {
             padding-bottom: 14px;
             border-bottom: 1px solid var(--gray-700) !important;
         }
 
-        .raw-data-table tbody tr:last-child td {
+        .worker-lightbox .raw-data-table tbody tr:last-child td {
             border-bottom: none !important;
         }
 
@@ -3441,16 +3441,17 @@ If you cannot extract meaningful time data, explain why and what format would be
                                                     <th>Source</th>
                                                     <th>Clock In</th>
                                                     <th>Clock Out</th>
+                                                    <th>Notes</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 ${w.raw_data.map(rd => `
-                                                    <tr class="source-data-row">
+                                                    <tr>
                                                         <td><span class="source-badge ${getSourceBadgeClass(rd.source)}">${rd.source}</span></td>
                                                         <td>${rd.clock_in || '-'}</td>
                                                         <td>${rd.clock_out || '-'}</td>
+                                                        <td>${rd.notes || '-'}</td>
                                                     </tr>
-                                                    ${rd.notes ? `<tr class="source-notes-row"><td colspan="3"><span class="source-notes">${rd.notes}</span></td></tr>` : ''}
                                                 `).join('')}
                                             </tbody>
                                         </table>
