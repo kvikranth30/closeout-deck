@@ -302,9 +302,8 @@
             font-size: 1.25rem;
         }
 
-        /* Read-only mode for demo */
+        /* Read-only mode for demo - keep analyze button visible */
         .uploaded-section.read-only .btn-add-more,
-        .uploaded-section.read-only .btn-analyze,
         .uploaded-section.read-only .file-card-remove {
             display: none;
         }
@@ -1909,6 +1908,13 @@
             transform: translateY(-2px);
         }
 
+        .file-card.file-card--disabled {
+            cursor: not-allowed;
+            border-style: dashed;
+            border-color: var(--gray-700);
+            background: var(--gray-850);
+        }
+
         /* Error State */
         .error-message {
             background: rgba(239, 68, 68, 0.1);
@@ -2003,7 +2009,6 @@
                     <p>AI-Powered Closeout</p>
                 </div>
             </div>
-            <button class="btn-clear" onclick="clearAll()">Clear All</button>
         </div>
     </header>
 
@@ -2028,7 +2033,8 @@
                 <h3>SOURCE DATA</h3>
                 <div style="display: flex; align-items: center; gap: 16px;">
                     <span id="file-stats" style="color: var(--gray-400); font-size: 0.85rem;"></span>
-                    <button class="btn-add-more" onclick="document.getElementById('file-input').click()">+ Add More</button>
+                    <!-- Add More button hidden in demo mode -->
+                    <!-- <button class="btn-add-more" onclick="document.getElementById('file-input').click()">+ Add More</button> -->
                 </div>
             </div>
             <div id="files-grid" class="files-grid"></div>
@@ -2082,9 +2088,9 @@
                     <button class="access-modal-close" onclick="closeAccessModal()">&times;</button>
                 </div>
                 <div class="access-modal-body">
-                    <p>Please enter your access code to analyze custom files.</p>
-                    <input type="password" id="access-code-input" class="access-modal-input" placeholder="Enter access code" onkeydown="if(event.key === 'Enter') verifyAccessCode()">
-                    <div id="access-error" class="access-modal-error">Invalid access code. Please contact your administrator.</div>
+                    <p>Enter the demo password to view reconciliation results.</p>
+                    <input type="password" id="access-code-input" class="access-modal-input" placeholder="Enter password" onkeydown="if(event.key === 'Enter') verifyAccessCode()">
+                    <div id="access-error" class="access-modal-error">Incorrect password. Please try again.</div>
                 </div>
                 <div class="access-modal-actions">
                     <button class="access-modal-btn secondary" onclick="closeAccessModal()">Cancel</button>
@@ -2493,14 +2499,23 @@ If you cannot extract meaningful time data, explain why and what format would be
         }
 
         function renderFileCards() {
-            filesGrid.innerHTML = uploadedFiles.map((f, i) => `
+            const fileCardsHtml = uploadedFiles.map((f, i) => `
                 <div class="file-card clickable" onclick="previewFile(${i})">
                     <div class="file-card-icon">${FILE_ICONS[f.type]}</div>
                     <div class="file-card-name" title="${f.name}">${f.name}</div>
                     <span class="file-card-zoom">🔍</span>
-                    <button class="file-card-remove" onclick="event.stopPropagation(); removeFile(${i})">✕</button>
                 </div>
             `).join('');
+
+            // Add disabled "Add files" tile
+            const addFileTile = `
+                <div class="file-card file-card--disabled" title="Demo mode: files pre-loaded">
+                    <div class="file-card-icon" style="opacity: 0.3;">➕</div>
+                    <div class="file-card-name" style="opacity: 0.5;">Add files</div>
+                </div>
+            `;
+
+            filesGrid.innerHTML = fileCardsHtml + addFileTile;
         }
 
         // Lightbox functions
@@ -2703,14 +2718,12 @@ If you cannot extract meaningful time data, explain why and what format would be
         function verifyAccessCode() {
             const input = document.getElementById('access-code-input');
             const error = document.getElementById('access-error');
-            const code = input.value.trim();
+            const code = input.value.trim().toLowerCase();
 
-            // Check if it's a valid API key
-            if (code && code.startsWith('sk-')) {
-                API_KEY = code;
-                localStorage.setItem('anthropic_api_key', code);
+            // Check for demo password
+            if (code === 'hypertrack') {
                 closeAccessModal();
-                runAnalysis();
+                runDemoAnalysis();
             } else {
                 error.classList.add('visible');
                 input.value = '';
@@ -2721,13 +2734,61 @@ If you cannot extract meaningful time data, explain why and what format would be
         async function analyzeFiles() {
             if (uploadedFiles.length === 0) return;
 
-            // Check for API key - show modal if not set
-            if (!API_KEY) {
-                showAccessModal();
-                return;
+            // Always show password modal for demo
+            showAccessModal();
+        }
+
+        // Run demo analysis with pre-defined results
+        function runDemoAnalysis() {
+            // Show loading section with animated progress
+            loadingSection.style.display = 'block';
+            errorSection.style.display = 'none';
+            resultsSection.style.display = 'none';
+
+            const fill = document.getElementById('progress-fill');
+            const text = document.getElementById('progress-text');
+            const statusEl = document.getElementById('progress-status-text');
+
+            // Smart analysis steps
+            const steps = [
+                { percent: 8, status: 'Loading source files...', delay: 300 },
+                { percent: 15, status: 'Parsing mobile_clockin.csv...', delay: 400 },
+                { percent: 25, status: 'Parsing location_data.csv...', delay: 350 },
+                { percent: 35, status: 'Parsing supervisor_log.csv...', delay: 400 },
+                { percent: 45, status: 'Parsing worker_report.csv...', delay: 350 },
+                { percent: 55, status: 'Cross-referencing timestamps...', delay: 500 },
+                { percent: 65, status: 'Validating geofence data...', delay: 450 },
+                { percent: 75, status: 'Matching worker records...', delay: 400 },
+                { percent: 82, status: 'Calculating confidence scores...', delay: 350 },
+                { percent: 88, status: 'Detecting anomalies...', delay: 300 },
+                { percent: 94, status: 'Generating recommendations...', delay: 400 },
+                { percent: 100, status: 'Complete!', delay: 200 }
+            ];
+
+            let stepIndex = 0;
+
+            function runNextStep() {
+                if (stepIndex < steps.length) {
+                    const step = steps[stepIndex];
+                    fill.style.width = `${step.percent}%`;
+                    text.textContent = `${step.percent}%`;
+                    statusEl.textContent = step.status;
+                    stepIndex++;
+                    setTimeout(runNextStep, step.delay);
+                } else {
+                    // Done - show results
+                    setTimeout(() => {
+                        loadingSection.style.display = 'none';
+                        renderResults(FALLBACK_RESULTS);
+                    }, 300);
+                }
             }
 
-            runAnalysis();
+            // Start the animation
+            fill.style.width = '0%';
+            text.textContent = '0%';
+            statusEl.textContent = 'Initializing...';
+            setTimeout(runNextStep, 200);
         }
 
         async function runAnalysis() {
@@ -3570,6 +3631,23 @@ If you cannot extract meaningful time data, explain why and what format would be
         function handleLightboxEscape(e) {
             if (e.key === 'Escape') closeRouteLightbox();
         }
+
+        // Initialize demo with pre-populated files
+        (function initDemo() {
+            // Pre-populate with demo files
+            uploadedFiles = [
+                { name: 'mobile_clockin.csv', type: 'csv', preview: 'Worker,Date,Clock In,Clock Out\nJohn Doe,2024-12-02,07:15,16:02\nJane Smith,2024-12-02,06:58,15:35\nRobert Johnson,2024-12-02,07:22,16:15\nMaria Garcia,2024-12-02,06:45,15:05' },
+                { name: 'location_data.csv', type: 'csv', preview: 'Worker,Date,Geofence Entry,Geofence Exit,Location\nJohn Doe,2024-12-02,06:58:32,16:01:45,ABC Warehouse\nJane Smith,2024-12-02,06:55:18,15:32:22,ABC Warehouse\nRobert Johnson,2024-12-02,07:18:05,16:12:33,XYZ Distribution\nMaria Garcia,2024-12-02,06:42:11,15:03:48,Harbor Facility' },
+                { name: 'supervisor_log.csv', type: 'csv', preview: 'Worker,Date,Clock In,Clock Out,Supervisor,Notes\nJohn Doe,2024-12-02,07:00,16:00,M. Smith,Good shift - stayed late\nJane Smith,2024-12-02,07:00,15:30,M. Smith,Left early - approved\nRobert Johnson,2024-12-02,07:15,16:00,K. Jones,Regular shift\nMaria Garcia,2024-12-02,06:45,15:00,K. Jones,Early start approved' },
+                { name: 'worker_report.csv', type: 'csv', preview: 'Worker,Date,Start Time,End Time,Break,Notes\nJohn Doe,2024-12-02,07:00,16:00,30 min,Regular shift\nJane Smith,2024-12-02,07:00,15:30,30 min,Doctor appointment\nRobert Johnson,2024-12-02,07:15,16:00,30 min,No issues\nMaria Garcia,2024-12-02,06:45,15:00,30 min,Early shift' }
+            ];
+
+            // Hide drop zone, show uploaded section
+            dropZone.style.display = 'none';
+            uploadedSection.style.display = 'block';
+            fileStats.textContent = `${uploadedFiles.length} files`;
+            renderFileCards();
+        })();
     </script>
 </body>
 </html>
