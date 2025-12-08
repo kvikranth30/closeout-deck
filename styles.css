@@ -9,6 +9,7 @@
     --gray-900: #111113;
     --gray-850: #161618;
     --gray-800: #1c1c1f;
+    --gray-750: #232326;
     --gray-700: #2a2a2e;
     --gray-600: #3a3a40;
     --gray-500: #52525b;
@@ -250,15 +251,19 @@ body {
     font-size: clamp(1.75rem, 4vw, 3rem);
     font-weight: 700;
     color: var(--gray-100);
-    margin-bottom: 1rem;
+    margin-bottom: 2.5rem;
     letter-spacing: -0.02em;
     text-align: center;
+}
+
+.slide__title + .slide__lead {
+    margin-top: -1.75rem;
 }
 
 .slide__lead {
     font-size: clamp(1rem, 2vw, 1.25rem);
     color: var(--gray-400);
-    margin-bottom: 2.5rem;
+    margin-bottom: 3rem;
     max-width: 700px;
     text-align: center;
     margin-left: auto;
@@ -630,185 +635,696 @@ body {
 }
 
 /* ============================================
-   SLIDE 4: THE SOLUTION
+   SLIDE 4: THE SOLUTION - FLOW LAYOUT
    ============================================ */
-.flow-diagram {
+.flow-layout {
+    display: flex;
+    align-items: stretch;
+    gap: 0.5rem;
+}
+
+/* Left/Right Columns */
+.flow-column {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    padding: 2rem;
-    background: var(--gray-850);
-    border-radius: 16px;
-    border: 1px solid var(--gray-700);
+    gap: 0.75rem;
+    flex: 1;
+    min-width: 0;
 }
 
-.flow-sources,
-.flow-destinations {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.flow-sources span,
-.flow-destinations span {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
+.flow-input-card {
     background: var(--gray-800);
     border: 1px solid var(--gray-700);
-    border-radius: 8px;
-    font-size: 0.875rem;
-    color: var(--gray-300);
+    border-radius: 10px;
+    padding: 0.75rem;
+    flex: 1;
 }
 
-.flow-icon {
+.flow-input-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--gray-200);
+}
+
+.flow-input-icon {
     width: 16px;
     height: 16px;
     color: var(--gray-400);
 }
 
-.flow-arrow {
-    width: 2px;
-    height: 24px;
-    background: var(--green-500);
-    position: relative;
+.flow-input-preview {
+    background: var(--gray-900);
+    border-radius: 6px;
+    padding: 0.6rem 0.85rem;
 }
 
-.flow-arrow::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-top: 8px solid var(--green-500);
+/* Source rows with colorful tags */
+.source-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.35rem 0;
+    gap: 0.5rem;
 }
 
-.flow-center__box {
-    background: var(--green-500);
-    padding: 1rem 2rem;
-    border-radius: 12px;
-    text-align: center;
+.source-row + .source-row {
+    border-top: 1px solid var(--gray-800);
 }
 
-.flow-center__icon {
-    width: 24px;
-    height: 24px;
-    color: var(--gray-950);
-    margin-bottom: 0.25rem;
+.source-tag {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    white-space: nowrap;
 }
 
-.flow-center__title {
-    display: block;
-    font-family: var(--font-display);
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--gray-950);
+.source-tag--mobile {
+    background: var(--gray-700);
+    color: var(--gray-200);
 }
 
-.flow-center__sub {
-    display: block;
-    font-size: 0.75rem;
-    color: var(--gray-800);
-    margin-top: 0.25rem;
+.source-tag--supervisor {
+    background: rgba(251, 191, 36, 0.2);
+    color: #fbbf24;
 }
 
-.flow-output {
-    text-align: center;
+.source-tag--customer {
+    background: rgba(239, 68, 68, 0.15);
+    color: #f87171;
 }
 
-.flow-output__icon {
-    width: 32px;
-    height: 32px;
+.source-tag--self-report {
+    background: rgba(139, 92, 246, 0.2);
+    color: #a78bfa;
+}
+
+.source-tag--location {
+    background: rgba(16, 185, 129, 0.15);
     color: var(--green-400);
-    margin-bottom: 0.5rem;
 }
 
-.flow-output__main {
-    display: block;
-    font-family: var(--font-display);
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--gray-100);
+.source-times {
+    font-size: 0.75rem;
+    color: var(--gray-400);
+    font-family: var(--font-mono, monospace);
+    padding-right: 0.5rem;
 }
 
-.flow-output__sub {
+/* Location Card - Split Design (Dark Mode) */
+.flow-input-card--location {
+    background: var(--gray-800);
+}
+
+.location-split {
+    display: flex;
+    gap: 0;
+    background: var(--gray-900);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.location-map-side {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gray-850);
+}
+
+.location-map-svg {
+    width: 100%;
+    height: auto;
     display: block;
-    font-size: 0.875rem;
+}
+
+.location-activity-side {
+    flex: 1;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    background: var(--gray-900);
+    border-left: 1px solid var(--gray-700);
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.4rem;
+    border-radius: 4px;
+}
+
+.activity-item--break {
+    background: rgba(34, 197, 94, 0.1);
+}
+
+.activity-icon {
+    width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.activity-icon svg {
+    width: 10px;
+    height: 10px;
+}
+
+.activity-icon--drive {
     color: var(--gray-400);
 }
 
-.solution-bottom {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    margin-top: 1.5rem;
+.activity-icon--meal {
+    color: var(--green-400);
 }
 
-@media (max-width: 768px) {
-    .solution-bottom {
-        grid-template-columns: 1fr;
+.activity-icon--idle {
+    color: var(--gray-500);
+}
+
+.activity-label {
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: var(--gray-200);
+    flex: 1;
+}
+
+.activity-meta {
+    font-size: 0.6rem;
+    color: var(--gray-500);
+    font-family: var(--font-mono, monospace);
+}
+
+.activity-meta--green {
+    color: var(--green-400);
+    font-weight: 600;
+}
+
+/* Simple Flow Arrows */
+.flow-arrow {
+    flex: 0 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.arrow-svg {
+    width: 40px;
+    height: 24px;
+    animation: arrow-nudge 2s ease-in-out infinite;
+}
+
+@keyframes arrow-nudge {
+    0%, 100% {
+        transform: translateX(0);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translateX(4px);
+        opacity: 1;
     }
 }
 
-.benefits-list {
-    margin-bottom: 0;
+/* Copilot Center - Hero Section */
+.flow-copilot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
 }
 
-.benefits-list h3 {
-    font-family: var(--font-display);
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--green-400);
-    margin-bottom: 0.75rem;
-}
-
-.benefits-list ul {
-    list-style: none;
-}
-
-.benefits-list li {
-    position: relative;
-    padding-left: 1.5rem;
-    margin-bottom: 0.5rem;
-    color: var(--gray-300);
-}
-
-.benefits-list li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.6em;
-    width: 6px;
-    height: 6px;
-    background: var(--green-500);
-    border-radius: 50%;
-}
-
-.control-box {
-    background: var(--gray-850);
-    border: 1px solid var(--gray-700);
+.flow-copilot-container {
+    background: #000;
     border-radius: 12px;
-    padding: 1.5rem;
+    overflow: hidden;
+    box-shadow:
+        0 0 40px rgba(16, 185, 129, 0.2),
+        0 0 80px rgba(16, 185, 129, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    width: 220px;
 }
 
-.control-box__title {
+.copilot-video-wrapper {
+    width: 220px;
+    height: 340px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+}
+
+.copilot-video {
+    width: auto;
+    height: 85%;
+    min-width: 300%;
+    object-fit: cover;
+    object-position: center center;
+}
+
+.copilot-label {
+    background: linear-gradient(180deg, #000 0%, #080808 100%);
+    padding: 0.75rem 1rem;
+    text-align: center;
+    border-top: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.copilot-label-text {
     font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 0 25px rgba(16, 185, 129, 0.6);
+}
+
+.flow-copilot-note {
+    background: var(--gray-850);
+    border-top: none;
+    padding: 0.75rem 1rem;
+}
+
+.copilot-note-label {
+    font-size: 0.65rem;
     font-weight: 600;
-    color: var(--gray-100);
+    color: var(--gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
     margin-bottom: 0.5rem;
+    text-align: center;
 }
 
-.control-box__text {
+.copilot-note-text {
+    font-size: 0.75rem;
+    color: var(--gray-300);
+    line-height: 1.6;
+}
+
+/* Color-coded highlights for reconciliation notes */
+.copilot-note-text .highlight-positive {
+    color: #10b981;
+    font-weight: 500;
+}
+
+.copilot-note-text .highlight-warning {
+    color: #fbbf24;
+}
+
+.copilot-note-text .highlight-negative {
+    color: #ef4444;
+}
+
+.copilot-note-text .highlight-info {
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+/* Output Column */
+.flow-outputs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.flow-output-card {
+    background: var(--gray-800);
+    border: 1px solid var(--gray-700);
+    border-radius: 10px;
+    padding: 0.75rem;
+}
+
+.flow-output-card--payout {
+    border-color: rgba(16, 185, 129, 0.4);
+}
+
+.flow-output-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.6rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.flow-output-icon {
+    width: 16px;
+    height: 16px;
+    color: var(--green-400);
+}
+
+.confidence-text {
+    margin-left: auto;
+    font-size: 0.75rem;
     color: var(--gray-400);
-    margin-bottom: 0.75rem;
+    font-weight: 500;
 }
 
+.flow-output-preview {
+    padding: 0;
+}
+
+/* 3-Box Time Layout */
+.time-boxes {
+    display: flex;
+    gap: 0.4rem;
+}
+
+.time-box {
+    flex: 1;
+    background: var(--gray-800);
+    border-radius: 6px;
+    padding: 0.5rem;
+    text-align: center;
+    border: 1px solid var(--gray-700);
+}
+
+.time-box--total {
+    background: rgba(16, 185, 129, 0.1);
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+.time-box-label {
+    display: block;
+    font-size: 0.65rem;
+    color: var(--gray-400);
+    margin-bottom: 0.25rem;
+}
+
+.time-box-value {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
+    font-family: var(--font-mono, monospace);
+}
+
+.time-box--total .time-box-value {
+    color: var(--green-400);
+}
+
+/* 3-Box Payout Layout */
+.payout-boxes {
+    display: flex;
+    gap: 0.4rem;
+}
+
+.payout-box {
+    flex: 1;
+    background: var(--gray-800);
+    border-radius: 6px;
+    padding: 0.5rem;
+    text-align: center;
+    border: 1px solid var(--gray-700);
+}
+
+.payout-box--recommended {
+    background: rgba(16, 185, 129, 0.15);
+    border-color: rgba(16, 185, 129, 0.4);
+}
+
+.payout-box-label {
+    display: block;
+    font-size: 0.6rem;
+    color: var(--gray-400);
+    margin-bottom: 0.25rem;
+}
+
+.payout-box-value {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #fff;
+    font-family: var(--font-mono, monospace);
+}
+
+.payout-box--recommended .payout-box-value {
+    color: var(--green-400);
+}
+
+.payout-box-value--neutral {
+    color: var(--gray-500) !important;
+}
+
+/* Approve Button */
+.approve-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    background: var(--green-500);
+    border: none;
+    border-radius: 6px;
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--gray-950);
+    cursor: default;
+    transition: all 0.2s ease;
+}
+
+.approve-icon {
+    width: 14px;
+    height: 14px;
+}
+
+/* Flow Destinations Card */
+.flow-dest-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dest-arrows {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    padding: 1rem 1.5rem 0.75rem;
+}
+
+.dest-arrow-svg {
+    width: 24px;
+    height: 30px;
+    animation: arrow-nudge-down 2s ease-in-out infinite;
+}
+
+@keyframes arrow-nudge-down {
+    0%, 100% {
+        transform: translateY(0);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translateY(4px);
+        opacity: 1;
+    }
+}
+
+.flow-dest-boxes {
+    display: flex;
+    gap: 0.75rem;
+    width: 100%;
+}
+
+.dest-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: var(--gray-800);
+    border: 1px solid var(--gray-700);
+    border-radius: 10px;
+}
+
+.dest-box--tall {
+    padding: 0.75rem 0.6rem 1.25rem;
+    flex: 1;
+}
+
+.dest-box-header {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.dest-box-icon {
+    width: 16px;
+    height: 16px;
+    color: var(--green-400);
+}
+
+.dest-box-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.dest-logos {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    margin-top: 0.25rem;
+}
+
+.dest-logo-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.5rem;
+    background: var(--gray-750);
+    border-radius: 4px;
+}
+
+.dest-logo {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    border-radius: 3px;
+    filter: grayscale(100%);
+    opacity: 0.7;
+}
+
+.dest-logo-name {
+    font-size: 0.65rem;
+    color: var(--gray-400);
+}
+
+/* Mobile Responsive */
+@media (max-width: 900px) {
+    .flow-layout {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .flow-column {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .flow-input-card,
+    .flow-output-card {
+        flex: 1 1 calc(50% - 0.5rem);
+        min-width: 140px;
+    }
+
+    /* Rotate horizontal arrows to point down on mobile */
+    .flow-arrow {
+        flex: 0 0 40px;
+    }
+
+    .flow-arrow .arrow-svg {
+        transform: rotate(90deg);
+    }
+
+    @keyframes arrow-nudge {
+        0%, 100% {
+            transform: rotate(90deg) translateX(0);
+            opacity: 0.6;
+        }
+        50% {
+            transform: rotate(90deg) translateX(4px);
+            opacity: 1;
+        }
+    }
+
+    .flow-copilot-container {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .copilot-video-wrapper {
+        width: 100%;
+        height: 450px;
+    }
+
+    .copilot-video {
+        height: 100%;
+        min-width: 100%;
+    }
+
+    .flow-copilot-note {
+        text-align: center;
+    }
+
+    .copilot-note-text {
+        text-align: center;
+    }
+
+    /* Payout/Billing boxes in single container */
+    .flow-dest-card {
+        width: 100%;
+    }
+
+    .dest-arrows {
+        padding: 0.75rem 2rem;
+    }
+
+    .flow-dest-boxes {
+        flex-direction: row;
+        gap: 0;
+        background: var(--gray-800);
+        border: 1px solid var(--gray-700);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .dest-box--tall {
+        flex: 1;
+        border: none;
+        border-radius: 0;
+        background: transparent;
+    }
+
+    .dest-box--tall:first-child {
+        border-right: 1px solid var(--gray-700);
+    }
+
+    .time-boxes,
+    .payout-boxes {
+        flex-wrap: wrap;
+    }
+
+    .time-box,
+    .payout-box {
+        flex: 1 1 calc(33% - 0.3rem);
+        min-width: 60px;
+    }
+}
+
+@media (max-width: 600px) {
+    .flow-input-card,
+    .flow-output-card {
+        flex: 1 1 100%;
+    }
+
+    .flow-column {
+        gap: 0.5rem;
+    }
+
+    .copilot-video-wrapper {
+        height: 350px;
+    }
+}
+
+/* Keep these for backwards compatibility */
 .control-box__highlight {
     font-weight: 600;
     color: var(--green-400);
