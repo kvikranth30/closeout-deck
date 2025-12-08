@@ -903,6 +903,7 @@
             border-bottom: 1px solid var(--gray-700);
             vertical-align: middle;
             white-space: nowrap;
+            transition: background 0.25s ease-out, border-radius 0.25s ease-out, border-color 0.25s ease-out;
         }
 
         .reconciliation-table td:first-child {
@@ -999,13 +1000,53 @@
             background: var(--gray-800);
         }
 
+        /* Expanded card header row */
         .reconciliation-table tbody tr.data-row.expanded {
-            background: var(--gray-950);
+            background: var(--gray-850);
             border-bottom: none;
+            position: relative;
+            z-index: 2;
         }
 
         .reconciliation-table tbody tr.data-row.expanded td {
             border-bottom: none;
+            background: var(--gray-850);
+            border-top: 1px solid var(--gray-600);
+        }
+
+        .reconciliation-table tbody tr.data-row.expanded td:first-child {
+            border-left: 1px solid var(--gray-600);
+            border-top-left-radius: 12px;
+        }
+
+        .reconciliation-table tbody tr.data-row.expanded td:last-child {
+            border-right: 1px solid var(--gray-600);
+            border-top-right-radius: 12px;
+        }
+
+        /* Hide divider on row before expanded card */
+        .reconciliation-table tbody tr.data-row:has(+ tr.expansion-row + tr.data-row.expanded) td {
+            border-bottom-color: transparent !important;
+        }
+
+        /* Row expand indicator */
+        .row-expand-indicator {
+            display: inline-block;
+            margin-right: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--gray-500);
+            transition: transform 0.25s ease-out, color 0.2s;
+            transform: rotate(0deg);
+        }
+
+        .data-row:hover .row-expand-indicator {
+            color: var(--gray-300);
+        }
+
+        .data-row.expanded .row-expand-indicator {
+            transform: rotate(90deg);
+            color: var(--green-500);
         }
 
         .source-icon-active {
@@ -1068,28 +1109,45 @@
         }
 
         .expansion-row {
-            display: none;
-        }
-
-        .expansion-row.visible {
             display: table-row;
         }
 
         .expansion-row td {
             padding: 0;
-            background: var(--gray-800);
+            background: var(--gray-850);
+            border: none !important;
+            border-left: 1px solid transparent !important;
+            border-right: 1px solid transparent !important;
+            border-bottom: 1px solid transparent !important;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            transition: border-color 0.35s ease-out, border-radius 0.35s ease-out;
+        }
+
+        .expansion-row.visible td {
+            border-left: 1px solid var(--gray-600) !important;
+            border-right: 1px solid var(--gray-600) !important;
+            border-bottom: 1px solid var(--gray-600) !important;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
         }
 
         .expansion-content {
-            padding: 32px 40px 48px;
-            background: var(--gray-800);
-            overflow: visible;
-            min-height: 50px;
+            background: var(--gray-850);
+            overflow: hidden;
             white-space: normal;
+            max-height: 0;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: max-height 0.35s ease-out, opacity 0.25s ease-out, transform 0.25s ease-out, padding 0.35s ease-out;
+            padding: 0 40px;
         }
 
         .expansion-row.visible .expansion-content {
-            display: block;
+            max-height: 600px;
+            opacity: 1;
+            transform: translateY(0);
+            padding: 32px 40px 48px;
         }
 
         /* Notes styling with color coding */
@@ -1624,12 +1682,8 @@
 
             /* Expansion row mobile */
             .reconciliation-table tr.expansion-row {
-                display: none;
-                background: var(--gray-800);
-            }
-
-            .reconciliation-table tr.expansion-row.visible {
                 display: block;
+                background: transparent;
             }
 
             .reconciliation-table tr.expansion-row td {
@@ -1638,6 +1692,10 @@
             }
 
             .expansion-content {
+                padding: 0 16px !important;
+            }
+
+            .expansion-row.visible .expansion-content {
                 padding: 20px 16px 24px !important;
             }
 
@@ -1739,9 +1797,9 @@
             border-collapse: collapse;
             font-size: 0.8rem;
             background: var(--gray-850);
-            border-radius: 5px;
-            overflow: visible;
-            border: 1px solid var(--gray-700);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 0 1px var(--gray-600);
             table-layout: auto;
             min-width: 300px;
         }
@@ -3148,6 +3206,7 @@ If you cannot extract meaningful time data, explain why and what format would be
                                 return `
                                     <tr class="data-row" onclick="toggleRow(${idx})">
                                         <td>
+                                            <span class="row-expand-indicator">›</span>
                                             <span class="worker-name">${w.worker_name || 'Unknown'}</span>
                                             ${w.worker_id ? `<span class="worker-id">${w.worker_id}</span>` : ''}
                                         </td>
