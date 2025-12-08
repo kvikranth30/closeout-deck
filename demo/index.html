@@ -242,8 +242,8 @@
         }
 
         .files-grid {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
             gap: 16px;
             margin-bottom: 24px;
         }
@@ -253,9 +253,13 @@
             border: 1px solid var(--gray-700);
             border-radius: 8px;
             padding: 16px;
-            width: 120px;
             text-align: center;
             position: relative;
+        }
+
+        .file-card--disabled {
+            border-style: dashed;
+            opacity: 0.6;
         }
 
         .file-card-icon {
@@ -1440,6 +1444,205 @@
             color: var(--gray-500);
         }
 
+        /* Worker Detail Lightbox (mobile full-screen) */
+        .worker-lightbox {
+            position: fixed;
+            inset: 0;
+            background: var(--gray-900);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .worker-lightbox.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .worker-lightbox-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--gray-700);
+            flex-shrink: 0;
+        }
+
+        .worker-lightbox-title {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .worker-lightbox-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--gray-100);
+        }
+
+        .worker-lightbox-date {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        .worker-lightbox-close {
+            background: var(--gray-800);
+            border: 1px solid var(--gray-700);
+            border-radius: 8px;
+            color: var(--gray-300);
+            font-size: 1.25rem;
+            cursor: pointer;
+            padding: 8px 12px;
+            line-height: 1;
+            transition: background 0.15s ease;
+        }
+
+        .worker-lightbox-close:hover {
+            background: var(--gray-700);
+        }
+
+        .worker-lightbox-body {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 20px;
+        }
+
+        .worker-lightbox-summary {
+            background: var(--gray-800);
+            border: 1px solid var(--gray-700);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 20px;
+        }
+
+        .worker-lightbox-time-range {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .worker-lightbox-time {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--gray-100);
+            white-space: nowrap;
+        }
+
+        .worker-lightbox-time-arrow {
+            color: var(--gray-500);
+            font-size: 1rem;
+        }
+
+        .worker-lightbox-total-value {
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--green-400);
+        }
+
+        .worker-lightbox-section {
+            margin-bottom: 20px;
+        }
+
+        .worker-lightbox-section-title {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        /* Location card in worker lightbox */
+        .location-card {
+            background: var(--gray-850);
+            border: 1px solid var(--gray-700);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .location-map {
+            width: 100%;
+            background: var(--gray-800);
+            border-bottom: 1px solid var(--gray-700);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .location-map svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .location-details {
+            padding: 16px;
+        }
+
+        .location-point {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            position: relative;
+        }
+
+        .location-point:first-child {
+            margin-bottom: 12px;
+        }
+
+        .location-marker {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 4px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .location-marker--start {
+            border: 2px solid var(--gray-400);
+            background: var(--gray-850);
+        }
+
+        .location-marker--end {
+            border: 2px solid var(--gray-400);
+            background: var(--gray-400);
+        }
+
+        .location-connector {
+            position: absolute;
+            left: 4px;
+            top: 14px;
+            width: 2px;
+            height: calc(100% + 12px);
+            background: var(--gray-600);
+        }
+
+        .location-info {
+            flex: 1;
+        }
+
+        .location-time {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--gray-100);
+            margin-bottom: 2px;
+        }
+
+        .location-address {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            line-height: 1.4;
+        }
+
         /* Payout section */
         .payout-section {
             flex: 1;
@@ -1591,10 +1794,10 @@
             .reconciliation-table tbody {
                 display: flex;
                 flex-direction: column;
-                gap: 1px;
-                background: var(--gray-700);
-                border-radius: 8px;
-                overflow: hidden;
+                gap: 12px;
+                background: transparent;
+                border-radius: 0;
+                overflow: visible;
             }
 
             .reconciliation-table tr.data-row {
@@ -1602,13 +1805,40 @@
                 grid-template-columns: 1fr auto auto;
                 grid-template-rows: auto auto;
                 gap: 4px 12px;
-                background: var(--gray-850);
-                padding: 14px 16px;
+                background: var(--gray-800);
+                border: 1px solid var(--gray-700);
+                border-radius: 12px;
+                padding: 16px 40px 16px 16px;
                 align-items: center;
+                cursor: pointer;
+                transition: border-color 0.15s ease, transform 0.15s ease;
+                position: relative;
+            }
+
+            /* Add chevron indicator */
+            .reconciliation-table tr.data-row::after {
+                content: '›';
+                position: absolute;
+                right: 14px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 1.5rem;
+                color: var(--gray-600);
+                font-weight: 300;
             }
 
             .reconciliation-table tr.data-row:active {
-                background: var(--gray-800);
+                background: var(--gray-750);
+                transform: scale(0.98);
+            }
+
+            .reconciliation-table tr.data-row:active::after {
+                color: var(--gray-400);
+            }
+
+            /* Hide the inline expand indicator on mobile */
+            .reconciliation-table .row-expand-indicator {
+                display: none;
             }
 
             .reconciliation-table tr.data-row td {
@@ -1665,8 +1895,9 @@
                 grid-column: 2 / 4;
                 grid-row: 2;
                 text-align: right;
-                font-size: 0.75rem;
-                color: var(--gray-400);
+                font-size: 0.7rem;
+                font-weight: 400;
+                color: var(--green-400);
             }
 
             /* Hide sources count and confidence on mobile */
@@ -1680,23 +1911,9 @@
                 display: none;
             }
 
-            /* Expansion row mobile */
+            /* Hide expansion rows on mobile - use lightbox instead */
             .reconciliation-table tr.expansion-row {
-                display: block;
-                background: transparent;
-            }
-
-            .reconciliation-table tr.expansion-row td {
-                display: block;
-                padding: 0;
-            }
-
-            .expansion-content {
-                padding: 0 16px !important;
-            }
-
-            .expansion-row.visible .expansion-content {
-                padding: 20px 16px 24px !important;
+                display: none !important;
             }
 
             /* Payout/Route section mobile */
@@ -1767,13 +1984,12 @@
 
             /* Source files grid */
             .files-grid {
-                grid-template-columns: repeat(2, 1fr) !important;
-                gap: 8px;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
             }
 
             .file-card {
-                width: auto !important;
-                padding: 12px 8px;
+                padding: 14px 10px;
             }
 
             .file-card-icon {
@@ -1781,7 +1997,7 @@
             }
 
             .file-card-name {
-                font-size: 0.7rem;
+                font-size: 0.75rem;
             }
         }
 
@@ -1823,6 +2039,40 @@
 
         .raw-data-table tr:last-child td {
             border-bottom: none;
+        }
+
+        /* Source data row styling */
+        .source-data-row td {
+            padding-top: 14px;
+            padding-bottom: 8px;
+            border-bottom: none !important;
+        }
+
+        .source-notes-row td {
+            padding-top: 6px !important;
+            padding-bottom: 16px !important;
+            border-bottom: 1px solid var(--gray-700) !important;
+        }
+
+        .source-notes-row:last-of-type td {
+            border-bottom: none !important;
+        }
+
+        .source-notes {
+            font-size: 0.75rem;
+            color: var(--gray-400);
+            line-height: 1.4;
+            display: block;
+        }
+
+        /* Data row without notes - add bottom border */
+        .source-data-row:not(:has(+ .source-notes-row)) td {
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--gray-700) !important;
+        }
+
+        .raw-data-table tbody tr:last-child td {
+            border-bottom: none !important;
         }
 
         .source-badge {
@@ -2176,6 +2426,9 @@
         // API Key - set your own key here or it will prompt on first use
         let API_KEY = localStorage.getItem('anthropic_api_key') || '';
         const MODEL = 'claude-opus-4-5-20251101';
+
+        // Global state for worker lightbox
+        let currentWorkersData = [];
 
         const SYSTEM_PROMPT = `You are a timesheet reconciliation AI for Closeout Copilot. Your job is to analyze time and attendance data from multiple sources and produce a reconciled, validated timesheet.
 
@@ -2581,8 +2834,8 @@ If you cannot extract meaningful time data, explain why and what format would be
             // Add disabled "Add files" tile
             const addFileTile = `
                 <div class="file-card file-card--disabled" title="Demo mode: files pre-loaded">
-                    <div class="file-card-icon" style="opacity: 0.3;">➕</div>
-                    <div class="file-card-name" style="opacity: 0.5;">Add files</div>
+                    <div class="file-card-icon">➕</div>
+                    <div class="file-card-name">Add files</div>
                 </div>
             `;
 
@@ -3126,6 +3379,8 @@ If you cannot extract meaningful time data, explain why and what format would be
             ];
 
             const workers = result.workers || [];
+            // Store workers globally for lightbox access
+            currentWorkersData = workers;
             const colCount = 7 + sourceTypes.length; // Total columns for expansion row
 
             // Calculate summary stats
@@ -3186,17 +3441,16 @@ If you cannot extract meaningful time data, explain why and what format would be
                                                     <th>Source</th>
                                                     <th>Clock In</th>
                                                     <th>Clock Out</th>
-                                                    <th>Notes</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 ${w.raw_data.map(rd => `
-                                                    <tr>
+                                                    <tr class="source-data-row">
                                                         <td><span class="source-badge ${getSourceBadgeClass(rd.source)}">${rd.source}</span></td>
                                                         <td>${rd.clock_in || '-'}</td>
                                                         <td>${rd.clock_out || '-'}</td>
-                                                        <td>${rd.notes || '-'}</td>
                                                     </tr>
+                                                    ${rd.notes ? `<tr class="source-notes-row"><td colspan="3"><span class="source-notes">${rd.notes}</span></td></tr>` : ''}
                                                 `).join('')}
                                             </tbody>
                                         </table>
@@ -3354,6 +3608,16 @@ If you cannot extract meaningful time data, explain why and what format would be
 
         // Toggle row expansion
         function toggleRow(idx) {
+            // Check if on mobile
+            const isMobile = window.innerWidth <= 768;
+
+            if (isMobile) {
+                // On mobile, open full-screen lightbox
+                openWorkerLightbox(idx);
+                return;
+            }
+
+            // Desktop: use inline expansion
             const dataRow = document.querySelectorAll('.data-row')[idx];
             const expansionRow = document.getElementById(`expansion-${idx}`);
             const isExpanding = !dataRow.classList.contains('expanded');
@@ -3371,6 +3635,155 @@ If you cannot extract meaningful time data, explain why and what format would be
                 dataRow.classList.add('expanded');
                 expansionRow.classList.add('visible');
             }
+        }
+
+        // Open worker detail lightbox (mobile)
+        function openWorkerLightbox(idx) {
+            const w = currentWorkersData[idx];
+            if (!w) return;
+
+            // Get or create lightbox
+            let lightbox = document.getElementById('workerLightbox');
+            if (!lightbox) {
+                lightbox = document.createElement('div');
+                lightbox.id = 'workerLightbox';
+                lightbox.className = 'worker-lightbox';
+                document.body.appendChild(lightbox);
+            }
+
+            const totalFormatted = w.total_formatted ||
+                (w.total_hours ? `${Math.floor(w.total_hours)}h ${Math.round((w.total_hours % 1) * 60)}m` : '-');
+
+            const colorCodedNotes = colorCodeNotes(w.reasoning || 'No reconciliation notes available.');
+
+            // Build raw data table HTML
+            const rawDataHtml = w.raw_data && w.raw_data.length > 0 ? `
+                <div class="worker-lightbox-section">
+                    <div class="worker-lightbox-section-title">Source Data</div>
+                    <table class="raw-data-table">
+                        <thead>
+                            <tr>
+                                <th>Source</th>
+                                <th>Clock In</th>
+                                <th>Clock Out</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${w.raw_data.map(rd => `
+                                <tr class="source-data-row">
+                                    <td><span class="source-badge ${getSourceBadgeClass(rd.source)}">${rd.source}</span></td>
+                                    <td>${rd.clock_in || '-'}</td>
+                                    <td>${rd.clock_out || '-'}</td>
+                                </tr>
+                                ${rd.notes ? `<tr class="source-notes-row"><td colspan="3"><span class="source-notes">${rd.notes}</span></td></tr>` : ''}
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            ` : '';
+
+            // Build payout section HTML
+            const payoutHtml = w.payout ? `
+                <div class="worker-lightbox-section">
+                    <div class="worker-lightbox-section-title">Recommended Payout</div>
+                    <div class="payout-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                        <div class="payout-card">
+                            <div class="payout-label">Worker Claimed</div>
+                            <div class="payout-value">${formatCurrency(w.payout.claimed_total)}</div>
+                            <div class="payout-detail">${w.payout.claimed_hours}h × $${w.payout.hourly_rate}/hr</div>
+                        </div>
+                        <div class="payout-card recommended">
+                            <div class="payout-label">Recommended</div>
+                            <div class="payout-value positive">${formatCurrency(w.payout.recommended_total)}</div>
+                            <div class="payout-detail">${w.payout.recommended_hours}h × $${w.payout.hourly_rate}/hr</div>
+                        </div>
+                        <div class="payout-card" style="grid-column: 1 / -1;">
+                            <div class="payout-label">Adjustment</div>
+                            <div class="payout-value ${formatAdjustment(w.payout.claimed_total, w.payout.recommended_total).class}">${formatAdjustment(w.payout.claimed_total, w.payout.recommended_total).text}</div>
+                            <div class="payout-detail">${w.payout.adjustment_reason}</div>
+                        </div>
+                    </div>
+                </div>
+            ` : '';
+
+            // Build location section HTML (inline, no nested lightbox)
+            const locationHtml = w.start_location ? `
+                <div class="worker-lightbox-section">
+                    <div class="worker-lightbox-section-title">Location</div>
+                    <div class="location-card">
+                        <div class="location-map">${generateRouteMapSVG(w)}</div>
+                        <div class="location-details">
+                            <div class="location-point">
+                                <div class="location-marker location-marker--start"></div>
+                                <div class="location-connector"></div>
+                                <div class="location-info">
+                                    <span class="location-time">${w.start_location.time}</span>
+                                    <span class="location-address">${w.start_location.address}</span>
+                                </div>
+                            </div>
+                            <div class="location-point">
+                                <div class="location-marker location-marker--end"></div>
+                                <div class="location-info">
+                                    <span class="location-time">${w.end_location.time}</span>
+                                    <span class="location-address">${w.end_location.address}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ` : '';
+
+            lightbox.innerHTML = `
+                <div class="worker-lightbox-header">
+                    <div class="worker-lightbox-title">
+                        <div class="worker-lightbox-name">${w.worker_name || 'Unknown'}</div>
+                        <div class="worker-lightbox-date">${formatDate(w.date)}</div>
+                    </div>
+                    <button class="worker-lightbox-close" onclick="closeWorkerLightbox()">&times;</button>
+                </div>
+                <div class="worker-lightbox-body">
+                    <div class="worker-lightbox-summary">
+                        <div class="worker-lightbox-time-range">
+                            <span class="worker-lightbox-time">${formatTime(w.clock_in)}</span>
+                            <span class="worker-lightbox-time-arrow">→</span>
+                            <span class="worker-lightbox-time">${formatTime(w.clock_out)}</span>
+                        </div>
+                        <span class="worker-lightbox-total-value">${totalFormatted}</span>
+                    </div>
+                    ${payoutHtml}
+                    ${locationHtml}
+                    <div class="worker-lightbox-section">
+                        <div class="worker-lightbox-section-title">Reconciliation Notes</div>
+                        <div class="notes-text">${colorCodedNotes}</div>
+                    </div>
+                    ${rawDataHtml}
+                </div>
+            `;
+
+            // Show lightbox
+            requestAnimationFrame(() => {
+                lightbox.classList.add('active');
+            });
+
+            // Prevent body scrolling
+            document.body.style.overflow = 'hidden';
+
+            // Close on escape
+            document.addEventListener('keydown', handleWorkerLightboxEscape);
+        }
+
+        // Close worker detail lightbox
+        function closeWorkerLightbox() {
+            const lightbox = document.getElementById('workerLightbox');
+            if (lightbox) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            document.removeEventListener('keydown', handleWorkerLightboxEscape);
+        }
+
+        function handleWorkerLightboxEscape(e) {
+            if (e.key === 'Escape') closeWorkerLightbox();
         }
 
         // Color code notes to highlight important information
