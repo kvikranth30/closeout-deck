@@ -1034,7 +1034,6 @@ body {
     width: 36px;
     height: 36px;
     object-fit: contain;
-    background: white;
     border-radius: 6px;
     padding: 4px;
     flex-shrink: 0;
@@ -1060,6 +1059,30 @@ body {
 .logo-card--custom {
     border-style: dashed;
     opacity: 0.5;
+}
+
+/* Logo fallback - shows first letter when image fails to load */
+.logo-card__fallback {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: white;
+    flex-shrink: 0;
+    text-transform: uppercase;
+}
+
+.logo-card__img.hidden {
+    display: none;
+}
+
+.logo-card__fallback.visible {
+    display: flex;
 }
 
 .integrations-center {

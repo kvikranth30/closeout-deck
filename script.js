@@ -28,6 +28,29 @@
         updateUI();
         bindEvents();
         checkMobile();
+        setupLogoFallbacks();
+    }
+
+    // Setup fallbacks for logo images that fail to load
+    function setupLogoFallbacks() {
+        const logoImages = document.querySelectorAll('.logo-card__img');
+
+        logoImages.forEach(img => {
+            const fallback = img.nextElementSibling;
+            if (!fallback || !fallback.classList.contains('logo-card__fallback')) return;
+
+            // Handle load error
+            img.addEventListener('error', () => {
+                img.classList.add('hidden');
+                fallback.classList.add('visible');
+            });
+
+            // Check if image is already broken (cached error state)
+            if (img.complete && img.naturalWidth === 0) {
+                img.classList.add('hidden');
+                fallback.classList.add('visible');
+            }
+        });
     }
 
     // Create navigation dots
