@@ -1568,7 +1568,7 @@ body {
 .logo-card__name {
     font-size: 1rem;
     font-weight: 500;
-    color: var(--gray-200);
+    color: #ffffff;
 }
 
 /* Your System card - grayed out */
