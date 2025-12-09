@@ -1204,7 +1204,7 @@ body {
 
 .dest-logo-name {
     font-size: 0.65rem;
-    color: var(--gray-400);
+    color: #ffffff;
 }
 
 /* Mobile Responsive */
@@ -1568,7 +1568,7 @@ body {
 .logo-card__name {
     font-size: 1rem;
     font-weight: 500;
-    color: #ffffff;
+    color: var(--gray-200);
 }
 
 /* Your System card - grayed out */
