@@ -1205,6 +1205,26 @@
             flex: 0 0 auto;
         }
 
+        .location-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .location-label {
+            color: var(--green-500);
+        }
+
+        .external-link-icon {
+            color: var(--green-500);
+            opacity: 0.8;
+        }
+
+        .route-wrapper:hover .external-link-icon,
+        .route-wrapper:hover .location-label {
+            opacity: 1;
+        }
+
         /* Route section - compact card matching payout height */
         .route-section {
             display: flex;
@@ -1216,11 +1236,12 @@
             border-radius: 8px;
             padding: 12px 14px;
             cursor: pointer;
-            transition: border-color 0.15s ease;
+            transition: all 0.15s ease;
         }
 
         .route-section:hover {
-            border-color: var(--gray-500);
+            border-color: var(--green-500);
+            background: var(--gray-750, #232326);
         }
 
         .route-timeline {
@@ -1444,6 +1465,215 @@
             color: var(--gray-500);
         }
 
+        /* Chat button in Self-Report column */
+        .chat-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: transparent;
+            border: 1px solid var(--gray-700);
+            border-radius: 6px;
+            padding: 4px 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .chat-button:hover {
+            background: var(--gray-800);
+            border-color: var(--gray-500);
+        }
+
+        .chat-button-icon {
+            font-size: 0.9rem;
+        }
+
+        .chat-button-count {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--gray-400);
+        }
+
+        .chat-button:hover .chat-button-count {
+            color: var(--gray-300);
+        }
+
+        /* Chat Log Lightbox */
+        .chat-lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+            padding: 20px;
+        }
+
+        .chat-lightbox.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .chat-lightbox-content {
+            background: var(--gray-900);
+            border: 1px solid var(--gray-700);
+            border-radius: 12px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .chat-lightbox-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--gray-700);
+            flex-shrink: 0;
+        }
+
+        .chat-lightbox-title {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .chat-lightbox-worker {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--gray-100);
+            margin-top: 4px;
+        }
+
+        .chat-lightbox-close {
+            background: none;
+            border: none;
+            color: var(--gray-500);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 4px;
+            line-height: 1;
+        }
+
+        .chat-lightbox-close:hover {
+            color: var(--gray-300);
+        }
+
+        .chat-lightbox-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-message {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 16px;
+            max-width: 85%;
+        }
+
+        .chat-message:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Right-aligned messages (worker) */
+        .chat-message.worker {
+            align-self: flex-end;
+            align-items: flex-end;
+        }
+
+        /* Left-aligned messages (agent, supervisor) */
+        .chat-message.agent,
+        .chat-message.supervisor {
+            align-self: flex-start;
+            align-items: flex-start;
+        }
+
+        /* System messages - centered */
+        .chat-message.system {
+            align-self: center;
+            align-items: center;
+            max-width: 90%;
+        }
+
+        .chat-message-bubble {
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            position: relative;
+        }
+
+        /* Worker bubbles - matches Self-Report tag (pink/magenta) */
+        .chat-message.worker .chat-message-bubble {
+            background: rgba(219, 39, 119, 0.15);
+            border: 1px solid rgba(219, 39, 119, 0.4);
+            color: #f9a8d4;
+            border-bottom-right-radius: 2px;
+        }
+
+        /* Agent bubbles - green, left side */
+        .chat-message.agent .chat-message-bubble {
+            background: rgba(34, 84, 61, 0.6);
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            color: var(--gray-100);
+            border-bottom-left-radius: 2px;
+        }
+
+        /* Supervisor bubbles - matches Supervisor Log tag (yellow/gold) */
+        .chat-message.supervisor .chat-message-bubble {
+            background: rgba(202, 138, 4, 0.15);
+            border: 1px solid rgba(202, 138, 4, 0.4);
+            color: #fcd34d;
+            border-bottom-left-radius: 2px;
+        }
+
+        /* System messages - matches Location Data tag (purple) */
+        .chat-message.system .chat-message-bubble {
+            background: rgba(139, 92, 246, 0.15);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            color: #c4b5fd;
+            font-size: 0.8rem;
+            padding: 6px 12px;
+        }
+
+        .chat-message-meta {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 4px;
+            padding: 0 4px;
+        }
+
+        .chat-message-sender {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--gray-400);
+        }
+
+        .chat-message-time {
+            font-size: 0.65rem;
+            color: var(--gray-500);
+        }
+
+        .chat-message.system .chat-message-meta {
+            margin-top: 2px;
+        }
+
+        .chat-message.system .chat-message-sender {
+            display: none;
+        }
+
         /* Worker Detail Lightbox (mobile full-screen) */
         .worker-lightbox {
             position: fixed;
@@ -1488,20 +1718,108 @@
             color: var(--gray-500);
         }
 
-        .worker-lightbox-close {
+        .worker-lightbox-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .worker-chat-button {
+            display: flex;
+            align-items: center;
+            gap: 4px;
             background: var(--gray-800);
             border: 1px solid var(--gray-700);
             border-radius: 8px;
             color: var(--gray-300);
-            font-size: 1.25rem;
+            padding: 0 10px;
+            height: 32px;
             cursor: pointer;
-            padding: 8px 12px;
+            transition: all 0.15s ease;
+            outline: none;
+        }
+
+        .worker-chat-button:hover {
+            background: var(--gray-700);
+            border-color: var(--gray-600);
+        }
+
+        .worker-chat-button:focus {
+            outline: none;
+        }
+
+        .worker-chat-button.active {
+            background: var(--gray-700);
+            border-color: var(--green-500);
+        }
+
+        .worker-chat-button .chat-button-icon {
+            font-size: 1rem;
+        }
+
+        .worker-chat-button .chat-button-count {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--gray-400);
+        }
+
+        .worker-lightbox-close {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gray-800);
+            border: 1px solid var(--gray-700);
+            border-radius: 8px;
+            color: var(--gray-300);
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 0 10px;
+            height: 32px;
             line-height: 1;
-            transition: background 0.15s ease;
+            transition: all 0.15s ease;
+            outline: none;
         }
 
         .worker-lightbox-close:hover {
             background: var(--gray-700);
+        }
+
+        /* When chat is active, hide close button and move chat button right */
+        .worker-lightbox.chat-active .worker-lightbox-close {
+            display: none;
+        }
+
+        .worker-lightbox.chat-active .worker-lightbox-actions {
+            flex: 1;
+            justify-content: flex-end;
+        }
+
+        /* Chat overlay within worker lightbox */
+        .worker-chat-overlay {
+            position: absolute;
+            top: 82px; /* Below header */
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gray-900);
+            border-top: 1px solid var(--gray-700);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            z-index: 10;
+        }
+
+        .worker-chat-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .worker-chat-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
         }
 
         .worker-lightbox-body {
@@ -1900,7 +2218,7 @@
                 color: var(--green-400);
             }
 
-            /* Hide sources count and confidence on mobile */
+            /* Hide sources count and confidence columns on mobile */
             .reconciliation-table tr.data-row td:nth-child(6),
             .reconciliation-table tr.data-row td:nth-child(7) {
                 display: none;
@@ -1980,6 +2298,19 @@
             .raw-data-table {
                 font-size: 0.7rem;
                 min-width: 450px;
+            }
+
+            /* Chat lightbox mobile - full screen */
+            .chat-lightbox {
+                padding: 0;
+            }
+
+            .chat-lightbox-content {
+                max-width: 100%;
+                max-height: 100%;
+                height: 100%;
+                border-radius: 0;
+                border: none;
             }
 
             /* Source files grid */
@@ -2559,6 +2890,16 @@ If you cannot extract meaningful time data, explain why and what format would be
                         { source: "Location Data", clock_in: "6:58:32 AM", clock_out: "4:01:45 PM", notes: "ABC Warehouse - 543 min in geofence" },
                         { source: "Supervisor Log", clock_in: "7:00 AM", clock_out: "4:00 PM", notes: "Good shift - stayed late to help with cleanup" },
                         { source: "Self-Report", clock_in: "7:00 AM", clock_out: "4:00 PM", notes: "Regular shift no issues" }
+                    ],
+                    chat_log: [
+                        { time: "6:58 AM", from: "system", message: "Location detected: ABC Warehouse geofence entered" },
+                        { time: "7:00 AM", from: "agent", message: "Good morning John! I see you've arrived at the warehouse. Ready to start your shift?" },
+                        { time: "7:01 AM", from: "worker", message: "Yes, clocking in now. Regular shift today." },
+                        { time: "7:02 AM", from: "agent", message: "Got it! Your shift is logged. Have a great day!" },
+                        { time: "3:55 PM", from: "agent", message: "Hi John, your shift ends at 4:00 PM. Are you wrapping up?" },
+                        { time: "3:58 PM", from: "worker", message: "Yep, just helping with some cleanup. Will clock out in a few." },
+                        { time: "4:00 PM", from: "agent", message: "No problem. I'll log your clock-out at 4:00 PM as scheduled." },
+                        { time: "4:01 PM", from: "supervisor", message: "Confirmed. John stayed a few extra minutes to help - good work today." }
                     ]
                 },
                 {
@@ -2601,6 +2942,16 @@ If you cannot extract meaningful time data, explain why and what format would be
                         { source: "Location Data", clock_in: "6:55:12 AM", clock_out: "3:32:08 PM", notes: "ABC Warehouse - 517 min in geofence" },
                         { source: "Supervisor Log", clock_in: "7:00 AM", clock_out: "3:30 PM", notes: "Left early - pre-approved for appointment" },
                         { source: "Self-Report", clock_in: "7:00 AM", clock_out: "3:30 PM", notes: "Left early for doctor appointment (pre-approved)" }
+                    ],
+                    chat_log: [
+                        { time: "6:55 AM", from: "system", message: "Location detected: ABC Warehouse geofence entered" },
+                        { time: "7:00 AM", from: "agent", message: "Good morning Jane! Shift started. I see you have an early departure scheduled today at 3:30 PM." },
+                        { time: "7:02 AM", from: "worker", message: "That's right, I have a doctor's appointment. Already approved by Mike." },
+                        { time: "7:03 AM", from: "agent", message: "Perfect, I have that noted. I'll remind you before you need to leave." },
+                        { time: "3:15 PM", from: "agent", message: "Hey Jane, just a heads up - 15 minutes until your early departure." },
+                        { time: "3:20 PM", from: "worker", message: "Thanks! Wrapping up now." },
+                        { time: "3:30 PM", from: "agent", message: "Clocking you out at 3:30 PM. Hope your appointment goes well!" },
+                        { time: "3:31 PM", from: "supervisor", message: "Jane's early out confirmed. Pre-approved for medical appointment." }
                     ]
                 },
                 {
@@ -2643,6 +2994,18 @@ If you cannot extract meaningful time data, explain why and what format would be
                         { source: "Location Data", clock_in: "7:18:44 AM", clock_out: "4:12:33 PM", notes: "ABC Warehouse - 534 min in geofence" },
                         { source: "Supervisor Log", clock_in: "7:30 AM", clock_out: "4:15 PM", notes: "Arrived late due to traffic - made up time" },
                         { source: "Self-Report", clock_in: "7:30 AM", clock_out: "4:15 PM", notes: "Was late due to accident on I-95. Stayed late to make up." }
+                    ],
+                    chat_log: [
+                        { time: "7:05 AM", from: "agent", message: "Good morning Robert! Your shift starts at 7:00 AM. Are you on your way?" },
+                        { time: "7:08 AM", from: "worker", message: "Running late - big accident on I-95. Traffic is backed up for miles." },
+                        { time: "7:10 AM", from: "agent", message: "Thanks for letting me know. I'll note this as a traffic delay. Any ETA?" },
+                        { time: "7:15 AM", from: "worker", message: "Looks like about 15-20 more minutes. Sorry about this." },
+                        { time: "7:18 AM", from: "system", message: "Location detected: ABC Warehouse geofence entered" },
+                        { time: "7:22 AM", from: "agent", message: "No worries, I see you've arrived. Logging clock-in at 7:22 AM. Want me to note you'll stay late to make up the time?" },
+                        { time: "7:25 AM", from: "worker", message: "Yes please. I'll stay until 4:15 to make up the 30 min." },
+                        { time: "4:12 PM", from: "agent", message: "Hi Robert, you've made up your time. Ready to clock out?" },
+                        { time: "4:15 PM", from: "worker", message: "Yep, heading out now. Thanks for being flexible." },
+                        { time: "4:16 PM", from: "supervisor", message: "Robert made up his late arrival time. All good." }
                     ]
                 },
                 {
@@ -2685,6 +3048,16 @@ If you cannot extract meaningful time data, explain why and what format would be
                         { source: "Location Data", clock_in: "6:42:19 AM", clock_out: "3:03:27 PM", notes: "ABC Warehouse - 501 min in geofence" },
                         { source: "Supervisor Log", clock_in: "6:45 AM", clock_out: "3:00 PM", notes: "Worked shortened shift as requested" },
                         { source: "Self-Report", clock_in: "6:45 AM", clock_out: "3:00 PM", notes: "Shortened shift as scheduled" }
+                    ],
+                    chat_log: [
+                        { time: "6:42 AM", from: "system", message: "Location detected: ABC Warehouse geofence entered" },
+                        { time: "6:45 AM", from: "agent", message: "Buenos dias Maria! Early start today - I have you scheduled for a shortened shift until 3:00 PM." },
+                        { time: "6:46 AM", from: "worker", message: "Si, that's correct. My daughter has a school event this afternoon." },
+                        { time: "6:47 AM", from: "agent", message: "Got it! I'll make sure your timesheet reflects the scheduled hours. Have a good shift!" },
+                        { time: "2:45 PM", from: "agent", message: "Hi Maria, 15 minutes until end of your shift. Everything going okay?" },
+                        { time: "2:48 PM", from: "worker", message: "All good, finishing up my last task now." },
+                        { time: "3:00 PM", from: "agent", message: "Perfect timing! Logging your clock-out at 3:00 PM. Enjoy the school event!" },
+                        { time: "3:02 PM", from: "supervisor", message: "Maria's shortened shift complete as scheduled. Good work today." }
                     ]
                 }
             ],
@@ -3471,13 +3844,24 @@ If you cannot extract meaningful time data, explain why and what format would be
                                         <td class="total-hours">${totalFormatted}</td>
                                         <td><span class="sources-count">${sourceCount}/5</span></td>
                                         <td><span class="confidence-badge ${confidenceClass}">${Math.round(confidence * 100)}%</span></td>
-                                        ${sourceTypes.map(s => `
+                                        ${sourceTypes.map(s => {
+                                            // Make Self-Report into a clickable chat button with count
+                                            if (s.key === 'worker_self_report' && w.chat_log && w.chat_log.length > 0) {
+                                                return `
+                                            <td class="data-source-col">
+                                                <button class="chat-button" onclick="event.stopPropagation(); openChatLog(${idx})" title="View shift record">
+                                                    <span class="chat-button-icon">💬</span>
+                                                    <span class="chat-button-count">${w.chat_log.length}</span>
+                                                </button>
+                                            </td>`;
+                                            }
+                                            return `
                                             <td class="data-source-col">
                                                 <span class="source-tooltip" data-tooltip="${s.label}">
                                                     ${sourcesUsed[s.key] ? `<span class="source-icon-active">${s.icon}</span>` : '<span class="missing-icon">-</span>'}
                                                 </span>
-                                            </td>
-                                        `).join('')}
+                                            </td>`;
+                                        }).join('')}
                                     </tr>
                                     <tr class="expansion-row" id="expansion-${idx}">
                                         <td colspan="${colCount}">
@@ -3508,7 +3892,14 @@ If you cannot extract meaningful time data, explain why and what format would be
                                                     ` : ''}
                                                     ${w.start_location ? `
                                                     <div class="route-wrapper">
-                                                        <div class="payout-header">Location</div>
+                                                        <div class="payout-header location-header">
+                                                            <span class="location-label">Location</span>
+                                                            <svg class="external-link-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                                                <polyline points="15 3 21 3 21 9"></polyline>
+                                                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                                                            </svg>
+                                                        </div>
                                                         <div class="route-section" onclick="openRouteLightbox('${w.worker_name.replace(/'/g, "\\'")}', '${w.start_location.time}', '${w.start_location.address.replace(/'/g, "\\'")}', '${w.end_location.time}', '${w.end_location.address.replace(/'/g, "\\'")}', '${w.distance_km}', '${w.route_duration_min}')">
                                                             <div class="route-timeline">
                                                             <div class="route-point route-start">
@@ -3734,13 +4125,24 @@ If you cannot extract meaningful time data, explain why and what format would be
                 </div>
             ` : '';
 
+            // Store current worker index for chat access
+            lightbox.dataset.workerIdx = idx;
+
             lightbox.innerHTML = `
                 <div class="worker-lightbox-header">
                     <div class="worker-lightbox-title">
                         <div class="worker-lightbox-name">${w.worker_name || 'Unknown'}</div>
                         <div class="worker-lightbox-date">${formatDate(w.date)}</div>
                     </div>
-                    <button class="worker-lightbox-close" onclick="closeWorkerLightbox()">&times;</button>
+                    <div class="worker-lightbox-actions">
+                        ${w.chat_log && w.chat_log.length > 0 ? `
+                        <button class="worker-chat-button" onclick="toggleWorkerChat()">
+                            <span class="chat-button-icon">💬</span>
+                            <span class="chat-button-count">${w.chat_log.length}</span>
+                        </button>
+                        ` : ''}
+                        <button class="worker-lightbox-close" onclick="closeWorkerLightbox()">&times;</button>
+                    </div>
                 </div>
                 <div class="worker-lightbox-body">
                     <div class="worker-lightbox-summary">
@@ -3759,6 +4161,25 @@ If you cannot extract meaningful time data, explain why and what format would be
                     </div>
                     ${rawDataHtml}
                 </div>
+                ${w.chat_log && w.chat_log.length > 0 ? `
+                <div class="worker-chat-overlay" id="workerChatOverlay">
+                    <div class="worker-chat-content">
+                        ${w.chat_log.map(msg => {
+                            const senderName = msg.from === 'agent' ? 'Closeout Agent' :
+                                               msg.from === 'worker' ? w.worker_name.split(' ')[0] :
+                                               msg.from === 'supervisor' ? 'Supervisor' : 'System';
+                            return `
+                            <div class="chat-message ${msg.from}">
+                                <div class="chat-message-bubble">${msg.message}</div>
+                                <div class="chat-message-meta">
+                                    <span class="chat-message-sender">${senderName}</span>
+                                    <span class="chat-message-time">${msg.time}</span>
+                                </div>
+                            </div>
+                        `}).join('')}
+                    </div>
+                </div>
+                ` : ''}
             `;
 
             // Show lightbox
@@ -3784,7 +4205,28 @@ If you cannot extract meaningful time data, explain why and what format would be
         }
 
         function handleWorkerLightboxEscape(e) {
-            if (e.key === 'Escape') closeWorkerLightbox();
+            if (e.key === 'Escape') {
+                const chatOverlay = document.getElementById('workerChatOverlay');
+                if (chatOverlay && chatOverlay.classList.contains('active')) {
+                    toggleWorkerChat();
+                } else {
+                    closeWorkerLightbox();
+                }
+            }
+        }
+
+        // Toggle chat overlay in worker lightbox
+        function toggleWorkerChat() {
+            const lightbox = document.getElementById('workerLightbox');
+            const chatOverlay = document.getElementById('workerChatOverlay');
+            const chatButton = document.querySelector('.worker-chat-button');
+            if (chatOverlay && lightbox) {
+                const isActive = chatOverlay.classList.toggle('active');
+                lightbox.classList.toggle('chat-active', isActive);
+                if (chatButton) {
+                    chatButton.classList.toggle('active', isActive);
+                }
+            }
         }
 
         // Color code notes to highlight important information
@@ -4119,6 +4561,70 @@ If you cannot extract meaningful time data, explain why and what format would be
 
         function handleLightboxEscape(e) {
             if (e.key === 'Escape') closeRouteLightbox();
+        }
+
+        // Chat log lightbox functions
+        function openChatLog(idx) {
+            const w = currentWorkersData[idx];
+            if (!w || !w.chat_log) return;
+
+            // Create lightbox if it doesn't exist
+            let lightbox = document.getElementById('chatLightbox');
+            if (!lightbox) {
+                lightbox = document.createElement('div');
+                lightbox.id = 'chatLightbox';
+                lightbox.className = 'chat-lightbox';
+                lightbox.onclick = (e) => { if (e.target === lightbox) closeChatLog(); };
+                document.body.appendChild(lightbox);
+            }
+
+            // Build chat messages HTML with bubble design
+            const messagesHtml = w.chat_log.map(msg => {
+                const senderName = msg.from === 'agent' ? 'Closeout Agent' :
+                                   msg.from === 'worker' ? w.worker_name.split(' ')[0] :
+                                   msg.from === 'supervisor' ? 'Supervisor' : 'System';
+                return `
+                <div class="chat-message ${msg.from}">
+                    <div class="chat-message-bubble">${msg.message}</div>
+                    <div class="chat-message-meta">
+                        <span class="chat-message-sender">${senderName}</span>
+                        <span class="chat-message-time">${msg.time}</span>
+                    </div>
+                </div>
+            `}).join('');
+
+            lightbox.innerHTML = `
+                <div class="chat-lightbox-content">
+                    <div class="chat-lightbox-header">
+                        <div>
+                            <div class="chat-lightbox-title">Shift Record</div>
+                            <div class="chat-lightbox-worker">${w.worker_name} · ${formatDate(w.date)}</div>
+                        </div>
+                        <button class="chat-lightbox-close" onclick="closeChatLog()">&times;</button>
+                    </div>
+                    <div class="chat-lightbox-body">
+                        ${messagesHtml}
+                    </div>
+                </div>
+            `;
+
+            // Show lightbox
+            requestAnimationFrame(() => lightbox.classList.add('active'));
+
+            // Close on escape
+            document.addEventListener('keydown', handleChatLightboxEscape);
+        }
+
+        function closeChatLog() {
+            const lightbox = document.getElementById('chatLightbox');
+            if (lightbox) {
+                lightbox.classList.remove('active');
+            }
+            document.removeEventListener('keydown', handleChatLightboxEscape);
+        }
+
+        function handleChatLightboxEscape(e) {
+            if (e.key === 'Escape') closeChatLog();
         }
 
         // Initialize demo with pre-populated files
