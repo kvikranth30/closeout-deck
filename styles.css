@@ -384,8 +384,12 @@ body {
         height: auto;
         flex-shrink: 0;
         z-index: 20;
+        margin-top: 1rem;
         margin-bottom: 0.5rem;
         position: relative;
+        /* Ensure crisp SVG rendering */
+        image-rendering: -webkit-optimize-contrast;
+        transform: translateZ(0);
     }
 
     .hero-image-panel {
@@ -420,7 +424,7 @@ body {
     }
 
     .hero-content .subtitle {
-        font-size: 1.25rem;
+        font-size: 1rem;
         margin-bottom: 0.75rem;
     }
 
