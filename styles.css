@@ -346,8 +346,29 @@ body {
     object-position: center;
 }
 
-.hero-video {
+/* Hero sprite switching animation */
+.hero-sprite {
+    position: absolute;
     pointer-events: none;
+}
+
+.hero-sprite--1 {
+    animation: spriteSwitch 1s step-end infinite;
+}
+
+.hero-sprite--2 {
+    animation: spriteSwitch 1s step-end infinite;
+    animation-delay: 0.5s;
+    opacity: 0;
+}
+
+@keyframes spriteSwitch {
+    0%, 50% {
+        opacity: 1;
+    }
+    50.01%, 100% {
+        opacity: 0;
+    }
 }
 
 /* Mobile logo - hidden on desktop */
@@ -403,12 +424,19 @@ body {
         max-width: 360px;
         height: auto;
         flex-shrink: 0;
+        aspect-ratio: 1 / 1;
     }
 
     .hero-image-panel img,
     .hero-image-panel video {
         width: 100%;
-        height: auto;
+        height: 100%;
+    }
+
+    .hero-sprite {
+        position: absolute;
+        top: 0;
+        left: 0;
     }
 
     .hero-content {
