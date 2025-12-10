@@ -308,8 +308,75 @@ body {
    SLIDE 1: TITLE
    ============================================ */
 .slide--title {
+    background: var(--gray-950);
+    padding: 0;
+}
+
+/* Full-height image panel on left */
+.hero-image-panel {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 45%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.hero-image-panel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Fade overlay - fades to black on left and right edges */
+.hero-image-fade {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(to right, var(--gray-950) 0%, transparent 15%, transparent 60%, var(--gray-950) 100%),
+        linear-gradient(to bottom, var(--gray-950) 0%, transparent 10%, transparent 90%, var(--gray-950) 100%);
+    pointer-events: none;
+}
+
+/* Hero content - centered on the right side */
+.hero-content {
+    position: relative;
+    z-index: 2;
+    margin-left: 45%;
+    width: 55%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    background: radial-gradient(ellipse at center, var(--gray-900) 0%, var(--gray-950) 70%);
+    padding: 2rem;
+}
+
+/* Mobile: Image as toned-down background */
+@media (max-width: 900px) {
+    .hero-image-panel {
+        width: 100%;
+        height: 100%;
+    }
+
+    .hero-image-panel img {
+        opacity: 0.3;
+    }
+
+    .hero-image-fade {
+        background:
+            radial-gradient(ellipse at center, transparent 0%, var(--gray-950) 70%),
+            linear-gradient(to bottom, var(--gray-950) 0%, transparent 20%, transparent 80%, var(--gray-950) 100%);
+    }
+
+    .hero-content {
+        margin-left: 0;
+        width: 100%;
+        max-width: 100%;
+    }
 }
 
 /* Sci-Fi Particle Animation */
@@ -318,7 +385,7 @@ body {
     inset: 0;
     overflow: hidden;
     pointer-events: none;
-    z-index: 0;
+    z-index: 2;
 }
 
 /* Floating particles */
@@ -381,47 +448,48 @@ body {
 
 .logo-vertical {
     width: auto;
-    height: 140px;
-    margin-bottom: -0.5rem;
+    height: 100px;
+    margin-bottom: 1.5rem;
 }
 
 .title {
     font-family: var(--font-display);
-    font-size: clamp(2.5rem, 7vw, 5rem);
+    font-size: clamp(2.5rem, 6vw, 4rem);
     font-weight: 700;
     color: var(--gray-100);
-    margin-bottom: 0.5rem;
-    letter-spacing: -0.03em;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
 }
 
 .subtitle {
     font-size: clamp(1rem, 2vw, 1.25rem);
     color: var(--gray-400);
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .tagline-box {
     display: inline-block;
-    padding: 0.75rem 1.5rem;
+    padding: 0.6rem 1.25rem;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--gray-700);
     border-radius: 100px;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
 }
 
 .tagline {
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     font-weight: 600;
     color: var(--green-400);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
 }
 
 .quote {
     font-family: var(--font-display);
-    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-size: clamp(0.95rem, 1.5vw, 1.1rem);
     font-style: italic;
-    color: var(--gray-300);
+    color: var(--gray-400);
 }
 
 .slide__hint {
