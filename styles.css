@@ -271,6 +271,55 @@ body {
     }
 }
 
+/* Title slide only: constrain glow to right half (hero content side) */
+.slide--title::after {
+    left: auto;
+    right: 0;
+    animation: floatGlowTitleRight 20s ease-in-out infinite, breatheGlow 8s ease-in-out infinite;
+}
+
+.slide--title .slide__content::before {
+    left: auto;
+    right: 0;
+    animation: floatGlowTitleRight2 25s ease-in-out infinite, breatheGlow 10s ease-in-out infinite reverse;
+}
+
+@keyframes floatGlowTitleRight {
+    0% {
+        transform: translate(0%, -30%);
+    }
+    25% {
+        transform: translate(-20%, -70%);
+    }
+    50% {
+        transform: translate(-10%, -60%);
+    }
+    75% {
+        transform: translate(0%, -40%);
+    }
+    100% {
+        transform: translate(0%, -30%);
+    }
+}
+
+@keyframes floatGlowTitleRight2 {
+    0% {
+        transform: translate(-10%, -70%);
+    }
+    25% {
+        transform: translate(-30%, -50%);
+    }
+    50% {
+        transform: translate(0%, -30%);
+    }
+    75% {
+        transform: translate(-20%, -60%);
+    }
+    100% {
+        transform: translate(-10%, -70%);
+    }
+}
+
 .slide__content {
     position: relative;
     z-index: 1;
