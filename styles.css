@@ -194,16 +194,81 @@ body {
     z-index: 0;
 }
 
-/* Ambient glow on all slides */
+/* Animated floating glow on all slides */
 .slide::after {
     content: '';
     position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(ellipse 600px 600px at 10% 20%, rgba(34, 197, 94, 0.08), transparent 50%),
-        radial-gradient(ellipse 500px 500px at 90% 80%, rgba(34, 197, 94, 0.06), transparent 50%);
+    width: 800px;
+    height: 800px;
+    top: 50%;
+    left: 50%;
+    background: radial-gradient(ellipse at center, rgba(34, 197, 94, 0.12), rgba(34, 197, 94, 0.04) 40%, transparent 70%);
     pointer-events: none;
     z-index: 0;
+    animation: floatGlow 20s ease-in-out infinite, breatheGlow 8s ease-in-out infinite;
+    filter: blur(40px);
+}
+
+/* Second glow orb for more organic feel */
+.slide .slide__content::before {
+    content: '';
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    top: 50%;
+    left: 50%;
+    background: radial-gradient(ellipse at center, rgba(34, 197, 94, 0.08), rgba(34, 197, 94, 0.02) 40%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    animation: floatGlow2 25s ease-in-out infinite, breatheGlow 10s ease-in-out infinite reverse;
+    filter: blur(60px);
+}
+
+@keyframes floatGlow {
+    0% {
+        transform: translate(-70%, -30%);
+    }
+    25% {
+        transform: translate(-30%, -70%);
+    }
+    50% {
+        transform: translate(-50%, -60%);
+    }
+    75% {
+        transform: translate(-70%, -40%);
+    }
+    100% {
+        transform: translate(-70%, -30%);
+    }
+}
+
+@keyframes floatGlow2 {
+    0% {
+        transform: translate(-30%, -70%);
+    }
+    25% {
+        transform: translate(-60%, -50%);
+    }
+    50% {
+        transform: translate(-70%, -30%);
+    }
+    75% {
+        transform: translate(-40%, -60%);
+    }
+    100% {
+        transform: translate(-30%, -70%);
+    }
+}
+
+@keyframes breatheGlow {
+    0%, 100% {
+        opacity: 0.6;
+        scale: 1;
+    }
+    50% {
+        opacity: 1;
+        scale: 1.15;
+    }
 }
 
 .slide__content {
@@ -225,6 +290,12 @@ body {
         min-height: 100vh;
         min-height: 100dvh;
         height: auto;
+    }
+
+    /* Disable animated glows on mobile - they stack and get too intense */
+    .slide::after,
+    .slide .slide__content::before {
+        display: none;
     }
 }
 
