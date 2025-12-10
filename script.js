@@ -38,20 +38,29 @@
         if (!heroVideo) return;
 
         let playingForward = true;
+        let reverseInterval = null;
 
-        heroVideo.addEventListener('ended', () => {
-            // Video ended playing forward, now play backward
-            playingForward = false;
-            playBackward();
+        // Use timeupdate to detect when video reaches the end (more reliable than 'ended')
+        heroVideo.addEventListener('timeupdate', () => {
+            if (playingForward && heroVideo.duration && heroVideo.currentTime >= heroVideo.duration - 0.1) {
+                // Video reached the end while playing forward, start reverse
+                heroVideo.pause();
+                playingForward = false;
+                playBackward();
+            }
         });
 
         function playBackward() {
+            if (reverseInterval) clearInterval(reverseInterval);
+
             const step = 1 / 30; // ~30fps step
-            const interval = setInterval(() => {
-                if (heroVideo.currentTime <= 0) {
-                    clearInterval(interval);
+            reverseInterval = setInterval(() => {
+                if (heroVideo.currentTime <= 0.05) {
+                    clearInterval(reverseInterval);
+                    reverseInterval = null;
+                    heroVideo.currentTime = 0;
                     playingForward = true;
-                    heroVideo.play();
+                    heroVideo.play().catch(() => {});
                 } else {
                     heroVideo.currentTime = Math.max(0, heroVideo.currentTime - step);
                 }
