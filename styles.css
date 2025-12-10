@@ -338,11 +338,16 @@ body {
     justify-content: center;
 }
 
-.hero-image-panel img {
+.hero-image-panel img,
+.hero-image-panel video {
     width: 90%;
     height: 90%;
     object-fit: contain;
     object-position: center;
+}
+
+.hero-video {
+    pointer-events: none;
 }
 
 /* Mobile logo - hidden on desktop */
@@ -400,7 +405,8 @@ body {
         flex-shrink: 0;
     }
 
-    .hero-image-panel img {
+    .hero-image-panel img,
+    .hero-image-panel video {
         width: 100%;
         height: auto;
     }

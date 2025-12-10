@@ -29,6 +29,42 @@
         bindEvents();
         checkMobile();
         setupLogoFallbacks();
+        setupHeroVideoPingPong();
+    }
+
+    // Setup ping-pong (forward/reverse) playback for hero video
+    function setupHeroVideoPingPong() {
+        const heroVideo = document.querySelector('.hero-video');
+        if (!heroVideo) return;
+
+        let playingForward = true;
+
+        heroVideo.addEventListener('ended', () => {
+            // Video ended playing forward, now play backward
+            playingForward = false;
+            playBackward();
+        });
+
+        function playBackward() {
+            const step = 1 / 30; // ~30fps step
+            const interval = setInterval(() => {
+                if (heroVideo.currentTime <= 0) {
+                    clearInterval(interval);
+                    playingForward = true;
+                    heroVideo.play();
+                } else {
+                    heroVideo.currentTime = Math.max(0, heroVideo.currentTime - step);
+                }
+            }, 1000 / 30);
+        }
+
+        // Ensure video plays on mobile (may need user interaction)
+        heroVideo.play().catch(() => {
+            // Autoplay blocked, try to play on first interaction
+            document.addEventListener('touchstart', () => {
+                heroVideo.play();
+            }, { once: true });
+        });
     }
 
     // Setup fallbacks for logo images that fail to load
