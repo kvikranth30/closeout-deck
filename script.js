@@ -128,6 +128,12 @@
         prevBtn.disabled = currentSlide === 0;
         nextBtn.disabled = currentSlide === totalSlides - 1;
 
+        // Hide nav arrows on first slide (title slide)
+        const navArrows = document.querySelector('.nav-arrows');
+        if (navArrows) {
+            navArrows.classList.toggle('nav-arrows--hidden', currentSlide === 0);
+        }
+
         // Update slides (desktop only)
         if (!isMobile) {
             slides.forEach((slide, index) => {
