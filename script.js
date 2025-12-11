@@ -15,12 +15,14 @@
     const totalSlidesEl = document.getElementById('totalSlides');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
+    const slideNavGroup = document.querySelector('.slide-nav-group');
 
     // State
     let currentSlide = 0;
     const totalSlides = slides.length;
     let isAnimating = false;
     let isMobile = window.innerWidth <= 768;
+    let unfanTimeout = null;
 
     // Initialize
     function init() {
@@ -371,6 +373,26 @@
         // Navigation buttons
         prevBtn.addEventListener('click', prevSlide);
         nextBtn.addEventListener('click', nextSlide);
+
+        // Fan-out delay on mouseleave
+        if (slideNavGroup) {
+            slideNavGroup.addEventListener('mouseenter', () => {
+                // Clear any pending unfan timeout and add fanned class
+                if (unfanTimeout) {
+                    clearTimeout(unfanTimeout);
+                    unfanTimeout = null;
+                }
+                slideNavGroup.classList.add('fanned');
+            });
+
+            slideNavGroup.addEventListener('mouseleave', () => {
+                // Delay unfanning by 2 seconds
+                unfanTimeout = setTimeout(() => {
+                    slideNavGroup.classList.remove('fanned');
+                    unfanTimeout = null;
+                }, 2000);
+            });
+        }
     }
 
     // Start

@@ -2406,32 +2406,44 @@ body {
     opacity: 0;
 }
 
-/* On hover of nav group: hide default, show fan-out */
-.slide-nav-group:hover .slide-counter__default {
+/* On hover of nav group or when fanned class is active: hide default, show fan-out */
+.slide-nav-group:hover .slide-counter__default,
+.slide-nav-group.fanned .slide-counter__default {
     opacity: 0;
     pointer-events: none;
 }
 
-.slide-nav-group:hover .slide-counter__pages {
+.slide-nav-group:hover .slide-counter__pages,
+.slide-nav-group.fanned .slide-counter__pages {
     opacity: 1;
     pointer-events: auto;
 }
 
-.slide-nav-group:hover .slide-counter__page {
+.slide-nav-group:hover .slide-counter__page,
+.slide-nav-group.fanned .slide-counter__page {
     opacity: 1;
     transform: translateX(0);
 }
 
 /* Stagger the animation for fan effect */
-.slide-nav-group:hover .slide-counter__page:nth-child(1) { transition-delay: 0ms; }
-.slide-nav-group:hover .slide-counter__page:nth-child(2) { transition-delay: 20ms; }
-.slide-nav-group:hover .slide-counter__page:nth-child(3) { transition-delay: 40ms; }
-.slide-nav-group:hover .slide-counter__page:nth-child(4) { transition-delay: 60ms; }
-.slide-nav-group:hover .slide-counter__page:nth-child(5) { transition-delay: 80ms; }
-.slide-nav-group:hover .slide-counter__page:nth-child(6) { transition-delay: 100ms; }
-.slide-nav-group:hover .slide-counter__page:nth-child(7) { transition-delay: 120ms; }
-.slide-nav-group:hover .slide-counter__page:nth-child(8) { transition-delay: 140ms; }
-.slide-nav-group:hover .slide-counter__page:nth-child(9) { transition-delay: 160ms; }
+.slide-nav-group:hover .slide-counter__page:nth-child(1),
+.slide-nav-group.fanned .slide-counter__page:nth-child(1) { transition-delay: 0ms; }
+.slide-nav-group:hover .slide-counter__page:nth-child(2),
+.slide-nav-group.fanned .slide-counter__page:nth-child(2) { transition-delay: 20ms; }
+.slide-nav-group:hover .slide-counter__page:nth-child(3),
+.slide-nav-group.fanned .slide-counter__page:nth-child(3) { transition-delay: 40ms; }
+.slide-nav-group:hover .slide-counter__page:nth-child(4),
+.slide-nav-group.fanned .slide-counter__page:nth-child(4) { transition-delay: 60ms; }
+.slide-nav-group:hover .slide-counter__page:nth-child(5),
+.slide-nav-group.fanned .slide-counter__page:nth-child(5) { transition-delay: 80ms; }
+.slide-nav-group:hover .slide-counter__page:nth-child(6),
+.slide-nav-group.fanned .slide-counter__page:nth-child(6) { transition-delay: 100ms; }
+.slide-nav-group:hover .slide-counter__page:nth-child(7),
+.slide-nav-group.fanned .slide-counter__page:nth-child(7) { transition-delay: 120ms; }
+.slide-nav-group:hover .slide-counter__page:nth-child(8),
+.slide-nav-group.fanned .slide-counter__page:nth-child(8) { transition-delay: 140ms; }
+.slide-nav-group:hover .slide-counter__page:nth-child(9),
+.slide-nav-group.fanned .slide-counter__page:nth-child(9) { transition-delay: 160ms; }
 
 /* Individual page hover - hop up and turn green with circle */
 .slide-counter__page:hover,
