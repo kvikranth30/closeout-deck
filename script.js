@@ -10,6 +10,7 @@
     const slides = document.querySelectorAll('.slide');
     const progressBar = document.getElementById('progressBar');
     const slideDots = document.getElementById('slideDots');
+    const slidePages = document.getElementById('slidePages');
     const currentSlideEl = document.getElementById('currentSlide');
     const totalSlidesEl = document.getElementById('totalSlides');
     const prevBtn = document.getElementById('prevBtn');
@@ -23,8 +24,9 @@
 
     // Initialize
     function init() {
-        totalSlidesEl.textContent = totalSlides;
+        if (totalSlidesEl) totalSlidesEl.textContent = totalSlides;
         createDots();
+        createPageNumbers();
         updateUI();
         bindEvents();
         checkMobile();
@@ -109,20 +111,44 @@
         }
     }
 
+    // Create page number buttons for slide counter
+    function createPageNumbers() {
+        if (!slidePages) return;
+
+        // Create buttons in reverse order (9 first, 1 last) for flex-direction: row-reverse
+        for (let i = totalSlides; i >= 1; i--) {
+            const pageBtn = document.createElement('button');
+            pageBtn.classList.add('slide-counter__page');
+            pageBtn.textContent = i;
+            pageBtn.setAttribute('aria-label', `Go to slide ${i}`);
+            pageBtn.addEventListener('click', () => goToSlide(i - 1));
+            slidePages.appendChild(pageBtn);
+        }
+    }
+
     // Update UI elements
     function updateUI() {
         // Update progress bar
         const progress = ((currentSlide + 1) / totalSlides) * 100;
         progressBar.style.width = `${progress}%`;
 
-        // Update slide counter
-        currentSlideEl.textContent = currentSlide + 1;
+        // Update default slide counter text
+        if (currentSlideEl) currentSlideEl.textContent = currentSlide + 1;
 
         // Update dots
         const dots = slideDots.querySelectorAll('.slide-dot');
         dots.forEach((dot, index) => {
             dot.classList.toggle('active', index === currentSlide);
         });
+
+        // Update page numbers in slide counter fan-out
+        if (slidePages) {
+            const pages = slidePages.querySelectorAll('.slide-counter__page');
+            pages.forEach((page) => {
+                const pageNum = parseInt(page.textContent, 10);
+                page.classList.toggle('active', pageNum === currentSlide + 1);
+            });
+        }
 
         // Update nav buttons
         prevBtn.disabled = currentSlide === 0;
