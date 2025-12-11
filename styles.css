@@ -203,19 +203,20 @@ body {
 }
 
 /* Navigation Dots */
-.slide-nav {
+/* Slide Navigation Group - Bottom Right */
+.slide-nav-group {
     position: fixed;
+    bottom: 2rem;
     right: 1.5rem;
-    top: 50%;
-    transform: translateY(-50%);
     z-index: 100;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    align-items: flex-end;
+    gap: 0.75rem;
 }
 
 @media (max-width: 768px) {
-    .slide-nav {
+    .slide-nav-group {
         display: none;
     }
 }
@@ -240,6 +241,11 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    outline: none;
+}
+
+.slide-dot:focus {
+    outline: none;
 }
 
 .slide-dot::after {
@@ -252,8 +258,9 @@ body {
     transition: all 0.3s ease;
 }
 
-.slide-dot:hover::after {
-    border-color: var(--gray-400);
+.slide-dot:hover::after,
+.slide-dot.highlight::after {
+    border-color: var(--green-500);
     transform: scale(1.2);
 }
 
@@ -2355,13 +2362,10 @@ body {
 
 /* Slide Counter - Fan Out Navigation */
 .slide-counter {
-    position: fixed;
-    bottom: 2rem;
-    right: 1.5rem;
-    z-index: 100;
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    position: relative;
 }
 
 /* Default display: "1 / 9" */
@@ -2394,56 +2398,52 @@ body {
     font-weight: 500;
     color: var(--gray-500);
     background: transparent;
-    border: none;
-    border-radius: 4px;
+    border: 1.5px solid transparent;
+    border-radius: 50%;
     cursor: pointer;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), color 0.1s ease, border-color 0.1s ease;
     transform: translateX(20px);
     opacity: 0;
 }
 
-/* On hover: hide default, show fan-out */
-.slide-counter:hover .slide-counter__default {
+/* On hover of nav group: hide default, show fan-out */
+.slide-nav-group:hover .slide-counter__default {
     opacity: 0;
     pointer-events: none;
 }
 
-.slide-counter:hover .slide-counter__pages {
+.slide-nav-group:hover .slide-counter__pages {
     opacity: 1;
     pointer-events: auto;
 }
 
-.slide-counter:hover .slide-counter__page {
+.slide-nav-group:hover .slide-counter__page {
     opacity: 1;
     transform: translateX(0);
 }
 
 /* Stagger the animation for fan effect */
-.slide-counter:hover .slide-counter__page:nth-child(1) { transition-delay: 0ms; }
-.slide-counter:hover .slide-counter__page:nth-child(2) { transition-delay: 20ms; }
-.slide-counter:hover .slide-counter__page:nth-child(3) { transition-delay: 40ms; }
-.slide-counter:hover .slide-counter__page:nth-child(4) { transition-delay: 60ms; }
-.slide-counter:hover .slide-counter__page:nth-child(5) { transition-delay: 80ms; }
-.slide-counter:hover .slide-counter__page:nth-child(6) { transition-delay: 100ms; }
-.slide-counter:hover .slide-counter__page:nth-child(7) { transition-delay: 120ms; }
-.slide-counter:hover .slide-counter__page:nth-child(8) { transition-delay: 140ms; }
-.slide-counter:hover .slide-counter__page:nth-child(9) { transition-delay: 160ms; }
+.slide-nav-group:hover .slide-counter__page:nth-child(1) { transition-delay: 0ms; }
+.slide-nav-group:hover .slide-counter__page:nth-child(2) { transition-delay: 20ms; }
+.slide-nav-group:hover .slide-counter__page:nth-child(3) { transition-delay: 40ms; }
+.slide-nav-group:hover .slide-counter__page:nth-child(4) { transition-delay: 60ms; }
+.slide-nav-group:hover .slide-counter__page:nth-child(5) { transition-delay: 80ms; }
+.slide-nav-group:hover .slide-counter__page:nth-child(6) { transition-delay: 100ms; }
+.slide-nav-group:hover .slide-counter__page:nth-child(7) { transition-delay: 120ms; }
+.slide-nav-group:hover .slide-counter__page:nth-child(8) { transition-delay: 140ms; }
+.slide-nav-group:hover .slide-counter__page:nth-child(9) { transition-delay: 160ms; }
 
-/* Individual page hover - hop up and turn green */
-.slide-counter__page:hover {
+/* Individual page hover - hop up and turn green with circle */
+.slide-counter__page:hover,
+.slide-counter__page.highlight {
     color: var(--green-500);
     transform: translateX(0) translateY(-4px);
+    border-color: var(--green-500);
 }
 
 /* Active page in fan-out is green */
 .slide-counter__page.active {
     color: var(--green-500);
-}
-
-@media (max-width: 768px) {
-    .slide-counter {
-        display: none;
-    }
 }
 
 /* ============================================

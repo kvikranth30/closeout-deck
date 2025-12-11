@@ -106,7 +106,24 @@
             const dot = document.createElement('button');
             dot.classList.add('slide-dot');
             dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+            dot.setAttribute('data-slide', i + 1);
             dot.addEventListener('click', () => goToSlide(i));
+
+            // Link dot hover to page number highlight
+            dot.addEventListener('mouseenter', () => {
+                const pageNum = i + 1;
+                const pages = slidePages?.querySelectorAll('.slide-counter__page');
+                pages?.forEach(page => {
+                    if (parseInt(page.textContent, 10) === pageNum) {
+                        page.classList.add('highlight');
+                    }
+                });
+            });
+            dot.addEventListener('mouseleave', () => {
+                const pages = slidePages?.querySelectorAll('.slide-counter__page');
+                pages?.forEach(page => page.classList.remove('highlight'));
+            });
+
             slideDots.appendChild(dot);
         }
     }
@@ -122,6 +139,19 @@
             pageBtn.textContent = i;
             pageBtn.setAttribute('aria-label', `Go to slide ${i}`);
             pageBtn.addEventListener('click', () => goToSlide(i - 1));
+
+            // Link page number hover to dot highlight
+            pageBtn.addEventListener('mouseenter', () => {
+                const dots = slideDots?.querySelectorAll('.slide-dot');
+                if (dots && dots[i - 1]) {
+                    dots[i - 1].classList.add('highlight');
+                }
+            });
+            pageBtn.addEventListener('mouseleave', () => {
+                const dots = slideDots?.querySelectorAll('.slide-dot');
+                dots?.forEach(dot => dot.classList.remove('highlight'));
+            });
+
             slidePages.appendChild(pageBtn);
         }
     }

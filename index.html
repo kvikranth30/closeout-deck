@@ -133,9 +133,6 @@
         <span>Demo</span>
     </a>
 
-    <nav class="slide-nav">
-        <div class="slide-dots" id="slideDots"></div>
-    </nav>
 
     <main class="deck">
         <!-- Slide 1: Title -->
@@ -801,11 +798,14 @@
         </button>
     </div>
 
-    <div class="slide-counter" id="slideCounter">
-        <div class="slide-counter__default">
-            <span id="currentSlide">1</span> / <span id="totalSlides">9</span>
+    <div class="slide-nav-group" id="slideNavGroup">
+        <div class="slide-dots" id="slideDots"></div>
+        <div class="slide-counter" id="slideCounter">
+            <div class="slide-counter__default">
+                <span id="currentSlide">1</span> / <span id="totalSlides">9</span>
+            </div>
+            <div class="slide-counter__pages" id="slidePages"></div>
         </div>
-        <div class="slide-counter__pages" id="slidePages"></div>
     </div>
 
     <script src="script.js"></script>
