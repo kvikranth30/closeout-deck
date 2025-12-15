@@ -56,6 +56,33 @@ body {
     min-height: 100dvh;
 }
 
+/* Ensure all paragraphs use consistent font styling */
+p {
+    font-family: var(--font-body) !important;
+    font-size: inherit;
+    font-weight: normal;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: 1.6;
+}
+
+/* Fix any paragraphs with unusual classes */
+p[data-cursor-element-id],
+.pro.e p,
+.proe p,
+.pro.e--block p,
+.pro.e--blog p {
+    font-family: var(--font-body) !important;
+    font-size: 1rem !important;
+    font-weight: normal !important;
+    font-style: normal !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+}
+
 /* Mobile: Enable vertical scrolling */
 @media (max-width: 768px) {
     body {
@@ -927,19 +954,56 @@ body {
     display: inline-block;
     font-size: 0.75rem;
     padding: 0.25rem 0.75rem;
-    background: var(--gray-800);
+    background: rgba(248, 113, 113, 0.15);
     border-radius: 100px;
+    color: #f87171;
+}
+
+/* Source card image container */
+.source-card__image {
+    position: relative;
+    width: calc(100% + 3rem);
+    margin: -1.5rem -1.5rem 1rem -1.5rem;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 11px 11px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.source-card__sprite {
+    position: absolute;
+    width: 130%;
+    height: 130%;
+    object-fit: contain;
+}
+
+.source-card__sprite--1 {
+    opacity: 1;
+}
+
+.source-card__sprite--2 {
+    opacity: 0;
+}
+
+/* Updated header with icon inline next to title */
+.source-card__title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.source-card__title-row .source-card__icon {
+    width: 20px;
+    height: 20px;
     color: var(--gray-400);
+    flex-shrink: 0;
 }
 
-.source-card__tag--warn {
-    background: rgba(234, 179, 8, 0.15);
-    color: #fbbf24;
-}
-
-.source-card__tag--highlight {
-    background: var(--green-glow);
-    color: var(--green-400);
+.source-card__title-row .source-card__title {
+    margin-bottom: 0;
 }
 
 .slide__footer {
