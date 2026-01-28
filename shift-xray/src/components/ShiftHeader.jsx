@@ -200,7 +200,7 @@ export default function ShiftHeader({ engagement }) {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-medium text-white">Contest Adjustment</h3>
+              <h3 className="text-lg font-medium text-white">Adjustment</h3>
               <button
                 onClick={() => setEditModalOpen(false)}
                 className="text-zinc-500 hover:text-white transition-colors"
@@ -224,11 +224,11 @@ export default function ShiftHeader({ engagement }) {
             </div>
 
             <div className="mb-4">
-              <label className="text-zinc-500 text-xs mb-1 block">Your Contest Reason</label>
+              <label className="text-zinc-500 text-xs mb-1 block">Notes</label>
               <textarea
                 value={contestReason}
                 onChange={(e) => setContestReason(e.target.value)}
-                placeholder="Explain why you disagree with this adjustment..."
+                placeholder="Enter your adjustment notes..."
                 className="w-full bg-zinc-800 border border-zinc-700 rounded p-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-zinc-500 resize-none"
                 rows={4}
               />
@@ -246,7 +246,7 @@ export default function ShiftHeader({ engagement }) {
                 disabled={!contestReason.trim()}
                 className="flex-1 px-4 py-2 bg-green-600 hover:bg-green-500 disabled:bg-zinc-700 disabled:text-zinc-500 text-white text-sm font-medium rounded transition-colors"
               >
-                Submit Contest
+                Submit
               </button>
             </div>
           </div>
