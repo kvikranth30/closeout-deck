@@ -18,7 +18,8 @@ export default function TimelineGrid({
   timeSortAsc = true,
   onToggleTimeSort,
   hideEmptyRows = false,
-  mobileMode = false
+  mobileMode = false,
+  headerContent = null
 }) {
   const gig = engagement.gig;
   const stateHistory = engagement.state_history || [];
@@ -227,24 +228,32 @@ export default function TimelineGrid({
   const otherColumns = columns.filter(c => c.id !== 'time');
 
   if (mobileMode) {
-    // Mobile layout with sticky time column
+    // Mobile layout: horizontal scroll for whole table, sticky column headers and time column
     return (
-      <div className="h-full flex flex-col overflow-hidden">
-        {/* Headers row */}
-        <div className="shrink-0 bg-zinc-900/80 border-b border-zinc-700 backdrop-blur flex">
-          {/* Sticky time header */}
-          <div
-            onClick={() => handleHeaderClick(timeColumn)}
-            className="sticky left-0 z-10 bg-zinc-900 px-3 py-2 text-xs font-medium text-zinc-400 border-r border-zinc-800 cursor-pointer hover:text-zinc-200"
-            style={{ width: timeColumn.width, minWidth: timeColumn.minWidth }}
-          >
-            {timeColumn.label}
-            <span className="ml-1 text-green-500">
-              {timeSortAsc ? '↓' : '↑'}
-            </span>
+      <div className="h-full overflow-auto">
+        {/* Header content that scrolls away */}
+        {headerContent && (
+          <div className="p-4 border-b border-zinc-800">
+            {headerContent}
           </div>
-          {/* Scrollable headers */}
-          <div className="flex overflow-x-auto">
+        )}
+
+        {/* Table with sticky header row and sticky time column */}
+        <div className="relative">
+          {/* Sticky column headers */}
+          <div className="sticky top-0 z-20 bg-zinc-900 border-b border-zinc-700 flex">
+            {/* Time column header - also sticky left */}
+            <div
+              onClick={() => handleHeaderClick(timeColumn)}
+              className="sticky left-0 z-30 bg-zinc-900 px-3 py-2 text-xs font-medium text-zinc-400 border-r border-zinc-800 cursor-pointer shrink-0"
+              style={{ width: timeColumn.width, minWidth: timeColumn.minWidth }}
+            >
+              {timeColumn.label}
+              <span className="ml-1 text-green-500">
+                {timeSortAsc ? '↓' : '↑'}
+              </span>
+            </div>
+            {/* Other column headers */}
             {otherColumns.map((column) => (
               <div
                 key={column.id}
@@ -257,10 +266,8 @@ export default function TimelineGrid({
               </div>
             ))}
           </div>
-        </div>
 
-        {/* Scrollable rows */}
-        <div className="flex-1 overflow-y-auto">
+          {/* Data rows */}
           {visibleRows.map((row, i) => (
             <div
               key={i}
@@ -268,25 +275,23 @@ export default function TimelineGrid({
                 row.isSystemTransition ? 'bg-zinc-800/20' : ''
               }`}
             >
-              {/* Sticky time cell */}
+              {/* Time cell - sticky left */}
               <div
                 className="sticky left-0 z-10 bg-black px-3 py-1.5 border-r border-zinc-800/50 shrink-0"
                 style={{ width: timeColumn.width, minWidth: timeColumn.minWidth }}
               >
                 {renderCell(row, timeColumn)}
               </div>
-              {/* Scrollable cells */}
-              <div className="flex overflow-x-auto">
-                {otherColumns.map((column) => (
-                  <div
-                    key={column.id}
-                    className="px-3 py-1.5 border-r border-zinc-800/50 shrink-0"
-                    style={{ width: column.width, minWidth: column.minWidth }}
-                  >
-                    {renderCell(row, column)}
-                  </div>
-                ))}
-              </div>
+              {/* Other cells */}
+              {otherColumns.map((column) => (
+                <div
+                  key={column.id}
+                  className="px-3 py-1.5 border-r border-zinc-800/50 shrink-0"
+                  style={{ width: column.width, minWidth: column.minWidth }}
+                >
+                  {renderCell(row, column)}
+                </div>
+              ))}
             </div>
           ))}
         </div>

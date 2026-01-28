@@ -123,39 +123,19 @@ export default function App() {
 
       {/* Mobile Modal */}
       {mobileModalOpen && (
-        <div className="fixed inset-0 z-50 md:hidden bg-black flex flex-col">
-          {/* Modal header */}
-          <div className="shrink-0 border-b border-zinc-800 p-4">
-            <div className="flex items-center justify-between mb-3">
-              <button
-                onClick={() => setMobileModalOpen(false)}
-                className="text-zinc-400 hover:text-white flex items-center gap-2"
-              >
-                <span>←</span>
-                <span>Back</span>
-              </button>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => setCurrentIndex(i => i > 0 ? i - 1 : engagements.length - 1)}
-                  className="px-2 py-1 bg-zinc-900 rounded text-xs"
-                >
-                  ◀
-                </button>
-                <span className="text-zinc-500 text-xs">
-                  {currentIndex + 1}/{engagements.length}
-                </span>
-                <button
-                  onClick={() => setCurrentIndex(i => i < engagements.length - 1 ? i + 1 : 0)}
-                  className="px-2 py-1 bg-zinc-900 rounded text-xs"
-                >
-                  ▶
-                </button>
-              </div>
-            </div>
-            <ShiftHeader engagement={engagement} />
+        <div className="fixed inset-0 z-50 md:hidden bg-black flex flex-col overflow-hidden">
+          {/* Fixed nav bar */}
+          <div className="shrink-0 border-b border-zinc-800 p-3">
+            <button
+              onClick={() => setMobileModalOpen(false)}
+              className="text-zinc-400 hover:text-white flex items-center gap-2"
+            >
+              <span>←</span>
+              <span>Back</span>
+            </button>
           </div>
 
-          {/* Timeline with horizontal scroll, time column sticky */}
+          {/* Scrollable content with sticky column headers */}
           <div className="flex-1 overflow-hidden">
             <TimelineGrid
               engagement={engagement}
@@ -166,12 +146,8 @@ export default function App() {
               onToggleTimeSort={handleToggleTimeSort}
               hideEmptyRows
               mobileMode
+              headerContent={<ShiftHeader engagement={engagement} />}
             />
-          </div>
-
-          {/* Footer */}
-          <div className="px-4 py-2 border-t border-zinc-900 text-zinc-700 text-xs shrink-0">
-            {engagement.scenario_type?.replace(/_/g, ' ')}
           </div>
         </div>
       )}
