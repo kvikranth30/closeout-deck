@@ -10,7 +10,7 @@ export default function MessageCell({ messages }) {
         return (
           <div key={msg.message_id || i} className="text-xs">
             <span className={`font-medium ${isWorker ? 'text-purple-400' : 'text-amber-400'}`}>
-              {isWorker ? 'Worker:' : 'Business:'}
+              {isWorker ? 'Worker:' : 'Agent:'}
             </span>{' '}
             <span className="text-zinc-300">{msg.content}</span>
           </div>

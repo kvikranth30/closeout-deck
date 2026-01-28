@@ -9,7 +9,7 @@ const DEFAULT_COLUMNS = [
   { id: 'systemState', label: 'SYSTEM', width: 130, minWidth: 110 },
   { id: 'workerState', label: 'WORKER', width: 130, minWidth: 110 },
   { id: 'requesterState', label: 'REQUESTER', width: 130, minWidth: 110 },
-  { id: 'location', label: 'LOCATION', width: 140, minWidth: 120 },
+  { id: 'location', label: 'LOCATION', width: 160, minWidth: 160 },
   { id: 'messages', label: 'MESSAGES', width: 350, minWidth: 150 },
 ];
 
@@ -71,8 +71,8 @@ export default function App() {
       <div className="w-full md:w-72 border-r border-zinc-800 flex flex-col shrink-0 overflow-hidden">
         <div className="p-4 border-b border-zinc-800">
           <div className="flex items-center gap-2">
-            <span className="text-green-500 font-bold text-lg tracking-tight">SHIFT</span>
-            <span className="text-zinc-500 font-bold text-lg tracking-tight">X-RAY</span>
+            <span className="text-green-500 font-bold text-lg tracking-tight">CLOSEOUT</span>
+            <span className="text-zinc-500 font-bold text-lg tracking-tight">COPILOT</span>
           </div>
           <div className="text-zinc-600 text-xs mt-1">
             {engagements.length} engagements

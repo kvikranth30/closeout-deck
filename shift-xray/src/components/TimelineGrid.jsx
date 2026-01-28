@@ -241,8 +241,8 @@ export default function TimelineGrid({
         {/* Table with horizontal scroll */}
         <div className="overflow-x-auto">
           <div className="min-w-max">
-            {/* Sticky column headers - only thing that pins */}
-            <div className="sticky top-0 z-20 bg-zinc-900 border-b border-zinc-700 flex">
+            {/* Column headers - scroll with content on mobile */}
+            <div className="bg-zinc-900 border-b border-zinc-700 flex">
               {/* Time column header - sticky left */}
               <div
                 onClick={() => handleHeaderClick(timeColumn)}

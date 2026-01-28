@@ -49,6 +49,9 @@
         "clock_in": "2026-01-15T06:02:00",
         "clock_out": "2026-01-15T16:45:00",
         "break_minutes": 30,
+        "breaks": [
+          { "break_start": "2026-01-15T12:00:00", "break_end": "2026-01-15T12:30:00" }
+        ],
         "submitted_at": "2026-01-15T17:00:00",
         "submitted_by": "W-4521",
         "notes": "Supervisor asked me to stay for second truck"
@@ -89,13 +92,13 @@
       },
       {
         "message_id": "M-002",
-        "sender_type": "business",
+        "sender_type": "agent",
         "timestamp": "2026-01-15T14:15:00",
         "content": "Let me check with Dan. One moment."
       },
       {
         "message_id": "M-003",
-        "sender_type": "business",
+        "sender_type": "agent",
         "timestamp": "2026-01-15T14:28:00",
         "content": "Yes, please stay. We'll extend your shift. Thanks for flexibility!"
       },
@@ -119,7 +122,7 @@
       },
       {
         "message_id": "M-007",
-        "sender_type": "business",
+        "sender_type": "agent",
         "timestamp": "2026-01-16T14:30:00",
         "content": "We only approved the original 6am-2pm shift. The overtime wasn't pre-authorized."
       },
@@ -135,6 +138,14 @@
       "reason": "Worker claims 2.7 hours overtime, business disputes authorization",
       "recommended_clock_out": "2026-01-15T16:45:00",
       "outcome": "pending_review"
+    },
+    "payout": {
+      "hourly_rate": 22.00,
+      "claimed_hours": 10.2,
+      "claimed_total": 224.40,
+      "recommended_hours": 10.2,
+      "recommended_total": 224.40,
+      "adjustment_reason": "GPS confirms worker on-site until 4:45pm. Manager message authorizes overtime."
     }
   },
   {
@@ -180,13 +191,13 @@
     "messages": [
       {
         "message_id": "M-010",
-        "sender_type": "business",
+        "sender_type": "agent",
         "timestamp": "2026-01-18T07:15:00",
         "content": "Hi Destiny, the team is here setting up. Are you on your way?"
       },
       {
         "message_id": "M-011",
-        "sender_type": "business",
+        "sender_type": "agent",
         "timestamp": "2026-01-18T07:35:00",
         "content": "We're starting without you. Please let us know your ETA."
       },
@@ -198,7 +209,7 @@
       },
       {
         "message_id": "M-013",
-        "sender_type": "business",
+        "sender_type": "agent",
         "timestamp": "2026-01-18T09:00:00",
         "content": "Unfortunately we've already filled your spot. This will be marked as a no-show. Please communicate earlier next time."
       },
@@ -213,6 +224,14 @@
       "needs_reconciliation": false,
       "reason": "No-show confirmed by GPS - worker never left home location",
       "outcome": "no_show_confirmed"
+    },
+    "payout": {
+      "hourly_rate": 18.00,
+      "claimed_hours": 0,
+      "claimed_total": 0,
+      "recommended_hours": 0,
+      "recommended_total": 0,
+      "adjustment_reason": "No-show confirmed. GPS shows worker remained at home address."
     }
   },
   {
@@ -265,6 +284,9 @@
         "clock_in": "2026-01-16T22:00:00",
         "clock_out": "2026-01-17T03:30:00",
         "break_minutes": 15,
+        "breaks": [
+          { "break_start": "2026-01-17T01:00:00", "break_end": "2026-01-17T01:15:00" }
+        ],
         "submitted_at": "2026-01-17T03:40:00",
         "submitted_by": "W-3321",
         "notes": "Had to leave early - family emergency"
@@ -300,13 +322,13 @@
       },
       {
         "message_id": "M-021",
-        "sender_type": "business",
+        "sender_type": "agent",
         "timestamp": "2026-01-17T02:52:00",
         "content": "Sorry to hear that. Let me check with the night supervisor."
       },
       {
         "message_id": "M-022",
-        "sender_type": "business",
+        "sender_type": "agent",
         "timestamp": "2026-01-17T03:05:00",
         "content": "Mike says you can leave at 3:30. We'll prorate your pay for hours worked. Hope your daughter feels better!"
       },
@@ -321,6 +343,14 @@
       "needs_reconciliation": false,
       "reason": "Early departure approved by supervisor, all parties agree",
       "outcome": "auto_approved"
+    },
+    "payout": {
+      "hourly_rate": 24.00,
+      "claimed_hours": 5.0,
+      "claimed_total": 120.00,
+      "recommended_hours": 5.0,
+      "recommended_total": 120.00,
+      "adjustment_reason": "Early departure approved. GPS confirms 5 hours on-site before departure."
     }
   },
   {
@@ -373,6 +403,9 @@
         "clock_in": "2026-01-19T04:05:00",
         "clock_out": "2026-01-19T12:15:00",
         "break_minutes": 30,
+        "breaks": [
+          { "break_start": "2026-01-19T08:00:00", "break_end": "2026-01-19T08:30:00" }
+        ],
         "submitted_at": "2026-01-19T12:30:00",
         "submitted_by": "W-6654",
         "notes": null
@@ -405,7 +438,7 @@
     "messages": [
       {
         "message_id": "M-030",
-        "sender_type": "business",
+        "sender_type": "agent",
         "timestamp": "2026-01-19T07:50:00",
         "content": "Hi Aaliyah, our system shows you left the facility at 7:45am. Is everything okay?"
       },
@@ -417,7 +450,7 @@
       },
       {
         "message_id": "M-032",
-        "sender_type": "business",
+        "sender_type": "agent",
         "timestamp": "2026-01-19T08:00:00",
         "content": "Ah got it, thanks for letting us know. Our system flagged it as unusual."
       },
@@ -432,6 +465,14 @@
       "needs_reconciliation": false,
       "reason": "Off-site trip verified as work-related errand",
       "outcome": "auto_approved"
+    },
+    "payout": {
+      "hourly_rate": 19.50,
+      "claimed_hours": 8.0,
+      "claimed_total": 156.00,
+      "recommended_hours": 8.0,
+      "recommended_total": 156.00,
+      "adjustment_reason": "Full shift approved. Off-site trip to hardware store confirmed as work errand by supervisor."
     }
   },
   {
@@ -522,7 +563,7 @@
       },
       {
         "message_id": "M-041",
-        "sender_type": "business",
+        "sender_type": "agent",
         "timestamp": "2026-01-20T16:12:00",
         "content": "Thanks for letting us know. What's your ETA?"
       },
@@ -534,7 +575,7 @@
       },
       {
         "message_id": "M-043",
-        "sender_type": "business",
+        "sender_type": "agent",
         "timestamp": "2026-01-20T16:25:00",
         "content": "Understood. Please get here safely. Your pay will start when you clock in."
       },
@@ -550,6 +591,14 @@
       "reason": "Worker claims full shift, business says pay from actual arrival (1 hour late)",
       "recommended_clock_in": "2026-01-20T17:00:00",
       "outcome": "pending_review"
+    },
+    "payout": {
+      "hourly_rate": 21.00,
+      "claimed_hours": 8.0,
+      "claimed_total": 168.00,
+      "recommended_hours": 7.0,
+      "recommended_total": 147.00,
+      "adjustment_reason": "GPS shows arrival at 5:00pm (1hr late). Recommend paying from actual arrival time."
     }
   },
   {
@@ -602,6 +651,10 @@
         "clock_in": "2026-01-21T07:58:00",
         "clock_out": "2026-01-21T17:05:00",
         "break_minutes": 60,
+        "breaks": [
+          { "break_start": "2026-01-21T10:00:00", "break_end": "2026-01-21T10:15:00" },
+          { "break_start": "2026-01-21T12:00:00", "break_end": "2026-01-21T12:45:00" }
+        ],
         "submitted_at": "2026-01-21T17:15:00",
         "submitted_by": "W-2234",
         "notes": null
@@ -632,7 +685,7 @@
     "messages": [
       {
         "message_id": "M-050",
-        "sender_type": "business",
+        "sender_type": "agent",
         "timestamp": "2026-01-21T17:30:00",
         "content": "Sofia, you did a fantastic job today! The client specifically mentioned how professional and welcoming you were. We'd love to have you back!"
       },
@@ -647,6 +700,14 @@
       "needs_reconciliation": false,
       "reason": "All timesheets match perfectly",
       "outcome": "auto_approved"
+    },
+    "payout": {
+      "hourly_rate": 20.00,
+      "claimed_hours": 8.0,
+      "claimed_total": 160.00,
+      "recommended_hours": 8.0,
+      "recommended_total": 160.00,
+      "adjustment_reason": "Perfect shift. All sources agree - auto-approved."
     }
   },
   {
@@ -699,6 +760,9 @@
         "clock_in": "2026-01-17T05:00:00",
         "clock_out": "2026-01-17T13:10:00",
         "break_minutes": 15,
+        "breaks": [
+          { "break_start": "2026-01-17T09:00:00", "break_end": "2026-01-17T09:16:00" }
+        ],
         "submitted_at": "2026-01-17T13:20:00",
         "submitted_by": "W-4478",
         "notes": "Only took 15 min break, was told to get back early"
@@ -735,7 +799,7 @@
       },
       {
         "message_id": "M-061",
-        "sender_type": "business",
+        "sender_type": "agent",
         "timestamp": "2026-01-17T09:10:00",
         "content": "You're entitled to your full break. Let me call the store."
       },
@@ -753,7 +817,7 @@
       },
       {
         "message_id": "M-064",
-        "sender_type": "business",
+        "sender_type": "agent",
         "timestamp": "2026-01-17T15:30:00",
         "content": "We've reviewed the location data and confirmed you returned to work at 9:16am. We'll adjust your break to 15 minutes. Sorry for the confusion."
       }
@@ -763,6 +827,14 @@
       "reason": "Break duration disputed - GPS shows 16 min break, business claims 30 min",
       "recommended_break_minutes": 16,
       "outcome": "adjusted"
+    },
+    "payout": {
+      "hourly_rate": 17.50,
+      "claimed_hours": 7.75,
+      "claimed_total": 135.63,
+      "recommended_hours": 8.0,
+      "recommended_total": 140.00,
+      "adjustment_reason": "GPS shows 16 min break, not 30 min. +14 min credited to worker."
     }
   },
   {
@@ -815,6 +887,9 @@
         "clock_in": "2026-01-22T18:00:00",
         "clock_out": "2026-01-23T02:30:00",
         "break_minutes": 30,
+        "breaks": [
+          { "break_start": "2026-01-22T21:30:00", "break_end": "2026-01-22T22:00:00" }
+        ],
         "submitted_at": "2026-01-23T02:45:00",
         "submitted_by": "W-5567",
         "notes": null
@@ -846,7 +921,7 @@
     "messages": [
       {
         "message_id": "M-070",
-        "sender_type": "business",
+        "sender_type": "agent",
         "timestamp": "2026-01-22T22:30:00",
         "content": "How's it going? On track to finish by 2am?"
       },
@@ -858,7 +933,7 @@
       },
       {
         "message_id": "M-072",
-        "sender_type": "business",
+        "sender_type": "agent",
         "timestamp": "2026-01-22T22:40:00",
         "content": "No problem, take the time you need. Quality matters more. We'll adjust the timesheet accordingly."
       },
@@ -873,6 +948,14 @@
       "needs_reconciliation": false,
       "reason": "Overnight shift completed as agreed with authorized extension",
       "outcome": "auto_approved"
+    },
+    "payout": {
+      "hourly_rate": 25.00,
+      "claimed_hours": 10.5,
+      "claimed_total": 262.50,
+      "recommended_hours": 10.5,
+      "recommended_total": 262.50,
+      "adjustment_reason": "Overnight event shift. Extended hours approved by client. All sources agree."
     }
   },
   {
@@ -925,6 +1008,9 @@
         "clock_in": "2026-01-23T05:55:00",
         "clock_out": "2026-01-23T14:20:00",
         "break_minutes": 30,
+        "breaks": [
+          { "break_start": "2026-01-23T10:00:00", "break_end": "2026-01-23T10:30:00" }
+        ],
         "submitted_at": "2026-01-23T14:30:00",
         "submitted_by": "W-7789",
         "notes": "I was on time but at wrong building, had to relocate"
@@ -964,7 +1050,7 @@
       },
       {
         "message_id": "M-081",
-        "sender_type": "business",
+        "sender_type": "agent",
         "timestamp": "2026-01-23T06:02:00",
         "content": "Are you at Unit 12? We're in the back building, not the front offices. Did you see the loading dock?"
       },
@@ -976,7 +1062,7 @@
       },
       {
         "message_id": "M-083",
-        "sender_type": "business",
+        "sender_type": "agent",
         "timestamp": "2026-01-23T06:08:00",
         "content": "Ah, that's a common mistake. We're about half a mile east. Look for the big Central Kitchen sign."
       },
@@ -988,7 +1074,7 @@
       },
       {
         "message_id": "M-085",
-        "sender_type": "business",
+        "sender_type": "agent",
         "timestamp": "2026-01-23T06:30:00",
         "content": "No worries, happens all the time with these similar street names. See you inside!"
       }
@@ -998,6 +1084,14 @@
       "reason": "35 min delay due to wrong location - address confusion (Drive vs Way)",
       "recommended_clock_in": "2026-01-23T06:35:00",
       "outcome": "pending_review"
+    },
+    "payout": {
+      "hourly_rate": 18.00,
+      "claimed_hours": 8.0,
+      "claimed_total": 144.00,
+      "recommended_hours": 7.4,
+      "recommended_total": 133.20,
+      "adjustment_reason": "35 min late due to address confusion. Recommend paying from actual arrival at correct location."
     }
   },
   {
@@ -1086,7 +1180,7 @@
       },
       {
         "message_id": "M-091",
-        "sender_type": "business",
+        "sender_type": "agent",
         "timestamp": "2026-01-24T10:52:00",
         "content": "Stop working immediately. Are you okay? Do you need medical attention?"
       },
@@ -1098,7 +1192,7 @@
       },
       {
         "message_id": "M-093",
-        "sender_type": "business",
+        "sender_type": "agent",
         "timestamp": "2026-01-24T11:00:00",
         "content": "Site supervisor is coming to you now. We'll need to fill out an incident report. Please don't try to keep working."
       },
@@ -1110,7 +1204,7 @@
       },
       {
         "message_id": "M-095",
-        "sender_type": "business",
+        "sender_type": "agent",
         "timestamp": "2026-01-24T11:25:00",
         "content": "Sounds good. You'll be paid for your full scheduled shift today. Please rest and let us know how you're feeling tomorrow."
       },
@@ -1125,6 +1219,14 @@
       "needs_reconciliation": false,
       "reason": "Early departure due to workplace injury - full shift pay approved per policy",
       "outcome": "auto_approved"
+    },
+    "payout": {
+      "hourly_rate": 22.50,
+      "claimed_hours": 3.5,
+      "claimed_total": 78.75,
+      "recommended_hours": 8.0,
+      "recommended_total": 180.00,
+      "adjustment_reason": "Workplace injury - full shift pay per policy. Incident report filed."
     }
   }
 ]
