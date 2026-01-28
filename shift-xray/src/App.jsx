@@ -63,12 +63,12 @@ export default function App() {
 
   return (
     <div
-      className="h-screen bg-black text-white flex"
+      className="h-screen bg-black text-white flex overflow-hidden"
       tabIndex={0}
       onKeyDown={handleKeyDown}
     >
       {/* Sidebar - full width on mobile, fixed width on desktop */}
-      <div className="w-full md:w-72 border-r border-zinc-800 flex flex-col shrink-0 md:block">
+      <div className="w-full md:w-72 border-r border-zinc-800 flex flex-col shrink-0 overflow-hidden">
         <div className="p-4 border-b border-zinc-800">
           <div className="flex items-center gap-2">
             <span className="text-green-500 font-bold text-lg tracking-tight">SHIFT</span>
