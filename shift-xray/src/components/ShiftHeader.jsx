@@ -103,18 +103,17 @@ export default function ShiftHeader({ engagement }) {
               </div>
               {/* Adjustment */}
               <div className="bg-zinc-900 rounded-lg px-3 py-2 max-w-[240px]">
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-zinc-500 text-xs">Adjustment</span>
-                  <button className="text-zinc-500 hover:text-zinc-300 transition-colors">
-                    <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                    </svg>
-                  </button>
-                </div>
+                <div className="text-zinc-500 text-xs mb-1">Adjustment</div>
                 <div className={`text-lg ${adjustment.class}`}>{adjustment.text}</div>
-                <div className="text-zinc-600 text-xs leading-snug">
+                <div className="text-zinc-600 text-xs leading-snug mb-2">
                   {payout.adjustment_reason}
                 </div>
+                <button className="w-full px-3 py-1 bg-zinc-700 hover:bg-zinc-600 text-zinc-200 text-xs font-medium rounded transition-colors flex items-center justify-center gap-1">
+                  <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                  </svg>
+                  Edit
+                </button>
               </div>
               {/* Final */}
               <div className="bg-zinc-900 rounded-lg px-3 py-2 border border-green-700/50">
@@ -149,21 +148,22 @@ export default function ShiftHeader({ engagement }) {
             </div>
             {/* Adjustment */}
             <div className="bg-zinc-900 rounded-lg px-3 py-2 w-full">
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-zinc-500 text-xs">Adjustment</span>
-                <button className="text-zinc-500 hover:text-zinc-300 transition-colors">
-                  <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                  </svg>
-                </button>
-              </div>
+              <div className="text-zinc-500 text-xs mb-1">Adjustment</div>
               <div className={`text-lg ${adjustment.class}`}>{adjustment.text}</div>
               <div className="text-zinc-600 text-xs leading-snug mb-2">
                 {payout.adjustment_reason}
               </div>
-              <button className="w-full px-3 py-1.5 bg-green-600 hover:bg-green-500 text-white text-xs font-medium rounded transition-colors">
-                Approve
-              </button>
+              <div className="flex gap-2">
+                <button className="flex-1 px-3 py-1.5 bg-zinc-700 hover:bg-zinc-600 text-zinc-200 text-xs font-medium rounded transition-colors flex items-center justify-center gap-1">
+                  <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                  </svg>
+                  Edit
+                </button>
+                <button className="flex-1 px-3 py-1.5 bg-green-600 hover:bg-green-500 text-white text-xs font-medium rounded transition-colors">
+                  Approve
+                </button>
+              </div>
             </div>
           </div>
         </div>
