@@ -2,7 +2,6 @@ import { formatDateTime } from '../utils/timeUtils';
 
 export default function ShiftCard({ engagement, isSelected, onClick }) {
   const gig = engagement.gig;
-  const confidence = engagement.reconciliation?.confidence_score;
   const hasMessages = engagement.messages?.length > 0;
 
   return (
@@ -19,16 +18,9 @@ export default function ShiftCard({ engagement, isSelected, onClick }) {
         <span className="text-zinc-500 text-xs font-mono truncate">
           {engagement.engagement_id}
         </span>
-        <div className="flex items-center gap-1.5">
-          {hasMessages && (
-            <span className="text-purple-400 text-xs">💬</span>
-          )}
-          {confidence !== undefined && (
-            <span className={`text-xs font-medium ${getConfidenceColor(confidence)}`}>
-              {confidence}%
-            </span>
-          )}
-        </div>
+        {hasMessages && (
+          <span className="text-purple-400 text-xs">💬</span>
+        )}
       </div>
 
       {/* Business name */}
@@ -66,10 +58,4 @@ function getScenarioColor(scenario) {
 function formatScenario(scenario) {
   if (!scenario) return 'UNKNOWN';
   return scenario.replace(/_/g, ' ').toUpperCase();
-}
-
-function getConfidenceColor(score) {
-  if (score >= 90) return 'text-green-400';
-  if (score >= 70) return 'text-yellow-400';
-  return 'text-red-400';
 }

@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState, useRef } from 'react';
 import StateCell from './StateCell';
 import LocationCell from './LocationCell';
 import MessageCell from './MessageCell';
@@ -10,17 +10,35 @@ import {
 } from '../utils/timeUtils';
 import { getLocationAtTime, getDistanceFromSite, getMessagesAtTime } from '../utils/geoUtils';
 
-export default function TimelineGrid({ engagement, hideEmptyRows = false }) {
+export default function TimelineGrid({
+  engagement,
+  columns,
+  onColumnResize,
+  onColumnReorder,
+  timeSortAsc = true,
+  onToggleTimeSort,
+  hideEmptyRows = false
+}) {
   const gig = engagement.gig;
   const stateHistory = engagement.state_history || [];
   const locationEvents = engagement.location_events || [];
   const messages = engagement.messages || [];
 
-  // Get timesheet states (worker and requester if present)
   const workerTimesheet = engagement.timesheets?.find(t => t.type === 'worker');
   const requesterTimesheet = engagement.timesheets?.find(t => t.type === 'requester');
 
-  // Determine time range - use earliest/latest of scheduled and actual events
+  const [draggedColumn, setDraggedColumn] = useState(null);
+  const [resizing, setResizing] = useState(null);
+  const resizeStartX = useRef(0);
+  const resizeStartWidth = useRef(0);
+
+  // Get the base date (first day) for day offset calculations
+  const baseDate = useMemo(() => {
+    const start = new Date(gig.scheduled_start);
+    return new Date(start.getFullYear(), start.getMonth(), start.getDate());
+  }, [gig.scheduled_start]);
+
+  // Determine time range
   const timeRange = useMemo(() => {
     const times = [
       new Date(gig.scheduled_start),
@@ -33,7 +51,6 @@ export default function TimelineGrid({ engagement, hideEmptyRows = false }) {
     const earliest = new Date(Math.min(...times));
     const latest = new Date(Math.max(...times));
 
-    // Round to nearest 5 minutes
     earliest.setMinutes(Math.floor(earliest.getMinutes() / 5) * 5);
     earliest.setSeconds(0);
     latest.setMinutes(Math.ceil(latest.getMinutes() / 5) * 5);
@@ -47,23 +64,27 @@ export default function TimelineGrid({ engagement, hideEmptyRows = false }) {
     [timeRange]
   );
 
-  // Build row data for each time slot
+  // Calculate day offset from base date
+  const getDayOffset = (date) => {
+    const d = new Date(date);
+    const dayStart = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    const diffDays = Math.floor((dayStart - baseDate) / (1000 * 60 * 60 * 24));
+    return diffDays;
+  };
+
+  // Build row data
   const rows = useMemo(() => {
-    return timeSlots.map((slotTime, index) => {
-      // System state
+    return timeSlots.map((slotTime) => {
       const systemState = getStateAtTime(stateHistory, slotTime);
       const isSystemTransition = isStateTransitionSlot(stateHistory, slotTime);
 
-      // Location
       const locationEvent = getLocationAtTime(locationEvents, slotTime);
       const location = locationEvent
         ? getDistanceFromSite(locationEvent, gig.location)
         : null;
 
-      // Messages at this time
       const slotMessages = getMessagesAtTime(messages, slotTime);
 
-      // Worker/Requester timesheet states (simplified - just show clock in/out)
       let workerState = null;
       let requesterState = null;
 
@@ -83,8 +104,11 @@ export default function TimelineGrid({ engagement, hideEmptyRows = false }) {
         }
       }
 
+      const dayOffset = getDayOffset(slotTime);
+
       return {
         time: slotTime,
+        dayOffset,
         systemState,
         isSystemTransition,
         workerState,
@@ -101,10 +125,10 @@ export default function TimelineGrid({ engagement, hideEmptyRows = false }) {
         ),
       };
     });
-  }, [timeSlots, stateHistory, locationEvents, messages, gig, workerTimesheet, requesterTimesheet]);
+  }, [timeSlots, stateHistory, locationEvents, messages, gig, workerTimesheet, requesterTimesheet, baseDate]);
 
-  // Filter out empty rows if requested
-  const visibleRows = hideEmptyRows
+  // Filter empty rows
+  let visibleRows = hideEmptyRows
     ? rows.filter(row =>
         row.isSystemTransition ||
         row.isWorkerTransition ||
@@ -114,69 +138,146 @@ export default function TimelineGrid({ engagement, hideEmptyRows = false }) {
       )
     : rows;
 
+  // Sort by time
+  if (!timeSortAsc) {
+    visibleRows = [...visibleRows].reverse();
+  }
+
+  // Resize handlers
+  const handleResizeStart = (e, columnId, currentWidth) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setResizing(columnId);
+    resizeStartX.current = e.clientX;
+    resizeStartWidth.current = currentWidth;
+
+    const handleMouseMove = (moveEvent) => {
+      const delta = moveEvent.clientX - resizeStartX.current;
+      onColumnResize(columnId, resizeStartWidth.current + delta);
+    };
+
+    const handleMouseUp = () => {
+      setResizing(null);
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+  };
+
+  // Drag and drop handlers
+  const handleDragStart = (e, index) => {
+    setDraggedColumn(index);
+    e.dataTransfer.effectAllowed = 'move';
+  };
+
+  const handleDragOver = (e, index) => {
+    e.preventDefault();
+    if (draggedColumn !== null && draggedColumn !== index) {
+      onColumnReorder(draggedColumn, index);
+      setDraggedColumn(index);
+    }
+  };
+
+  const handleDragEnd = () => {
+    setDraggedColumn(null);
+  };
+
+  // Handle column header click (for sortable columns)
+  const handleHeaderClick = (column) => {
+    if (column.id === 'time' && onToggleTimeSort) {
+      onToggleTimeSort();
+    }
+  };
+
+  // Render cell content based on column type
+  const renderCell = (row, column) => {
+    switch (column.id) {
+      case 'time':
+        return (
+          <span className="text-zinc-500 font-mono">
+            {formatTime(row.time)}
+            {row.dayOffset > 0 && (
+              <span className="text-yellow-500 ml-1 text-xs">+{row.dayOffset}</span>
+            )}
+            {row.dayOffset < 0 && (
+              <span className="text-cyan-500 ml-1 text-xs">{row.dayOffset}</span>
+            )}
+          </span>
+        );
+      case 'systemState':
+        return <StateCell state={row.systemState} isTransition={row.isSystemTransition} />;
+      case 'workerState':
+        return <StateCell state={row.workerState} isTransition={row.isWorkerTransition} />;
+      case 'requesterState':
+        return <StateCell state={row.requesterState} isTransition={row.isRequesterTransition} />;
+      case 'location':
+        return <LocationCell location={row.location} />;
+      case 'messages':
+        return <MessageCell messages={row.messages} />;
+      default:
+        return null;
+    }
+  };
+
   return (
-    <div className="overflow-auto">
-      <table className="w-full border-collapse text-sm">
-        <thead>
-          <tr className="border-b border-zinc-700 bg-zinc-900/50 sticky top-0">
-            <th className="px-2 py-2 text-left text-zinc-400 font-medium border-r border-zinc-800 w-20">
-              TIME
-            </th>
-            <th className="px-2 py-2 text-left text-zinc-400 font-medium border-r border-zinc-800">
-              SYSTEM STATE
-            </th>
-            <th className="px-2 py-2 text-left text-zinc-400 font-medium border-r border-zinc-800">
-              WORKER
-              {workerTimesheet && (
-                <span className="text-zinc-600 font-normal ml-1">(timesheet)</span>
-              )}
-            </th>
-            <th className="px-2 py-2 text-left text-zinc-400 font-medium border-r border-zinc-800">
-              REQUESTER
-              {requesterTimesheet && (
-                <span className="text-zinc-600 font-normal ml-1">(timesheet)</span>
-              )}
-            </th>
-            <th className="px-2 py-2 text-left text-cyan-400 font-medium border-r border-zinc-800">
-              LOCATION
-            </th>
-            <th className="px-2 py-2 text-left text-purple-400 font-medium border-r border-zinc-800">
-              MESSAGES
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {visibleRows.map((row, i) => (
-            <tr
-              key={i}
-              className={`border-b border-zinc-900 hover:bg-zinc-900/30 ${
-                row.isSystemTransition ? 'bg-zinc-800/20' : ''
-              }`}
+    <div className="h-full flex flex-col overflow-hidden">
+      {/* Sticky column headers */}
+      <div className="shrink-0 bg-zinc-900/80 border-b border-zinc-700 backdrop-blur">
+        <div className="flex">
+          {columns.map((column, index) => (
+            <div
+              key={column.id}
+              draggable
+              onDragStart={(e) => handleDragStart(e, index)}
+              onDragOver={(e) => handleDragOver(e, index)}
+              onDragEnd={handleDragEnd}
+              onClick={() => handleHeaderClick(column)}
+              className={`relative px-3 py-2 text-xs font-medium text-zinc-400 border-r border-zinc-800 select-none ${
+                column.sortable ? 'cursor-pointer hover:text-zinc-200' : 'cursor-grab'
+              } ${draggedColumn === index ? 'opacity-50' : ''} ${
+                column.id === 'location' ? 'text-cyan-400' : ''
+              } ${column.id === 'messages' ? 'text-purple-400' : ''}`}
+              style={{ width: column.width, minWidth: column.width }}
             >
-              <td className="px-2 py-1 text-zinc-500 font-mono border-r border-zinc-800/50">
-                {formatTime(row.time)}
-              </td>
-              <StateCell
-                state={row.systemState}
-                isTransition={row.isSystemTransition}
-                source="system"
+              {column.label}
+              {column.id === 'time' && (
+                <span className="ml-1 text-green-500">
+                  {timeSortAsc ? '↓' : '↑'}
+                </span>
+              )}
+              {/* Resize handle */}
+              <div
+                className="absolute right-0 top-0 bottom-0 w-2 cursor-col-resize hover:bg-green-500/30"
+                onMouseDown={(e) => handleResizeStart(e, column.id, column.width)}
               />
-              <StateCell
-                state={row.workerState}
-                isTransition={row.isWorkerTransition}
-                source="worker"
-              />
-              <StateCell
-                state={row.requesterState}
-                isTransition={row.isRequesterTransition}
-                source="requester"
-              />
-              <LocationCell location={row.location} />
-              <MessageCell messages={row.messages} />
-            </tr>
+            </div>
           ))}
-        </tbody>
-      </table>
+        </div>
+      </div>
+
+      {/* Scrollable rows */}
+      <div className="flex-1 overflow-auto">
+        {visibleRows.map((row, i) => (
+          <div
+            key={i}
+            className={`flex border-b border-zinc-900 hover:bg-zinc-900/30 ${
+              row.isSystemTransition ? 'bg-zinc-800/20' : ''
+            }`}
+          >
+            {columns.map((column) => (
+              <div
+                key={column.id}
+                className="px-3 py-1.5 border-r border-zinc-800/50 overflow-hidden"
+                style={{ width: column.width, minWidth: column.width }}
+              >
+                {renderCell(row, column)}
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

@@ -3,16 +3,14 @@ import { formatDateTime, formatDuration, calculateWorkedTime } from '../utils/ti
 export default function ShiftHeader({ engagement }) {
   const gig = engagement.gig;
   const times = calculateWorkedTime(engagement.timesheets);
-  const confidence = engagement.reconciliation?.confidence_score;
 
   const startTime = gig.scheduled_start;
   const endTime = gig.scheduled_end;
 
-  // Calculate scheduled duration
   const scheduledMinutes = (new Date(endTime) - new Date(startTime)) / (1000 * 60);
 
   return (
-    <div className="border-b border-zinc-800 pb-4 mb-4">
+    <div className="border-b border-zinc-800 pb-4 mb-0">
       {/* Top row - ID and position */}
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-3">
@@ -24,14 +22,6 @@ export default function ShiftHeader({ engagement }) {
             {formatScenario(engagement.scenario_type)}
           </span>
         </div>
-        {confidence !== undefined && (
-          <div className="flex items-center gap-2">
-            <span className="text-zinc-500 text-xs">CONFIDENCE</span>
-            <span className={`font-bold ${getConfidenceColor(confidence)}`}>
-              {confidence}%
-            </span>
-          </div>
-        )}
       </div>
 
       {/* Business and location */}
@@ -111,12 +101,6 @@ function getScenarioColor(scenario) {
 function formatScenario(scenario) {
   if (!scenario) return 'UNKNOWN';
   return scenario.replace(/_/g, ' ').toUpperCase();
-}
-
-function getConfidenceColor(score) {
-  if (score >= 90) return 'text-green-400';
-  if (score >= 70) return 'text-yellow-400';
-  return 'text-red-400';
 }
 
 function getStateColor(state) {

@@ -4,8 +4,19 @@ import TimelineGrid from './components/TimelineGrid';
 import ShiftCard from './components/ShiftCard';
 import engagements from './data/sample-engagements.json';
 
+const DEFAULT_COLUMNS = [
+  { id: 'time', label: 'TIME', width: 100, sortable: true },
+  { id: 'systemState', label: 'SYSTEM', width: 120 },
+  { id: 'workerState', label: 'WORKER', width: 120 },
+  { id: 'requesterState', label: 'REQUESTER', width: 120 },
+  { id: 'location', label: 'LOCATION', width: 100 },
+  { id: 'messages', label: 'MESSAGES', width: 300 },
+];
+
 export default function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [columns, setColumns] = useState(DEFAULT_COLUMNS);
+  const [timeSortAsc, setTimeSortAsc] = useState(true);
   const engagement = engagements[currentIndex];
 
   // Keyboard navigation
@@ -18,6 +29,27 @@ export default function App() {
       e.preventDefault();
       setCurrentIndex((i) => (i < engagements.length - 1 ? i + 1 : 0));
     }
+  };
+
+  const handleColumnResize = (columnId, newWidth) => {
+    setColumns(cols =>
+      cols.map(col =>
+        col.id === columnId ? { ...col, width: Math.max(60, newWidth) } : col
+      )
+    );
+  };
+
+  const handleColumnReorder = (dragIndex, dropIndex) => {
+    setColumns(cols => {
+      const newCols = [...cols];
+      const [dragged] = newCols.splice(dragIndex, 1);
+      newCols.splice(dropIndex, 0, dragged);
+      return newCols;
+    });
+  };
+
+  const handleToggleTimeSort = () => {
+    setTimeSortAsc(prev => !prev);
   };
 
   return (
@@ -52,12 +84,24 @@ export default function App() {
 
       {/* Main content */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        <div className="p-4 overflow-y-auto flex-1">
-          {/* Shift header */}
-          <ShiftHeader engagement={engagement} />
+        {/* Pinned header area */}
+        <div className="shrink-0 border-b border-zinc-800">
+          <div className="p-4">
+            <ShiftHeader engagement={engagement} />
+          </div>
+        </div>
 
-          {/* Timeline grid */}
-          <TimelineGrid engagement={engagement} hideEmptyRows />
+        {/* Scrollable timeline */}
+        <div className="flex-1 overflow-hidden">
+          <TimelineGrid
+            engagement={engagement}
+            columns={columns}
+            onColumnResize={handleColumnResize}
+            onColumnReorder={handleColumnReorder}
+            timeSortAsc={timeSortAsc}
+            onToggleTimeSort={handleToggleTimeSort}
+            hideEmptyRows
+          />
         </div>
 
         {/* Footer */}
