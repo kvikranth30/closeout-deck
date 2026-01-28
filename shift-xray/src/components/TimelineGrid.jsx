@@ -17,7 +17,8 @@ export default function TimelineGrid({
   onColumnReorder,
   timeSortAsc = true,
   onToggleTimeSort,
-  hideEmptyRows = false
+  hideEmptyRows = false,
+  mobileMode = false
 }) {
   const gig = engagement.gig;
   const stateHistory = engagement.state_history || [];
@@ -28,7 +29,6 @@ export default function TimelineGrid({
   const requesterTimesheet = engagement.timesheets?.find(t => t.type === 'requester');
 
   const [draggedColumn, setDraggedColumn] = useState(null);
-  const [resizing, setResizing] = useState(null);
   const resizeStartX = useRef(0);
   const resizeStartWidth = useRef(0);
 
@@ -147,7 +147,6 @@ export default function TimelineGrid({
   const handleResizeStart = (e, columnId, currentWidth) => {
     e.preventDefault();
     e.stopPropagation();
-    setResizing(columnId);
     resizeStartX.current = e.clientX;
     resizeStartWidth.current = currentWidth;
 
@@ -157,7 +156,6 @@ export default function TimelineGrid({
     };
 
     const handleMouseUp = () => {
-      setResizing(null);
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
     };
@@ -168,6 +166,7 @@ export default function TimelineGrid({
 
   // Drag and drop handlers
   const handleDragStart = (e, index) => {
+    if (mobileMode) return;
     setDraggedColumn(index);
     e.dataTransfer.effectAllowed = 'move';
   };
@@ -222,6 +221,80 @@ export default function TimelineGrid({
     }
   };
 
+  // Find the time column for sticky behavior
+  const timeColumnIndex = columns.findIndex(c => c.id === 'time');
+  const timeColumn = columns[timeColumnIndex];
+  const otherColumns = columns.filter(c => c.id !== 'time');
+
+  if (mobileMode) {
+    // Mobile layout with sticky time column
+    return (
+      <div className="h-full flex flex-col overflow-hidden">
+        {/* Headers row */}
+        <div className="shrink-0 bg-zinc-900/80 border-b border-zinc-700 backdrop-blur flex">
+          {/* Sticky time header */}
+          <div
+            onClick={() => handleHeaderClick(timeColumn)}
+            className="sticky left-0 z-10 bg-zinc-900 px-3 py-2 text-xs font-medium text-zinc-400 border-r border-zinc-800 cursor-pointer hover:text-zinc-200"
+            style={{ width: timeColumn.width, minWidth: timeColumn.minWidth }}
+          >
+            {timeColumn.label}
+            <span className="ml-1 text-green-500">
+              {timeSortAsc ? '↓' : '↑'}
+            </span>
+          </div>
+          {/* Scrollable headers */}
+          <div className="flex overflow-x-auto">
+            {otherColumns.map((column) => (
+              <div
+                key={column.id}
+                className={`px-3 py-2 text-xs font-medium text-zinc-400 border-r border-zinc-800 shrink-0 ${
+                  column.id === 'location' ? 'text-cyan-400' : ''
+                } ${column.id === 'messages' ? 'text-purple-400' : ''}`}
+                style={{ width: column.width, minWidth: column.minWidth }}
+              >
+                {column.label}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Scrollable rows */}
+        <div className="flex-1 overflow-y-auto">
+          {visibleRows.map((row, i) => (
+            <div
+              key={i}
+              className={`flex border-b border-zinc-900 ${
+                row.isSystemTransition ? 'bg-zinc-800/20' : ''
+              }`}
+            >
+              {/* Sticky time cell */}
+              <div
+                className="sticky left-0 z-10 bg-black px-3 py-1.5 border-r border-zinc-800/50 shrink-0"
+                style={{ width: timeColumn.width, minWidth: timeColumn.minWidth }}
+              >
+                {renderCell(row, timeColumn)}
+              </div>
+              {/* Scrollable cells */}
+              <div className="flex overflow-x-auto">
+                {otherColumns.map((column) => (
+                  <div
+                    key={column.id}
+                    className="px-3 py-1.5 border-r border-zinc-800/50 shrink-0"
+                    style={{ width: column.width, minWidth: column.minWidth }}
+                  >
+                    {renderCell(row, column)}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  // Desktop layout
   return (
     <div className="h-full flex flex-col overflow-hidden">
       {/* Sticky column headers */}
@@ -230,7 +303,7 @@ export default function TimelineGrid({
           {columns.map((column, index) => (
             <div
               key={column.id}
-              draggable
+              draggable={!mobileMode}
               onDragStart={(e) => handleDragStart(e, index)}
               onDragOver={(e) => handleDragOver(e, index)}
               onDragEnd={handleDragEnd}
@@ -240,7 +313,7 @@ export default function TimelineGrid({
               } ${draggedColumn === index ? 'opacity-50' : ''} ${
                 column.id === 'location' ? 'text-cyan-400' : ''
               } ${column.id === 'messages' ? 'text-purple-400' : ''}`}
-              style={{ width: column.width, minWidth: column.width }}
+              style={{ width: column.width, minWidth: column.minWidth }}
             >
               {column.label}
               {column.id === 'time' && (
@@ -271,7 +344,7 @@ export default function TimelineGrid({
               <div
                 key={column.id}
                 className="px-3 py-1.5 border-r border-zinc-800/50 overflow-hidden"
-                style={{ width: column.width, minWidth: column.width }}
+                style={{ width: column.width, minWidth: column.minWidth }}
               >
                 {renderCell(row, column)}
               </div>
