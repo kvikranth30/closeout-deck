@@ -228,72 +228,78 @@ export default function TimelineGrid({
   const otherColumns = columns.filter(c => c.id !== 'time');
 
   if (mobileMode) {
-    // Mobile layout: horizontal scroll for whole table, sticky column headers and time column
+    // Mobile layout: header stays at 100vw, only table scrolls horizontally
     return (
-      <div className="h-full overflow-auto">
-        {/* Header content that scrolls away */}
+      <div className="h-full flex flex-col overflow-hidden">
+        {/* Header content - fixed width, scrolls away vertically only */}
         {headerContent && (
-          <div className="p-4 border-b border-zinc-800">
+          <div className="shrink-0 p-4 border-b border-zinc-800 w-full max-w-full overflow-hidden">
             {headerContent}
           </div>
         )}
 
-        {/* Table with sticky header row and sticky time column */}
-        <div className="relative">
-          {/* Sticky column headers */}
-          <div className="sticky top-0 z-20 bg-zinc-900 border-b border-zinc-700 flex">
-            {/* Time column header - also sticky left */}
-            <div
-              onClick={() => handleHeaderClick(timeColumn)}
-              className="sticky left-0 z-30 bg-zinc-900 px-3 py-2 text-xs font-medium text-zinc-400 border-r border-zinc-800 cursor-pointer shrink-0"
-              style={{ width: timeColumn.width, minWidth: timeColumn.minWidth }}
-            >
-              {timeColumn.label}
-              <span className="ml-1 text-green-500">
-                {timeSortAsc ? '↓' : '↑'}
-              </span>
-            </div>
-            {/* Other column headers */}
-            {otherColumns.map((column) => (
-              <div
-                key={column.id}
-                className={`px-3 py-2 text-xs font-medium text-zinc-400 border-r border-zinc-800 shrink-0 ${
-                  column.id === 'location' ? 'text-cyan-400' : ''
-                } ${column.id === 'messages' ? 'text-purple-400' : ''}`}
-                style={{ width: column.width, minWidth: column.minWidth }}
-              >
-                {column.label}
-              </div>
-            ))}
-          </div>
-
-          {/* Data rows */}
-          {visibleRows.map((row, i) => (
-            <div
-              key={i}
-              className={`flex border-b border-zinc-900 ${
-                row.isSystemTransition ? 'bg-zinc-800/20' : ''
-              }`}
-            >
-              {/* Time cell - sticky left */}
-              <div
-                className="sticky left-0 z-10 bg-black px-3 py-1.5 border-r border-zinc-800/50 shrink-0"
-                style={{ width: timeColumn.width, minWidth: timeColumn.minWidth }}
-              >
-                {renderCell(row, timeColumn)}
-              </div>
-              {/* Other cells */}
-              {otherColumns.map((column) => (
+        {/* Outer vertical scroll container */}
+        <div className="flex-1 overflow-y-auto overflow-x-hidden">
+          {/* Table wrapper with horizontal scroll */}
+          <div className="overflow-x-auto">
+            {/* Table content with min-width to enable horizontal scroll */}
+            <div className="min-w-max">
+              {/* Sticky column headers */}
+              <div className="sticky top-0 z-20 bg-zinc-900 border-b border-zinc-700 flex">
+                {/* Time column header - also sticky left */}
                 <div
-                  key={column.id}
-                  className="px-3 py-1.5 border-r border-zinc-800/50 shrink-0"
-                  style={{ width: column.width, minWidth: column.minWidth }}
+                  onClick={() => handleHeaderClick(timeColumn)}
+                  className="sticky left-0 z-30 bg-zinc-900 px-3 py-2 text-xs font-medium text-zinc-400 border-r border-zinc-800 cursor-pointer shrink-0"
+                  style={{ width: timeColumn.width, minWidth: timeColumn.minWidth }}
                 >
-                  {renderCell(row, column)}
+                  {timeColumn.label}
+                  <span className="ml-1 text-green-500">
+                    {timeSortAsc ? '↓' : '↑'}
+                  </span>
+                </div>
+                {/* Other column headers */}
+                {otherColumns.map((column) => (
+                  <div
+                    key={column.id}
+                    className={`px-3 py-2 text-xs font-medium text-zinc-400 border-r border-zinc-800 shrink-0 ${
+                      column.id === 'location' ? 'text-cyan-400' : ''
+                    } ${column.id === 'messages' ? 'text-purple-400' : ''}`}
+                    style={{ width: column.width, minWidth: column.minWidth }}
+                  >
+                    {column.label}
+                  </div>
+                ))}
+              </div>
+
+              {/* Data rows */}
+              {visibleRows.map((row, i) => (
+                <div
+                  key={i}
+                  className={`flex border-b border-zinc-900 ${
+                    row.isSystemTransition ? 'bg-zinc-800/20' : ''
+                  }`}
+                >
+                  {/* Time cell - sticky left */}
+                  <div
+                    className="sticky left-0 z-10 bg-black px-3 py-1.5 border-r border-zinc-800/50 shrink-0"
+                    style={{ width: timeColumn.width, minWidth: timeColumn.minWidth }}
+                  >
+                    {renderCell(row, timeColumn)}
+                  </div>
+                  {/* Other cells */}
+                  {otherColumns.map((column) => (
+                    <div
+                      key={column.id}
+                      className="px-3 py-1.5 border-r border-zinc-800/50 shrink-0"
+                      style={{ width: column.width, minWidth: column.minWidth }}
+                    >
+                      {renderCell(row, column)}
+                    </div>
+                  ))}
                 </div>
               ))}
             </div>
-          ))}
+          </div>
         </div>
       </div>
     );

@@ -43,10 +43,23 @@ export function getLocationAtTime(locationEvents, targetTime, maxGapMinutes = 30
 }
 
 /**
- * Calculate distance from gig site and return formatted string
+ * Calculate distance from gig site and return location info
+ * Handles both old format (lat/lng) and new format (activity/status/distance_miles)
  */
 export function getDistanceFromSite(locationEvent, gigLocation) {
-  if (!locationEvent || !gigLocation) return null;
+  if (!locationEvent) return null;
+
+  // New format: activity, status, distance_miles are directly on the event
+  if (locationEvent.activity !== undefined || locationEvent.status !== undefined) {
+    return {
+      activity: locationEvent.activity,
+      status: locationEvent.status,
+      distance_miles: locationEvent.distance_miles
+    };
+  }
+
+  // Old format: calculate distance from lat/lng coordinates
+  if (!gigLocation || !locationEvent.lat || !locationEvent.lng) return null;
 
   const distance = getDistance(
     locationEvent.lat,
@@ -55,15 +68,13 @@ export function getDistanceFromSite(locationEvent, gigLocation) {
     gigLocation.lng
   );
 
-  // Convert to more readable format
-  if (distance < 0.1) {
-    return { distance: distance, formatted: 'ON SITE', isOnSite: true };
-  } else if (distance < 1) {
-    const feet = Math.round(distance * 5280);
-    return { distance: distance, formatted: `${feet} ft`, isOnSite: false };
-  } else {
-    return { distance: distance, formatted: `${distance.toFixed(1)} mi`, isOnSite: false };
-  }
+  // Convert to new format
+  const isOnSite = distance < 0.1;
+  return {
+    activity: 'stationary',
+    status: isOnSite ? 'on_site' : 'off_site',
+    distance_miles: isOnSite ? 0 : distance
+  };
 }
 
 /**
