@@ -1,6 +1,6 @@
 export default function LocationCell({ location }) {
   if (!location) {
-    return <span className="text-zinc-700">—</span>;
+    return null;
   }
 
   // New format with activity and status
@@ -79,7 +79,7 @@ export default function LocationCell({ location }) {
     }
 
     // Default
-    return { style: 'bg-zinc-800/50 text-zinc-400 border-zinc-700', label: (status || activity || '—').toUpperCase() };
+    return { style: 'bg-zinc-800/50 text-zinc-400 border-zinc-700', label: (status || activity || '').toUpperCase() };
   };
 
   const display = getStatusDisplay();

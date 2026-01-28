@@ -1,6 +1,6 @@
 export default function MessageCell({ messages }) {
   if (!messages || messages.length === 0) {
-    return <span className="text-zinc-700">—</span>;
+    return null;
   }
 
   return (

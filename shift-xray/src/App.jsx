@@ -75,8 +75,7 @@ export default function App() {
             <span className="text-zinc-500 font-bold text-lg tracking-tight">COPILOT</span>
           </div>
           <div className="text-zinc-600 text-xs mt-1">
-            {engagements.length} engagements
-            <span className="hidden md:inline"> • ↑↓ to navigate</span>
+            {engagements.length} shifts
           </div>
         </div>
 
@@ -116,8 +115,8 @@ export default function App() {
 
         {/* Footer */}
         <div className="px-4 py-2 border-t border-zinc-900 text-zinc-700 text-xs flex justify-between shrink-0">
-          <span>HyperTrack Closeout Copilot • Shift X-Ray</span>
-          <span>{engagement.scenario_type?.replace(/_/g, ' ')}</span>
+          <span>HyperTrack Closeout Copilot</span>
+          <span className="capitalize">{engagement.scenario_type?.replace(/_/g, ' ')}</span>
         </div>
       </div>
 

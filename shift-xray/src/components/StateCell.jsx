@@ -54,7 +54,7 @@ export default function StateCell({ state, isTransition, source = 'system' }) {
   }, [state]);
 
   if (!state) {
-    return <span className="text-zinc-700">—</span>;
+    return null;
   }
 
   if (isTransition) {
@@ -65,6 +65,6 @@ export default function StateCell({ state, isTransition, source = 'system' }) {
     );
   }
 
-  // Continuation row - show subtle indicator
-  return <span className="text-zinc-600 text-xs">┊</span>;
+  // Continuation row - blank
+  return null;
 }
