@@ -107,7 +107,7 @@ export default function ShiftHeader({ engagement }) {
         {/* Right column - Payout (desktop) */}
         {payout && (
           <div className="hidden md:block shrink-0">
-            <div className="text-zinc-500 text-xs uppercase tracking-wider mb-2">Recommended Payout</div>
+            <div className="text-zinc-500 text-xs uppercase tracking-wider mb-2">Payout Reconciliation</div>
             <div className="flex gap-3">
               {/* Claimed */}
               <div className="bg-zinc-900 rounded-lg px-3 py-2">
@@ -115,19 +115,29 @@ export default function ShiftHeader({ engagement }) {
                 <div className="text-lg text-zinc-300">{formatCurrency(payout.claimed_total)}</div>
                 <div className="text-zinc-600 text-xs">{payout.claimed_hours}h × ${payout.hourly_rate}/hr</div>
               </div>
-              {/* Recommended */}
-              <div className="bg-zinc-900 rounded-lg px-3 py-2 border border-zinc-700">
-                <div className="text-zinc-500 text-xs mb-1">Recommended</div>
-                <div className="text-lg text-green-400">{formatCurrency(payout.recommended_total)}</div>
-                <div className="text-zinc-600 text-xs">{payout.recommended_hours}h × ${payout.hourly_rate}/hr</div>
-              </div>
               {/* Adjustment */}
-              <div className="bg-zinc-900 rounded-lg px-3 py-2 max-w-[280px]">
-                <div className="text-zinc-500 text-xs mb-1">Adjustment</div>
+              <div className="bg-zinc-900 rounded-lg px-3 py-2 max-w-[240px]">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-zinc-500 text-xs">Adjustment</span>
+                  <button className="text-zinc-500 hover:text-zinc-300 transition-colors">
+                    <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                    </svg>
+                  </button>
+                </div>
                 <div className={`text-lg ${adjustment.class}`}>{adjustment.text}</div>
                 <div className="text-zinc-600 text-xs leading-snug">
                   {payout.adjustment_reason}
                 </div>
+              </div>
+              {/* Final */}
+              <div className="bg-zinc-900 rounded-lg px-3 py-2 border border-green-700/50">
+                <div className="text-zinc-500 text-xs mb-1">Final</div>
+                <div className="text-lg text-green-400">{formatCurrency(payout.recommended_total)}</div>
+                <div className="text-zinc-600 text-xs mb-2">{payout.recommended_hours}h × ${payout.hourly_rate}/hr</div>
+                <button className="w-full px-3 py-1 bg-green-600 hover:bg-green-500 text-white text-xs font-medium rounded transition-colors">
+                  Approve
+                </button>
               </div>
             </div>
           </div>
@@ -137,7 +147,7 @@ export default function ShiftHeader({ engagement }) {
       {/* Payout section - mobile only */}
       {payout && (
         <div className="mt-3 pt-3 border-t border-zinc-800/50 md:hidden">
-          <div className="text-zinc-500 text-xs uppercase tracking-wider mb-2">Recommended Payout</div>
+          <div className="text-zinc-500 text-xs uppercase tracking-wider mb-2">Payout Reconciliation</div>
           <div className="flex flex-wrap gap-3">
             {/* Claimed */}
             <div className="bg-zinc-900 rounded-lg px-3 py-2 flex-1 min-w-[100px]">
@@ -145,19 +155,29 @@ export default function ShiftHeader({ engagement }) {
               <div className="text-lg text-zinc-300">{formatCurrency(payout.claimed_total)}</div>
               <div className="text-zinc-600 text-xs">{payout.claimed_hours}h × ${payout.hourly_rate}/hr</div>
             </div>
-            {/* Recommended */}
-            <div className="bg-zinc-900 rounded-lg px-3 py-2 flex-1 min-w-[100px] border border-zinc-700">
-              <div className="text-zinc-500 text-xs mb-1">Recommended</div>
+            {/* Final */}
+            <div className="bg-zinc-900 rounded-lg px-3 py-2 flex-1 min-w-[100px] border border-green-700/50">
+              <div className="text-zinc-500 text-xs mb-1">Final</div>
               <div className="text-lg text-green-400">{formatCurrency(payout.recommended_total)}</div>
               <div className="text-zinc-600 text-xs">{payout.recommended_hours}h × ${payout.hourly_rate}/hr</div>
             </div>
             {/* Adjustment */}
             <div className="bg-zinc-900 rounded-lg px-3 py-2 w-full">
-              <div className="text-zinc-500 text-xs mb-1">Adjustment</div>
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-zinc-500 text-xs">Adjustment</span>
+                <button className="text-zinc-500 hover:text-zinc-300 transition-colors">
+                  <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                  </svg>
+                </button>
+              </div>
               <div className={`text-lg ${adjustment.class}`}>{adjustment.text}</div>
-              <div className="text-zinc-600 text-xs leading-snug">
+              <div className="text-zinc-600 text-xs leading-snug mb-2">
                 {payout.adjustment_reason}
               </div>
+              <button className="w-full px-3 py-1.5 bg-green-600 hover:bg-green-500 text-white text-xs font-medium rounded transition-colors">
+                Approve
+              </button>
             </div>
           </div>
         </div>
