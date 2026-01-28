@@ -13,6 +13,7 @@ const STATE_COLORS = {
   running_late: 'bg-yellow-800/60 text-yellow-300 border-yellow-600',
   paused: 'bg-yellow-900/50 text-yellow-400 border-yellow-700',
   pending: 'bg-yellow-900/50 text-yellow-400 border-yellow-700',
+  break: 'bg-yellow-900/50 text-yellow-400 border-yellow-700',
 
   // Red - problem states
   canceled: 'bg-red-900/50 text-red-400 border-red-700',
@@ -38,6 +39,7 @@ const STATE_LABELS = {
   rejected: 'REJECTED',
   running_late: 'LATE',
   pending: 'PENDING',
+  break: 'BREAK',
 };
 
 export default function StateCell({ state, isTransition, source = 'system' }) {

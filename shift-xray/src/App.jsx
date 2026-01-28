@@ -20,21 +20,6 @@ export default function App() {
   const [mobileModalOpen, setMobileModalOpen] = useState(false);
   const engagement = engagements[currentIndex];
 
-  // Keyboard navigation
-  const handleKeyDown = (e) => {
-    if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      setCurrentIndex((i) => (i > 0 ? i - 1 : engagements.length - 1));
-    }
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      setCurrentIndex((i) => (i < engagements.length - 1 ? i + 1 : 0));
-    }
-    if (e.key === 'Escape' && mobileModalOpen) {
-      setMobileModalOpen(false);
-    }
-  };
-
   const handleColumnResize = (columnId, newWidth) => {
     setColumns(cols =>
       cols.map(col =>
@@ -63,9 +48,7 @@ export default function App() {
 
   return (
     <div
-      className="h-screen bg-black text-white flex overflow-hidden"
-      tabIndex={0}
-      onKeyDown={handleKeyDown}
+      className="h-screen bg-black text-white flex overflow-hidden select-none outline-none"
     >
       {/* Sidebar - full width on mobile, fixed width on desktop */}
       <div className="w-full md:w-72 border-r border-zinc-900 flex flex-col shrink-0 overflow-hidden">

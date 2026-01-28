@@ -13,10 +13,10 @@ export default function ShiftCard({ engagement, isSelected, onClick }) {
           : 'hover:bg-zinc-900/50 border-l-2 border-l-transparent'
       }`}
     >
-      {/* Top row - ID and badges */}
+      {/* Top row - Date | ID and badges */}
       <div className="flex items-center justify-between mb-1">
         <span className="text-zinc-500 text-xs font-mono truncate">
-          {engagement.engagement_id}
+          {formatDateTime(gig.scheduled_start).split(',')[0]} | {engagement.engagement_id}
         </span>
         {hasMessages && (
           <span className="text-purple-400 text-xs flex items-center gap-1">
@@ -33,12 +33,9 @@ export default function ShiftCard({ engagement, isSelected, onClick }) {
         {gig.business_name}
       </div>
 
-      {/* Position and time */}
-      <div className="flex items-center justify-between text-xs">
-        <span className="text-zinc-500 truncate">{gig.position}</span>
-        <span className="text-zinc-600 shrink-0 ml-2">
-          {formatDateTime(gig.scheduled_start).split(',')[0]}
-        </span>
+      {/* Position */}
+      <div className="text-xs text-zinc-500 truncate">
+        {gig.position}
       </div>
 
       {/* Scenario tag */}

@@ -93,7 +93,19 @@ export default function TimelineGrid({
         const clockIn = new Date(workerTimesheet.clock_in);
         const clockOut = new Date(workerTimesheet.clock_out);
         if (slotTime >= clockIn && slotTime <= clockOut) {
-          workerState = { state: 'WORKING' };
+          // Check if in a break
+          let isOnBreak = false;
+          if (workerTimesheet.breaks) {
+            for (const brk of workerTimesheet.breaks) {
+              const breakStart = new Date(brk.break_start);
+              const breakEnd = new Date(brk.break_end);
+              if (slotTime >= breakStart && slotTime < breakEnd) {
+                isOnBreak = true;
+                break;
+              }
+            }
+          }
+          workerState = { state: isOnBreak ? 'BREAK' : 'WORKING' };
         }
       }
 
@@ -118,7 +130,11 @@ export default function TimelineGrid({
         messages: slotMessages,
         isWorkerTransition: workerTimesheet && (
           Math.abs(new Date(workerTimesheet.clock_in) - slotTime) < 5 * 60 * 1000 ||
-          Math.abs(new Date(workerTimesheet.clock_out) - slotTime) < 5 * 60 * 1000
+          Math.abs(new Date(workerTimesheet.clock_out) - slotTime) < 5 * 60 * 1000 ||
+          (workerTimesheet.breaks && workerTimesheet.breaks.some(brk =>
+            Math.abs(new Date(brk.break_start) - slotTime) < 5 * 60 * 1000 ||
+            Math.abs(new Date(brk.break_end) - slotTime) < 5 * 60 * 1000
+          ))
         ),
         isRequesterTransition: requesterTimesheet && (
           Math.abs(new Date(requesterTimesheet.clock_in) - slotTime) < 5 * 60 * 1000 ||
