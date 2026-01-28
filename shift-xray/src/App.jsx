@@ -8,7 +8,7 @@ const DEFAULT_COLUMNS = [
   { id: 'time', label: 'TIME', width: 140, minWidth: 120, sortable: true, sticky: true },
   { id: 'systemState', label: 'SYSTEM', width: 130, minWidth: 110 },
   { id: 'workerState', label: 'WORKER', width: 130, minWidth: 110 },
-  { id: 'requesterState', label: 'REQUESTER', width: 130, minWidth: 110 },
+  { id: 'requesterState', label: 'FACILITY', width: 130, minWidth: 110 },
   { id: 'location', label: 'LOCATION', width: 160, minWidth: 160 },
   { id: 'messages', label: 'MESSAGES', width: 350, minWidth: 150 },
 ];
