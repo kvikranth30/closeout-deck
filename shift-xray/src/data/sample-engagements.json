@@ -141,11 +141,11 @@
     },
     "payout": {
       "hourly_rate": 22.00,
-      "claimed_hours": 10.2,
-      "claimed_total": 224.40,
+      "claimed_hours": 8.0,
+      "claimed_total": 176.00,
       "recommended_hours": 10.2,
       "recommended_total": 224.40,
-      "adjustment_reason": "GPS confirms worker on-site until 4:45pm. Manager message authorizes overtime."
+      "adjustment_reason": "GPS confirms worker on-site until 4:45pm. Manager message authorizes overtime. +2.2h credited."
     }
   },
   {
@@ -227,11 +227,11 @@
     },
     "payout": {
       "hourly_rate": 18.00,
-      "claimed_hours": 0,
-      "claimed_total": 0,
+      "claimed_hours": 8.0,
+      "claimed_total": 144.00,
       "recommended_hours": 0,
       "recommended_total": 0,
-      "adjustment_reason": "No-show confirmed. GPS shows worker remained at home address."
+      "adjustment_reason": "No-show confirmed. GPS shows worker at home address during entire shift. $144 saved."
     }
   },
   {
@@ -346,11 +346,11 @@
     },
     "payout": {
       "hourly_rate": 24.00,
-      "claimed_hours": 5.0,
-      "claimed_total": 120.00,
-      "recommended_hours": 5.0,
-      "recommended_total": 120.00,
-      "adjustment_reason": "Early departure approved. GPS confirms 5 hours on-site before departure."
+      "claimed_hours": 8.0,
+      "claimed_total": 192.00,
+      "recommended_hours": 5.5,
+      "recommended_total": 132.00,
+      "adjustment_reason": "Early departure at 3:30am. GPS confirms 5.5h on-site. Approved due to family emergency."
     }
   },
   {
@@ -470,9 +470,9 @@
       "hourly_rate": 19.50,
       "claimed_hours": 8.0,
       "claimed_total": 156.00,
-      "recommended_hours": 8.0,
-      "recommended_total": 156.00,
-      "adjustment_reason": "Full shift approved. Off-site trip to hardware store confirmed as work errand by supervisor."
+      "recommended_hours": 7.5,
+      "recommended_total": 146.25,
+      "adjustment_reason": "45 min off-site trip verified as work errand. 15 min personal stop deducted per policy."
     }
   },
   {
@@ -951,11 +951,11 @@
     },
     "payout": {
       "hourly_rate": 25.00,
-      "claimed_hours": 10.5,
-      "claimed_total": 262.50,
+      "claimed_hours": 8.0,
+      "claimed_total": 200.00,
       "recommended_hours": 10.5,
       "recommended_total": 262.50,
-      "adjustment_reason": "Overnight event shift. Extended hours approved by client. All sources agree."
+      "adjustment_reason": "Overnight event extended 2.5h past scheduled end. GPS confirms on-site. Client approved extension."
     }
   },
   {

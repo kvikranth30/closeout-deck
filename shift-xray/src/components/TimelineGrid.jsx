@@ -139,6 +139,53 @@ export default function TimelineGrid({
       )
     : rows;
 
+  // Collapse identical consecutive rows into ranges
+  const collapseRows = (rowList) => {
+    if (rowList.length === 0) return [];
+
+    const collapsed = [];
+    let rangeStart = rowList[0];
+    let rangeEnd = rowList[0];
+
+    const isSameState = (a, b) => {
+      const sameSystem = a.systemState?.state === b.systemState?.state;
+      const sameWorker = a.workerState?.state === b.workerState?.state;
+      const sameRequester = a.requesterState?.state === b.requesterState?.state;
+      const sameLocation = a.location?.status === b.location?.status &&
+                          a.location?.activity === b.location?.activity;
+      const noMessages = a.messages.length === 0 && b.messages.length === 0;
+      const noTransitions = !b.isSystemTransition && !b.isWorkerTransition && !b.isRequesterTransition;
+
+      return sameSystem && sameWorker && sameRequester && sameLocation && noMessages && noTransitions;
+    };
+
+    for (let i = 1; i < rowList.length; i++) {
+      const row = rowList[i];
+      if (isSameState(rangeEnd, row)) {
+        rangeEnd = row;
+      } else {
+        collapsed.push({
+          ...rangeStart,
+          rangeEndTime: rangeEnd.time,
+          isRange: rangeStart !== rangeEnd
+        });
+        rangeStart = row;
+        rangeEnd = row;
+      }
+    }
+
+    // Push final range
+    collapsed.push({
+      ...rangeStart,
+      rangeEndTime: rangeEnd.time,
+      isRange: rangeStart !== rangeEnd
+    });
+
+    return collapsed;
+  };
+
+  visibleRows = collapseRows(visibleRows);
+
   // Sort by time
   if (!timeSortAsc) {
     visibleRows = [...visibleRows].reverse();
@@ -197,6 +244,20 @@ export default function TimelineGrid({
       case 'time':
         const date = new Date(row.time);
         const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        if (row.isRange) {
+          return (
+            <span className="text-zinc-500 font-mono text-xs whitespace-nowrap">
+              {dateStr} {formatTime(row.time)}
+              <span className="text-zinc-600"> → </span>
+              {formatTime(row.rangeEndTime)}
+              {row.dayOffset !== 0 && (
+                <span className={`ml-1 ${row.dayOffset > 0 ? 'text-yellow-500' : 'text-cyan-500'}`}>
+                  {row.dayOffset > 0 ? '+' : ''}{row.dayOffset}
+                </span>
+              )}
+            </span>
+          );
+        }
         return (
           <span className="text-zinc-500 font-mono text-xs whitespace-nowrap">
             {dateStr} {formatTime(row.time)}

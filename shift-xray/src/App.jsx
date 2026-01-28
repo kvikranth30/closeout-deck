@@ -5,7 +5,7 @@ import ShiftCard from './components/ShiftCard';
 import engagements from './data/sample-engagements.json';
 
 const DEFAULT_COLUMNS = [
-  { id: 'time', label: 'TIME', width: 140, minWidth: 120, sortable: true, sticky: true },
+  { id: 'time', label: 'TIME', width: 180, minWidth: 160, sortable: true, sticky: true },
   { id: 'systemState', label: 'SYSTEM', width: 130, minWidth: 110 },
   { id: 'workerState', label: 'WORKER', width: 130, minWidth: 110 },
   { id: 'requesterState', label: 'FACILITY', width: 130, minWidth: 110 },
