@@ -5,12 +5,12 @@ import ShiftCard from './components/ShiftCard';
 import engagements from './data/sample-engagements.json';
 
 const DEFAULT_COLUMNS = [
-  { id: 'time', label: 'TIME', width: 100, sortable: true },
-  { id: 'systemState', label: 'SYSTEM', width: 120 },
-  { id: 'workerState', label: 'WORKER', width: 120 },
-  { id: 'requesterState', label: 'REQUESTER', width: 120 },
-  { id: 'location', label: 'LOCATION', width: 100 },
-  { id: 'messages', label: 'MESSAGES', width: 300 },
+  { id: 'time', label: 'TIME', width: 140, minWidth: 120, sortable: true },
+  { id: 'systemState', label: 'SYSTEM', width: 130, minWidth: 110 },
+  { id: 'workerState', label: 'WORKER', width: 130, minWidth: 110 },
+  { id: 'requesterState', label: 'REQUESTER', width: 130, minWidth: 110 },
+  { id: 'location', label: 'LOCATION', width: 100, minWidth: 80 },
+  { id: 'messages', label: 'MESSAGES', width: 350, minWidth: 150 },
 ];
 
 export default function App() {
@@ -34,7 +34,7 @@ export default function App() {
   const handleColumnResize = (columnId, newWidth) => {
     setColumns(cols =>
       cols.map(col =>
-        col.id === columnId ? { ...col, width: Math.max(60, newWidth) } : col
+        col.id === columnId ? { ...col, width: Math.max(col.minWidth || 60, newWidth) } : col
       )
     );
   };

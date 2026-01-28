@@ -195,14 +195,15 @@ export default function TimelineGrid({
   const renderCell = (row, column) => {
     switch (column.id) {
       case 'time':
+        const date = new Date(row.time);
+        const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
         return (
-          <span className="text-zinc-500 font-mono">
-            {formatTime(row.time)}
-            {row.dayOffset > 0 && (
-              <span className="text-yellow-500 ml-1 text-xs">+{row.dayOffset}</span>
-            )}
-            {row.dayOffset < 0 && (
-              <span className="text-cyan-500 ml-1 text-xs">{row.dayOffset}</span>
+          <span className="text-zinc-500 font-mono text-xs whitespace-nowrap">
+            {dateStr} {formatTime(row.time)}
+            {row.dayOffset !== 0 && (
+              <span className={`ml-1 ${row.dayOffset > 0 ? 'text-yellow-500' : 'text-cyan-500'}`}>
+                {row.dayOffset > 0 ? '+' : ''}{row.dayOffset}
+              </span>
             )}
           </span>
         );

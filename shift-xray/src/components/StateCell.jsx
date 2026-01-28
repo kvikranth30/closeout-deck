@@ -54,23 +54,17 @@ export default function StateCell({ state, isTransition, source = 'system' }) {
   }, [state]);
 
   if (!state) {
-    return <td className="px-2 py-1 border-r border-zinc-800/50 text-zinc-700">—</td>;
+    return <span className="text-zinc-700">—</span>;
   }
 
   if (isTransition) {
     return (
-      <td className="px-2 py-1 border-r border-zinc-800/50">
-        <span className={`inline-block px-2 py-0.5 rounded text-xs font-medium border ${colorClass}`}>
-          {label}
-        </span>
-      </td>
+      <span className={`inline-block px-2 py-0.5 rounded text-xs font-medium border whitespace-nowrap ${colorClass}`}>
+        {label}
+      </span>
     );
   }
 
   // Continuation row - show subtle indicator
-  return (
-    <td className="px-2 py-1 border-r border-zinc-800/50 text-zinc-600 text-xs">
-      ┊
-    </td>
-  );
+  return <span className="text-zinc-600 text-xs">┊</span>;
 }

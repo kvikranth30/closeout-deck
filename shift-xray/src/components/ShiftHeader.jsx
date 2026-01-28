@@ -46,19 +46,15 @@ export default function ShiftHeader({ engagement }) {
 
         {times && (
           <>
-            <div className="text-zinc-700">|</div>
             <div>
               <span className="text-zinc-500">Worked:</span>{' '}
               <span className="text-green-400">{formatDuration(times.worked)}</span>
             </div>
             {times.breaks > 0 && (
-              <>
-                <div className="text-zinc-700">|</div>
-                <div>
-                  <span className="text-zinc-500">Breaks:</span>{' '}
-                  <span className="text-yellow-400">{formatDuration(times.breaks)}</span>
-                </div>
-              </>
+              <div>
+                <span className="text-zinc-500">Breaks:</span>{' '}
+                <span className="text-yellow-400">{formatDuration(times.breaks)}</span>
+              </div>
             )}
           </>
         )}
@@ -70,7 +66,6 @@ export default function ShiftHeader({ engagement }) {
           <span className="text-zinc-500">Worker:</span>{' '}
           <span className="text-zinc-300">{engagement.worker.name}</span>
         </div>
-        <div className="text-zinc-700">|</div>
         <div>
           <span className="text-zinc-500">Status:</span>{' '}
           <span className={getStateColor(engagement.current_state)}>
@@ -78,12 +73,9 @@ export default function ShiftHeader({ engagement }) {
           </span>
         </div>
         {engagement.messages?.length > 0 && (
-          <>
-            <div className="text-zinc-700">|</div>
-            <div>
-              <span className="text-purple-400">{engagement.messages.length} messages</span>
-            </div>
-          </>
+          <div>
+            <span className="text-purple-400">{engagement.messages.length} messages</span>
+          </div>
         )}
       </div>
     </div>

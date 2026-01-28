@@ -19,7 +19,7 @@ export default function ShiftCard({ engagement, isSelected, onClick }) {
           {engagement.engagement_id}
         </span>
         {hasMessages && (
-          <span className="text-purple-400 text-xs">💬</span>
+          <span className="text-purple-400 text-xs">{engagement.messages.length} msg</span>
         )}
       </div>
 
