@@ -93,7 +93,7 @@ export default function ShiftHeader({ engagement }) {
             </div>
             {engagement.messages?.length > 0 && (
               <div>
-                <span className="text-purple-400">✉ {engagement.messages.length}</span>
+                <span className="text-purple-400"><span className="text-base">✉</span> {engagement.messages.length}</span>
               </div>
             )}
           </div>
