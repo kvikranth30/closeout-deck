@@ -9,7 +9,7 @@ const DEFAULT_COLUMNS = [
   { id: 'systemState', label: 'SYSTEM', width: 130, minWidth: 110 },
   { id: 'workerState', label: 'WORKER', width: 130, minWidth: 110 },
   { id: 'requesterState', label: 'FACILITY', width: 130, minWidth: 110 },
-  { id: 'location', label: 'LOCATION', width: 160, minWidth: 160 },
+  { id: 'location', label: 'LOCATION', width: 200, minWidth: 180 },
   { id: 'messages', label: 'MESSAGES', width: 350, minWidth: 150 },
 ];
 
