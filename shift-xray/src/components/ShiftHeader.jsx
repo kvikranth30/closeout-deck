@@ -117,7 +117,7 @@ export default function ShiftHeader({ engagement }) {
                 <div className="text-zinc-600 text-xs">{payout.claimed_hours}h × ${payout.hourly_rate}/hr</div>
               </div>
               {/* Adjustment */}
-              <div className="bg-zinc-900 rounded-lg px-3 py-2 max-w-[320px] flex flex-col">
+              <div className="bg-zinc-900 rounded-lg px-3 py-2 max-w-[400px] flex flex-col">
                 <div className="text-zinc-500 text-xs mb-1">Adjustment</div>
                 <div className={`text-lg ${adjustment.class}`}>{adjustment.text}</div>
                 <div className="text-zinc-600 text-xs leading-snug">
