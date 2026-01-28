@@ -7,6 +7,8 @@ const STATE_COLORS = {
   on_site: 'bg-green-800/60 text-green-300 border-green-600',
   working: 'bg-green-700/70 text-green-200 border-green-500',
   completed: 'bg-green-900/50 text-green-400 border-green-700',
+  clock_in: 'bg-green-900/50 text-green-400 border-green-700',
+  clock_out: 'bg-green-900/50 text-green-400 border-green-700',
 
   // Yellow - caution states
   en_route: 'bg-yellow-900/50 text-yellow-400 border-yellow-700',
@@ -33,6 +35,8 @@ const STATE_LABELS = {
   working: 'WORKING',
   paused: 'PAUSED',
   completed: 'COMPLETED',
+  clock_in: 'CLOCK IN',
+  clock_out: 'CLOCK OUT',
   canceled: 'CANCELED',
   no_show: 'NO SHOW',
   missed: 'MISSED',

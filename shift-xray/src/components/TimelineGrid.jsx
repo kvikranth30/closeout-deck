@@ -92,7 +92,14 @@ export default function TimelineGrid({
       if (workerTimesheet) {
         const clockIn = new Date(workerTimesheet.clock_in);
         const clockOut = new Date(workerTimesheet.clock_out);
-        if (slotTime >= clockIn && slotTime <= clockOut) {
+        const isClockIn = Math.abs(clockIn - slotTime) < 5 * 60 * 1000;
+        const isClockOut = Math.abs(clockOut - slotTime) < 5 * 60 * 1000;
+
+        if (isClockIn) {
+          workerState = { state: 'CLOCK_IN' };
+        } else if (isClockOut) {
+          workerState = { state: 'CLOCK_OUT' };
+        } else if (slotTime >= clockIn && slotTime <= clockOut) {
           // Check if in a break
           let isOnBreak = false;
           if (workerTimesheet.breaks) {
@@ -112,7 +119,14 @@ export default function TimelineGrid({
       if (requesterTimesheet) {
         const clockIn = new Date(requesterTimesheet.clock_in);
         const clockOut = new Date(requesterTimesheet.clock_out);
-        if (slotTime >= clockIn && slotTime <= clockOut) {
+        const isClockIn = Math.abs(clockIn - slotTime) < 5 * 60 * 1000;
+        const isClockOut = Math.abs(clockOut - slotTime) < 5 * 60 * 1000;
+
+        if (isClockIn) {
+          requesterState = { state: 'CLOCK_IN' };
+        } else if (isClockOut) {
+          requesterState = { state: 'CLOCK_OUT' };
+        } else if (slotTime >= clockIn && slotTime <= clockOut) {
           requesterState = { state: 'WORKING' };
         }
       }
@@ -128,17 +142,17 @@ export default function TimelineGrid({
         requesterState,
         location,
         messages: slotMessages,
-        isWorkerTransition: workerTimesheet && (
-          Math.abs(new Date(workerTimesheet.clock_in) - slotTime) < 5 * 60 * 1000 ||
-          Math.abs(new Date(workerTimesheet.clock_out) - slotTime) < 5 * 60 * 1000 ||
-          (workerTimesheet.breaks && workerTimesheet.breaks.some(brk =>
-            Math.abs(new Date(brk.break_start) - slotTime) < 5 * 60 * 1000 ||
+        isWorkerTransition: workerState && (
+          workerState.state === 'CLOCK_IN' ||
+          workerState.state === 'CLOCK_OUT' ||
+          workerState.state === 'BREAK' ||
+          (workerTimesheet?.breaks && workerTimesheet.breaks.some(brk =>
             Math.abs(new Date(brk.break_end) - slotTime) < 5 * 60 * 1000
           ))
         ),
-        isRequesterTransition: requesterTimesheet && (
-          Math.abs(new Date(requesterTimesheet.clock_in) - slotTime) < 5 * 60 * 1000 ||
-          Math.abs(new Date(requesterTimesheet.clock_out) - slotTime) < 5 * 60 * 1000
+        isRequesterTransition: requesterState && (
+          requesterState.state === 'CLOCK_IN' ||
+          requesterState.state === 'CLOCK_OUT'
         ),
       };
     });
