@@ -145,7 +145,11 @@ export default function TimelineGrid({
         isWorkerTransition: workerState && (
           workerState.state === 'CLOCK_IN' ||
           workerState.state === 'CLOCK_OUT' ||
-          workerState.state === 'BREAK' ||
+          // Only mark break START as transition, not every break slot
+          (workerTimesheet?.breaks && workerTimesheet.breaks.some(brk =>
+            Math.abs(new Date(brk.break_start) - slotTime) < 5 * 60 * 1000
+          )) ||
+          // Mark break END (return to work) as transition
           (workerTimesheet?.breaks && workerTimesheet.breaks.some(brk =>
             Math.abs(new Date(brk.break_end) - slotTime) < 5 * 60 * 1000
           ))
@@ -277,25 +281,27 @@ export default function TimelineGrid({
         if (row.isRange) {
           return (
             <span className="text-zinc-500 font-mono text-xs whitespace-nowrap">
-              {dateStr} {formatTime(row.time)}
+              {dateStr}
+              {row.dayOffset !== 0 && (
+                <sup className={`text-[10px] ${row.dayOffset > 0 ? 'text-yellow-500' : 'text-cyan-500'}`}>
+                  {row.dayOffset > 0 ? '+' : ''}{row.dayOffset}
+                </sup>
+              )}
+              {' '}{formatTime(row.time)}
               <span className="text-zinc-600"> → </span>
               {formatTime(row.rangeEndTime)}
-              {row.dayOffset !== 0 && (
-                <span className={`ml-1 ${row.dayOffset > 0 ? 'text-yellow-500' : 'text-cyan-500'}`}>
-                  {row.dayOffset > 0 ? '+' : ''}{row.dayOffset}
-                </span>
-              )}
             </span>
           );
         }
         return (
           <span className="text-zinc-500 font-mono text-xs whitespace-nowrap">
-            {dateStr} {formatTime(row.time)}
+            {dateStr}
             {row.dayOffset !== 0 && (
-              <span className={`ml-1 ${row.dayOffset > 0 ? 'text-yellow-500' : 'text-cyan-500'}`}>
+              <sup className={`text-[10px] ${row.dayOffset > 0 ? 'text-yellow-500' : 'text-cyan-500'}`}>
                 {row.dayOffset > 0 ? '+' : ''}{row.dayOffset}
-              </span>
+              </sup>
             )}
+            {' '}{formatTime(row.time)}
           </span>
         );
       case 'systemState':
@@ -332,16 +338,16 @@ export default function TimelineGrid({
         {/* Table with horizontal scroll */}
         <div className="overflow-x-auto">
           <div className="min-w-max">
-            {/* Column headers - scroll with content on mobile */}
-            <div className="bg-zinc-900 border-b border-zinc-700 flex">
+            {/* Column headers - sticky at top on mobile */}
+            <div className="bg-zinc-900 flex sticky top-0 z-20">
               {/* Time column header - sticky left */}
               <div
                 onClick={() => handleHeaderClick(timeColumn)}
-                className="sticky left-0 z-30 bg-zinc-900 px-3 py-2 text-xs font-medium text-zinc-400 border-r border-zinc-800 cursor-pointer shrink-0"
+                className="sticky left-0 z-30 bg-zinc-900 px-3 py-2 text-xs font-medium text-zinc-400 border-r border-zinc-800 cursor-pointer shrink-0 flex items-center justify-between"
                 style={{ width: timeColumn.width, minWidth: timeColumn.minWidth }}
               >
                 {timeColumn.label}
-                <span className="ml-1 text-green-500">
+                <span className="text-zinc-400 mr-2">
                   {timeSortAsc ? '↓' : '↑'}
                 </span>
               </div>
@@ -350,11 +356,23 @@ export default function TimelineGrid({
                 <div
                   key={column.id}
                   className={`px-3 py-2 text-xs font-medium text-zinc-400 border-r border-zinc-800 shrink-0 ${
-                    column.id === 'location' ? 'text-cyan-400' : ''
+                    ''
                   } ${column.id === 'messages' ? 'text-purple-400' : ''}`}
                   style={{ width: column.width, minWidth: column.minWidth }}
                 >
-                  {column.label}
+                  <div className="flex items-center justify-between">
+                    <div className="flex flex-col">
+                      <span>{column.label}</span>
+                      {column.source && (
+                        <span className="text-[10px] text-zinc-600 font-normal normal-case tracking-normal">{column.source}</span>
+                      )}
+                    </div>
+                    {column.id === 'location' && (
+                      <svg className="w-3 h-3 opacity-60 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                      </svg>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
@@ -394,9 +412,9 @@ export default function TimelineGrid({
 
   // Desktop layout
   return (
-    <div className="h-full flex flex-col overflow-hidden">
+    <div className="h-full flex flex-col overflow-hidden rounded-lg border border-zinc-800">
       {/* Sticky column headers */}
-      <div className="shrink-0 bg-zinc-900/80 border-b border-zinc-700 backdrop-blur">
+      <div className="shrink-0 bg-zinc-900 rounded-t-lg">
         <div className="flex">
           {columns.map((column, index) => (
             <div
@@ -406,19 +424,26 @@ export default function TimelineGrid({
               onDragOver={(e) => handleDragOver(e, index)}
               onDragEnd={handleDragEnd}
               onClick={() => handleHeaderClick(column)}
-              className={`relative px-3 py-2 text-xs font-medium text-zinc-400 border-r border-zinc-800 select-none ${
+              className={`relative px-3 py-2 text-xs font-medium text-zinc-400 border-r border-zinc-800 select-none flex items-center gap-1 ${
                 column.sortable ? 'cursor-pointer hover:text-zinc-200' : 'cursor-grab'
               } ${draggedColumn === index ? 'opacity-50' : ''} ${
-                column.id === 'location' ? 'text-cyan-400' : ''
+                ''
               } ${column.id === 'messages' ? 'text-purple-400' : ''}`}
               style={{ width: column.width, minWidth: column.minWidth }}
             >
-              {column.label}
-              {column.id === 'time' && (
-                <span className="ml-1 text-green-500">
-                  {timeSortAsc ? '↓' : '↑'}
-                </span>
-              )}
+              <div className="flex-1 flex items-center justify-between">
+                <div className="flex flex-col">
+                  <span>{column.label}</span>
+                  {column.source && (
+                    <span className="text-[10px] text-zinc-600 font-normal normal-case tracking-normal">{column.source}</span>
+                  )}
+                </div>
+                {column.id === 'time' && (
+                  <span className="text-zinc-400 mr-2">
+                    {timeSortAsc ? '↓' : '↑'}
+                  </span>
+                )}
+              </div>
               {/* Resize handle */}
               <div
                 className="absolute right-0 top-0 bottom-0 w-2 cursor-col-resize hover:bg-green-500/30"

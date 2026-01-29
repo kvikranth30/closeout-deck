@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { formatDateTime, formatDuration, calculateWorkedTime } from '../utils/timeUtils';
 
-export default function ShiftHeader({ engagement }) {
+export default function ShiftHeader({ engagement, onBack }) {
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [contestReason, setContestReason] = useState('');
 
@@ -40,21 +40,25 @@ export default function ShiftHeader({ engagement }) {
   };
 
   return (
-    <div className="border-b border-zinc-800 pb-4 mb-0">
+    <div className="pb-4 mb-0">
       {/* Desktop: Two-column layout with payout on right */}
-      <div className="flex flex-col md:flex-row md:gap-6">
+      <div className="flex flex-col md:flex-row md:gap-6 md:items-stretch">
         {/* Left column - Shift info */}
         <div className="flex-1 min-w-0">
           {/* Top row - ID and position */}
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-3">
+              {onBack && (
+                <button
+                  onClick={onBack}
+                  className="text-zinc-500 hover:text-white transition-colors"
+                >
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/>
+                  </svg>
+                </button>
+              )}
               <span className="text-zinc-500 text-sm font-mono">{engagement.engagement_id}</span>
-              <span className="px-2 py-0.5 bg-zinc-800 rounded text-xs text-zinc-300">
-                {gig.position}
-              </span>
-              <span className={`px-2 py-0.5 rounded text-xs ${getScenarioColor(engagement.scenario_type)}`}>
-                {formatScenario(engagement.scenario_type)}
-              </span>
             </div>
           </div>
 
@@ -71,29 +75,35 @@ export default function ShiftHeader({ engagement }) {
             <div className="flex items-center gap-2 flex-wrap">
               <span className="text-zinc-300">{formatDateTime(startTime)} → {formatDateTime(endTime)}</span>
               <span className="text-zinc-600">({formatDuration(scheduledMinutes)})</span>
+            </div>
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-zinc-300">{engagement.worker.name}</span>
               {times && (
                 <>
                   <span className="text-zinc-700">•</span>
-                  <span>Worked <span className="text-green-400">{formatDuration(times.worked)}</span></span>
+                  <span className="flex items-center gap-1">
+                    <svg className="w-3.5 h-3.5 text-green-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                    <span className="text-green-400">{formatDuration(times.worked)}</span>
+                  </span>
                   {times.breaks > 0 && (
                     <>
                       <span className="text-zinc-700">•</span>
-                      <span>Breaks <span className="text-yellow-400">{formatDuration(times.breaks)}</span></span>
+                      <span className="flex items-center gap-1">
+                        <svg className="w-3.5 h-3.5 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/>
+                        </svg>
+                        <span className="text-purple-400">{formatDuration(times.breaks)}</span>
+                      </span>
                     </>
                   )}
                 </>
               )}
-            </div>
-            <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-zinc-300">{engagement.worker.name}</span>
-              <span className="text-zinc-700">•</span>
-              <span className={getStateColor(engagement.current_state)}>
-                {engagement.current_state?.toUpperCase()}
-              </span>
               {engagement.messages?.length > 0 && (
                 <>
                   <span className="text-zinc-700">•</span>
-                  <span className="text-purple-400 flex items-center gap-1">
+                  <span className="text-yellow-400 flex items-center gap-1">
                     <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
                     </svg>
@@ -103,15 +113,27 @@ export default function ShiftHeader({ engagement }) {
               )}
             </div>
           </div>
+
+          {/* Tags */}
+          <div className="flex items-center gap-2 mt-3">
+            <span className="px-2 py-0.5 bg-zinc-800 rounded text-xs text-zinc-300">
+              {gig.position}
+            </span>
+            <span className={`px-2 py-0.5 rounded text-xs ${getScenarioColor(engagement.scenario_type)}`}>
+              {formatScenario(engagement.scenario_type)}
+            </span>
+            <span className={`px-2 py-0.5 rounded text-xs ${getStateTagColor(engagement.current_state)}`}>
+              {engagement.current_state?.toUpperCase()}
+            </span>
+          </div>
         </div>
 
         {/* Right column - Payout (desktop) */}
         {payout && (
-          <div className="hidden md:block shrink-0">
-            <div className="text-zinc-500 text-xs uppercase tracking-wider mb-2">Payout Reconciliation</div>
-            <div className="flex gap-3">
+          <div className="hidden md:flex shrink-0">
+            <div className="flex gap-3 items-stretch">
               {/* Claimed */}
-              <div className="bg-zinc-900 rounded-lg px-3 py-2">
+              <div className="bg-zinc-900 rounded-lg px-3 py-2 flex flex-col">
                 <div className="text-zinc-500 text-xs mb-1">Claimed</div>
                 <div className="text-lg text-zinc-300">{formatCurrency(payout.claimed_total)}</div>
                 <div className="text-zinc-600 text-xs">{payout.claimed_hours}h × ${payout.hourly_rate}/hr</div>
@@ -152,8 +174,7 @@ export default function ShiftHeader({ engagement }) {
       {/* Payout section - mobile only */}
       {payout && (
         <div className="mt-3 pt-3 border-t border-zinc-800/50 md:hidden">
-          <div className="text-zinc-500 text-xs uppercase tracking-wider mb-2">Payout Reconciliation</div>
-          <div className="flex flex-wrap gap-3">
+                    <div className="flex flex-wrap gap-3">
             {/* Claimed */}
             <div className="bg-zinc-900 rounded-lg px-3 py-2 flex-1 min-w-[100px]">
               <div className="text-zinc-500 text-xs mb-1">Claimed</div>
@@ -275,4 +296,12 @@ function getStateColor(state) {
   if (s === 'working' || s === 'on_site') return 'text-green-300';
   if (s === 'canceled' || s === 'no_show') return 'text-red-400';
   return 'text-zinc-300';
+}
+
+function getStateTagColor(state) {
+  const s = state?.toLowerCase();
+  if (s === 'completed') return 'bg-green-900/50 text-green-400';
+  if (s === 'working' || s === 'on_site') return 'bg-green-900/50 text-green-300';
+  if (s === 'canceled' || s === 'no_show') return 'bg-red-900/50 text-red-400';
+  return 'bg-zinc-800 text-zinc-400';
 }
