@@ -125,6 +125,31 @@
       padding: 6rem 2rem 4rem;
     }
 
+    /* Context links */
+    .context-links {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.8rem;
+    }
+    .context-links span {
+      color: var(--text-dimmer);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+    .context-links a {
+      color: var(--text-dim);
+      transition: color 0.2s;
+    }
+    .context-links a:hover {
+      color: var(--green);
+    }
+
     /* Hero */
     .hero {
       margin-bottom: 4rem;
@@ -534,6 +559,13 @@
   </header>
 
   <main class="main">
+    <div class="context-links">
+      <span>Context:</span>
+      <a href="https://hypertrack.com" target="_blank">hypertrack.com</a>
+      <a href="https://closeoutcopilot.com" target="_blank">closeoutcopilot.com</a>
+      <a href="https://closeoutcopilot.com/shift-xray" target="_blank">closeoutcopilot.com/shift-xray</a>
+    </div>
+
     <div class="hero">
       <span class="hero-label">AI Engineer Take-Home</span>
       <h1>Build a Timesheet<br><span>Reconciliation Engine</span></h1>
