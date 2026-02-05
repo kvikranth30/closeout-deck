@@ -502,6 +502,35 @@
       color: var(--text-dim);
     }
 
+    /* Edge cases */
+    .edge-cases {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.75rem;
+    }
+    .edge-case {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.875rem 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      transition: border-color 0.2s;
+    }
+    .edge-case:hover {
+      border-color: var(--border-hover);
+    }
+    .edge-case svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      color: var(--green);
+      opacity: 0.7;
+    }
+
     /* Code block */
     pre {
       background: var(--bg-code);
@@ -950,18 +979,42 @@ cat reference/sample_output.json</code></pre>
 
     <section>
       <h2>Edge Cases to Consider</h2>
-      <p style="margin-bottom: 1rem; color: var(--text-dim); font-size: 0.9rem;">
+      <p style="margin-bottom: 1.25rem; color: var(--text-dim); font-size: 0.9rem;">
         As you build your engine, think about scenarios like:
       </p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 0.5rem; font-size: 0.85rem; color: var(--text-dim);">
-        <div style="padding: 0.5rem 0;">• Late arrivals, early departures</div>
-        <div style="padding: 0.5rem 0;">• Equipment failures, clock malfunctions</div>
-        <div style="padding: 0.5rem 0;">• Weather delays, emergency site closures</div>
-        <div style="padding: 0.5rem 0;">• Double bookings, split shifts</div>
-        <div style="padding: 0.5rem 0;">• Injury claims, incident reports</div>
-        <div style="padding: 0.5rem 0;">• Training time at different rates</div>
-        <div style="padding: 0.5rem 0;">• Break disputes (paid vs unpaid)</div>
-        <div style="padding: 0.5rem 0;">• Multi-site work, travel time</div>
+      <div class="edge-cases">
+        <div class="edge-case">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Late arrivals, early departures</span>
+        </div>
+        <div class="edge-case">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          <span>Equipment failures, clock malfunctions</span>
+        </div>
+        <div class="edge-case">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 16.9A5 5 0 0 0 18 7h-1.26a8 8 0 1 0-11.62 9"/><polyline points="13 11 9 17 15 17 11 23"/></svg>
+          <span>Weather delays, site closures</span>
+        </div>
+        <div class="edge-case">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <span>Double bookings, split shifts</span>
+        </div>
+        <div class="edge-case">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          <span>Injury claims, incident reports</span>
+        </div>
+        <div class="edge-case">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          <span>Training time at different rates</span>
+        </div>
+        <div class="edge-case">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span>Break disputes (paid vs unpaid)</span>
+        </div>
+        <div class="edge-case">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z"/></svg>
+          <span>Multi-site work, travel time</span>
+        </div>
       </div>
     </section>
 
