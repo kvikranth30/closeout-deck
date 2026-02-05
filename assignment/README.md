@@ -29,10 +29,10 @@ Build an **AI-powered reconciliation engine** that:
 
 ## What You'll Receive
 
-- **4 starter test shifts** in `test_shifts/` (CSV, JSON, text formats)—these were generated with LLMs as examples
+- **5 starter test shifts** in `test_shifts/` (CSV, JSON, text formats)—including one intentionally ambiguous scenario (Shift 005)
 - **Schema documentation** in `DATA_SCHEMA.md` showing the target output format
 - **Problem context** in `PROBLEM_CONTEXT.md` explaining why this matters
-- **An API key for Claude** in `API_KEY.md` (rate-limited)—use this for both your engine AND to generate test data
+- **LLM API info** in `API_KEY.md`—use your own API key for both your engine AND to generate test data
 - **Reference output** in `reference/sample_output.json`
 
 ---
@@ -66,7 +66,7 @@ The 4 starter shifts are just examples. In reality, there are **dozens of confli
 - Break disputes
 - And many more...
 
-Use the provided API key to **generate your own expanded test dataset** (minimum 10 scenarios, ideally 15-20+). This tests:
+**Use an LLM to generate your own expanded test dataset** (minimum 10 scenarios, ideally 15-20+) in the same format as the starter shifts. Real-world closeout has dozens of edge cases:
 
 - Your understanding of the problem domain
 - Your ability to think through edge cases
@@ -74,9 +74,9 @@ Use the provided API key to **generate your own expanded test dataset** (minimum
 
 ---
 
-## What We're Looking For
+## What Matters
 
-| Aspect | What We're Evaluating |
+| Aspect | Why It's Important |
 |--------|----------------------|
 | **AI Engineering** | Can you use an LLM to reason about messy, conflicting data? |
 | **Systems Thinking** | How do you structure ingestion → reconciliation → output? |
@@ -97,7 +97,12 @@ Use the provided API key to **generate your own expanded test dataset** (minimum
 
 1. **Working reconciliation engine** — CLI or simple web UI that processes shifts
 2. **Your generated test dataset** — 10+ scenarios you created (show us you understand the problem space)
-3. **Brief writeup** (1-2 pages):
+3. **Ambiguity analysis for Shift 005** (1 page) — The "Break Dispute" scenario has no clear right answer. Write up:
+   - What's ambiguous and why
+   - What assumptions you made and your reasoning
+   - What additional data would resolve the ambiguity
+   - Your confidence level and what would change it
+4. **Brief writeup** (1-2 pages):
    - Architecture and design decisions
    - How you approached prompt engineering for reconciliation
    - How you approached generating test data (what scenarios did you think of?)
@@ -138,6 +143,6 @@ cat DATA_SCHEMA.md
 
 ## Questions?
 
-If something is unclear about the requirements, that's intentional—ambiguity handling is part of what we're evaluating. Make reasonable assumptions and document them in your writeup.
+If something is unclear, that's intentional — real-world data is messy and ambiguous. Make reasonable assumptions and document them in your writeup.
 
 Good luck! We're excited to see what you build.

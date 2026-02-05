@@ -11,8 +11,8 @@ Your engine will receive data in multiple formats. Here's what to expect:
 CSV export from customer time clock systems.
 
 ```csv
-shift_id,worker_id,worker_name,position,scheduled_start,scheduled_end,clock_in,clock_out,break_minutes,notes
-SHF-7829A,W-4521,Marcus Chen,Forklift Operator,2026-01-15 06:00,2026-01-15 14:00,06:02,14:00,30,
+shift_id,worker_id,worker_name,position,hourly_rate,scheduled_start,scheduled_end,clock_in,clock_out,break_minutes,notes
+SHF-7829A,W-4521,Marcus Chen,Forklift Operator,25.00,2026-01-15 06:00,2026-01-15 14:00,06:02,14:00,30,
 ```
 
 | Field | Type | Description |
@@ -21,6 +21,7 @@ SHF-7829A,W-4521,Marcus Chen,Forklift Operator,2026-01-15 06:00,2026-01-15 14:00
 | `worker_id` | string | Worker identifier |
 | `worker_name` | string | Worker's full name |
 | `position` | string | Job role/title |
+| `hourly_rate` | float | Pay rate for this shift (varies by position) |
 | `scheduled_start` | datetime | When shift was supposed to start |
 | `scheduled_end` | datetime | When shift was supposed to end |
 | `clock_in` | time | Actual clock-in time (may be time only, not full datetime) |
@@ -233,6 +234,6 @@ distance_meters ≈ 111,000 * sqrt((lat2-lat1)² + (lng2-lng1)²)
 
 ## Hourly Rate
 
-Unless otherwise specified in the data, use **$22.00/hour** as the default rate.
+The `hourly_rate` field in facility.csv specifies the pay rate for each shift. Rates vary by position (e.g., Forklift Operators earn more than general Warehouse Associates).
 
-Some positions may have different rates—check the facility or worker notes.
+If `hourly_rate` is missing, use **$22.00/hour** as the default.
