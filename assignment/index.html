@@ -642,7 +642,7 @@
           <span class="file-icon">🔑</span>
           <div class="file-info">
             <div class="file-name">API_KEY.md</div>
-            <div class="file-desc">Claude API usage</div>
+            <div class="file-desc">API usage (key via email)</div>
           </div>
         </a>
         <a href="reference/sample_output.json" class="file-card">
@@ -812,11 +812,70 @@ ls test_shifts/shift_001_overtime/
 cat reference/sample_output.json</code></pre>
     </section>
 
+    <section>
+      <h2>Stretch Goals (Not Required)</h2>
+      <div class="requirements">
+        <div class="req">
+          <div class="req-check"></div>
+          <div class="req-content">
+            <strong>Handle additional input formats</strong>
+            <span>PDF, images of paper timesheets, scanned documents</span>
+          </div>
+        </div>
+        <div class="req">
+          <div class="req-check"></div>
+          <div class="req-content">
+            <strong>Batch processing</strong>
+            <span>Process multiple shifts efficiently in a single run</span>
+          </div>
+        </div>
+        <div class="req">
+          <div class="req-check"></div>
+          <div class="req-content">
+            <strong>Confidence suggestions</strong>
+            <span>Recommend what additional data would increase confidence</span>
+          </div>
+        </div>
+        <div class="req">
+          <div class="req-check"></div>
+          <div class="req-content">
+            <strong>Web UI</strong>
+            <span>Show the reconciliation reasoning step-by-step visually</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Edge Cases to Consider</h2>
+      <p style="margin-bottom: 1rem; color: var(--text-dim); font-size: 0.9rem;">
+        As you build your engine, think about scenarios like:
+      </p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 0.5rem; font-size: 0.85rem; color: var(--text-dim);">
+        <div style="padding: 0.5rem 0;">• Late arrivals, early departures</div>
+        <div style="padding: 0.5rem 0;">• Equipment failures, clock malfunctions</div>
+        <div style="padding: 0.5rem 0;">• Weather delays, emergency site closures</div>
+        <div style="padding: 0.5rem 0;">• Double bookings, split shifts</div>
+        <div style="padding: 0.5rem 0;">• Injury claims, incident reports</div>
+        <div style="padding: 0.5rem 0;">• Training time at different rates</div>
+        <div style="padding: 0.5rem 0;">• Break disputes (paid vs unpaid)</div>
+        <div style="padding: 0.5rem 0;">• Multi-site work, travel time</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Questions?</h2>
+      <p style="color: var(--text-dim); font-size: 0.9rem;">
+        If something is unclear about the requirements, that's intentional—ambiguity handling is part of what we're evaluating.
+        Make reasonable assumptions and document them in your writeup.
+      </p>
+    </section>
+
     <section class="cta">
-      <h2>Ready to begin?</h2>
-      <p>If something is unclear, that's intentional—ambiguity handling is part of what we're evaluating.<br>Make reasonable assumptions and document them.</p>
-      <a href="README.md" class="cta-btn">
-        Read Full Brief →
+      <h2>Interested in applying?</h2>
+      <p>We'll provide you with an API key and answer any questions.</p>
+      <a href="mailto:famous@hypertrack.com?subject=AI%20Engineer%20Take-Home%20Assignment" class="cta-btn">
+        Email famous@hypertrack.com →
       </a>
     </section>
   </main>
