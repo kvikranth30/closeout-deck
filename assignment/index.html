@@ -740,8 +740,8 @@
 
       <h3 style="font-size: 0.9rem; margin: 2rem 0 1rem; color: var(--text);">Part 2: Generate Test Data</h3>
       <p style="margin-bottom: 1rem; color: var(--text-dim); font-size: 0.9rem;">
-        The 4 starter shifts are just examples. Use the API key to <strong>generate your own expanded test dataset</strong>
-        (minimum 10 scenarios). This tests your understanding of the problem domain and how robust your engine is.
+        The 4 starter shifts are just examples. <strong>Use an LLM to generate your own expanded test dataset</strong>
+        (minimum 10 scenarios) in the same format as the starter shifts. Real-world closeout has dozens of edge cases — we want to see which ones you'd prioritize.
       </p>
     </section>
 
@@ -773,7 +773,7 @@
           <span class="file-icon">🔑</span>
           <div class="file-info">
             <div class="file-name">API_KEY.md</div>
-            <div class="file-desc">API usage (key via email)</div>
+            <div class="file-desc">LLM API access</div>
           </div>
         </a>
         <a href="reference/sample_output.json" class="file-card">
@@ -848,11 +848,24 @@
             <a href="test_shifts/shift_004_conflicting/messages.txt" class="scenario-file">messages.txt</a>
           </div>
         </div>
+        <div class="scenario">
+          <div class="scenario-header">
+            <span class="scenario-num">05</span>
+            <span class="scenario-title">Break Dispute</span>
+          </div>
+          <p class="scenario-desc">Facility says 60-min unpaid break per policy. Worker claims only 30 min—ate at desk while working. GPS shows on-site entire time. No clear ground truth.</p>
+          <div class="scenario-files">
+            <a href="test_shifts/shift_005_break_dispute/facility.csv" class="scenario-file">facility.csv</a>
+            <a href="test_shifts/shift_005_break_dispute/worker.json" class="scenario-file">worker.json</a>
+            <a href="test_shifts/shift_005_break_dispute/gps.json" class="scenario-file">gps.json</a>
+            <a href="test_shifts/shift_005_break_dispute/messages.txt" class="scenario-file">messages.txt</a>
+          </div>
+        </div>
       </div>
     </section>
 
     <section id="evaluation">
-      <h2>What We're Looking For</h2>
+      <h2>What Matters</h2>
       <table class="eval-table">
         <thead>
           <tr>
@@ -921,6 +934,13 @@
         </div>
         <div class="deliverable">
           <span class="deliverable-num">3</span>
+          <div>
+            <h4>Ambiguity Analysis for Shift 005</h4>
+            <p>1 page writeup: What's ambiguous? What assumptions did you make? What additional data would help? How confident are you?</p>
+          </div>
+        </div>
+        <div class="deliverable">
+          <span class="deliverable-num">4</span>
           <div>
             <h4>Brief Writeup (1-2 pages)</h4>
             <p>Architecture decisions, prompt engineering approach, how you handle ambiguity</p>
@@ -1021,7 +1041,7 @@ cat reference/sample_output.json</code></pre>
     <section>
       <h2>Questions?</h2>
       <p style="color: var(--text-dim); font-size: 0.9rem;">
-        If something is unclear about the requirements, that's intentional—ambiguity handling is part of what we're evaluating.
+        If something is unclear, that's intentional — real-world data is messy and ambiguous.
         Make reasonable assumptions and document them in your writeup.
       </p>
     </section>
