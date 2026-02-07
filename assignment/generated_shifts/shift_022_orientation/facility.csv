@@ -1,0 +1,2 @@
+shift_id,worker_id,worker_name,position,hourly_rate,scheduled_start,scheduled_end,clock_in,clock_out,break_minutes,notes
+SHF-8822W,W-5022,Brandon Kim,Team Lead,26.50,2026-06-11 07:00,2026-06-11 15:00,08:00,15:05,30,clock starts after orientation (South Metro Crossdock)

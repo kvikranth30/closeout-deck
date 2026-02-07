@@ -1,0 +1,43 @@
+{
+  "shift_id": "SHF-8817R",
+  "worker_id": "W-5017",
+  "worker_name": "Tyrone Davis",
+  "recommendation": {
+    "hours": 7.4,
+    "hourly_rate": 23.5,
+    "payout": 173.9,
+    "break_minutes": 30
+  },
+  "confidence": "medium",
+  "explanation": "Recommended 7.4 hours with 30 break minutes and medium confidence. GPS supports on-site presence for about 7.88 hours. Facility-reported hours: 6.75. Worker-reported hours: 7.47. Flags: Secondary site visit corroborated by messages",
+  "evidence": {
+    "facility_hours": 6.75,
+    "worker_hours": 7.47,
+    "gps_hours": 7.88,
+    "sources_agreement": "partial",
+    "gps_on_site_confirmed": true,
+    "overtime_approved": false,
+    "key_messages": []
+  },
+  "flags": [
+    "Secondary site visit corroborated by messages"
+  ],
+  "confidence_suggestions": [
+    "Provide dispatch/work-order proof for secondary-site assignment and expected travel window.",
+    "Collect additional message context (agent/supervisor confirmations) to corroborate exceptions and approvals."
+  ],
+  "data_quality": {
+    "facility_data": "complete",
+    "worker_submission": "complete",
+    "gps_coverage": "complete",
+    "messages": "present"
+  },
+  "reasoning_steps": null,
+  "meta": {
+    "rule_applied": "gps_strong+secondary_site_context",
+    "confidence_override_applied": false,
+    "break_policy_applied": "worker_submission",
+    "secondary_site_visits_count": 7,
+    "gps_coverage_ratio": 1.0
+  }
+}

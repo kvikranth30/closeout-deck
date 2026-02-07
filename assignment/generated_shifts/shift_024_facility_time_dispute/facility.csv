@@ -1,0 +1,2 @@
+shift_id,worker_id,worker_name,position,hourly_rate,scheduled_start,scheduled_end,clock_in,clock_out,break_minutes,notes
+SHF-8824Y,W-5024,Darnell Brooks,Shipping Associate,21.00,2026-07-06 09:00,2026-07-06 17:00,09:00,14:58,30,Facility shows early departure (Midtown Fulfillment Hub)

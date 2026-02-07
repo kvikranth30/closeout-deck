@@ -1,0 +1,2 @@
+shift_id,worker_id,worker_name,position,hourly_rate,scheduled_start,scheduled_end,clock_in,clock_out,break_minutes,notes
+SHF-8816Q,W-5016,Tyrone Davis,Dock Coordinator,23.00,2026-04-07 07:00,2026-04-07 15:00,07:02,14:56,30,facility capped at scheduled (Midtown Fulfillment Hub)

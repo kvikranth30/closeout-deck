@@ -1,0 +1,2 @@
+[2026-06-11 06:10] AGENT → WORKER: Orientation begins at 6:30 and is paid.
+[2026-06-11 06:11] WORKER → AGENT: Thanks for confirming.

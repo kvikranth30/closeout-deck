@@ -1,0 +1,2 @@
+shift_id,worker_id,worker_name,position,hourly_rate,scheduled_start,scheduled_end,clock_in,clock_out,break_minutes,notes
+SHF-8813N,W-5013,Elena Rivera,Quality Inspector,23.50,2026-03-09 10:00,2026-03-09 18:00,10:00,14:05,30,left early - inj (South Metro Crossdock)

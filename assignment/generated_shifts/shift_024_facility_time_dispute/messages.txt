@@ -1,0 +1,3 @@
+[2026-07-06 13:55] WORKER → AGENT: Facility clock shows early out but Im still on floor
+[2026-07-06 14:00] AGENT → WORKER: Keep working, we'll reconcile with GPS.
+[2026-07-06 15:22] AGENT → WORKER: thx for the update, logging this for payroll review.

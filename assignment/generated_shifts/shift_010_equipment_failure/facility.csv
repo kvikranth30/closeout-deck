@@ -1,0 +1,2 @@
+shift_id,worker_id,worker_name,position,hourly_rate,scheduled_start,scheduled_end,clock_in,clock_out,break_minutes,notes
+SHF-8810K,W-5010,Tyrone Davis,Dock Coordinator,23.00,2026-02-11 05:30,2026-02-11 13:30,05:33,11:37,30,Tablet malfunctioned (South Metro Crossdock)

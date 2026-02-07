@@ -1,0 +1,2 @@
+[2026-02-18 11:10] SUPERVISOR → WORKER: Severe storm warning, site closing at noon.
+[2026-02-18 11:11] WORKER → SUPERVISOR: Understood, wrapping up.

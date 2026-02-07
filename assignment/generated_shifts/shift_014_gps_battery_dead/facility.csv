@@ -1,0 +1,2 @@
+shift_id,worker_id,worker_name,position,hourly_rate,scheduled_start,scheduled_end,clock_in,clock_out,break_minutes,notes
+SHF-8814O,W-5014,Elena Rivera,Quality Inspector,24.00,2026-03-21 08:30,2026-03-21 16:30,08:33,16:36,30,no anomalies (Riverbend Logistics)

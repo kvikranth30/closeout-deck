@@ -1,0 +1,3 @@
+[2026-04-07 15:05] WORKER → AGENT: Stayed 2 hours late to finish loading.
+[2026-04-07 15:12] AGENT → WORKER: I don't yet see OT approval from supervisor.
+[2026-04-07 15:22] AGENT → WORKER: thx for the update, logging this for payroll review.

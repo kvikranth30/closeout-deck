@@ -1,0 +1,33 @@
+{
+  "shift_id": "SHF-8815P",
+  "worker_id": "W-5015",
+  "facility_location": {
+    "lat": 33.73615,
+    "lng": -84.3214
+  },
+  "events": [
+    {
+      "timestamp": "2026-04-01T04:30:00",
+      "lat": 33.79615,
+      "lng": -84.3514,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-01T05:30:00",
+      "lat": 33.79615,
+      "lng": -84.3514,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-01T06:30:00",
+      "lat": 33.79615,
+      "lng": -84.3514,
+      "activity": "stationary"
+    }
+  ],
+  "signal_gaps": [],
+  "home_location": {
+    "lat": 33.79615,
+    "lng": -84.3514
+  }
+}

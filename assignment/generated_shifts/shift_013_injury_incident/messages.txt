@@ -1,0 +1,2 @@
+[2026-03-09 10:30] WORKER → AGENT: I hurt my wrist and supervisor sent me home.
+[2026-03-09 10:32] AGENT → WORKER: Please seek medical care and file an incident report.

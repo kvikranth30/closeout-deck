@@ -1,0 +1,2 @@
+[2026-03-21 09:15] SYSTEM: GPS signal lost - battery_dead
+[2026-03-21 14:05] SYSTEM: GPS signal restored

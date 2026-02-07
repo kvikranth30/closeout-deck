@@ -1,0 +1,2 @@
+shift_id,worker_id,worker_name,position,hourly_rate,scheduled_start,scheduled_end,clock_in,clock_out,break_minutes,notes
+SHF-8817R,W-5017,Tyrone Davis,Dock Coordinator,23.50,2026-04-20 08:30,2026-04-20 16:30,08:34,15:49,30,early clock out (Midtown Fulfillment Hub)

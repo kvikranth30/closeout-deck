@@ -1,0 +1,2 @@
+shift_id,worker_id,worker_name,position,hourly_rate,scheduled_start,scheduled_end,clock_in,clock_out,break_minutes,notes
+SHF-8807H,W-5007,Jasmine Lee,Picker/Packer,19.50,2026-01-14 08:30,2026-01-14 16:30,08:50,16:33,30,Late clock-in (Apex Distribution - North)

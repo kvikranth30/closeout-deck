@@ -1,0 +1,47 @@
+{
+  "shift_id": "SHF-8841E",
+  "worker_id": "W-5523",
+  "worker_name": "Alex Torres",
+  "recommendation": {
+    "hours": 7.5,
+    "hourly_rate": 20.0,
+    "payout": 150.0,
+    "break_minutes": 30
+  },
+  "confidence": "low",
+  "explanation": "Recommended 7.5 hours with 30 break minutes and low confidence. GPS supports on-site presence for about 8.00 hours. Facility-reported hours: 7.07. Worker-reported hours: 7.57. Message context considered: [2026-01-20T11:45] SUPERVISOR -> WORKER: Hey Alex, don't forget to take your lunch Break dispute resolved using worker_favor policy (worker=30, facility=60). Flags: Requires human review - break dispute unresolved",
+  "evidence": {
+    "facility_hours": 7.07,
+    "worker_hours": 7.57,
+    "gps_hours": 8.0,
+    "sources_agreement": "partial",
+    "gps_on_site_confirmed": true,
+    "overtime_approved": false,
+    "key_messages": [
+      "[2026-01-20T11:45] SUPERVISOR -> WORKER: Hey Alex, don't forget to take your lunch",
+      "[2026-01-20T15:10] WORKER -> AGENT: Good but busy. Didn't really get a full break - had to finish the inventory count"
+    ]
+  },
+  "flags": [
+    "Requires human review - break dispute unresolved"
+  ],
+  "confidence_suggestions": [
+    "Obtain supervisor confirmation of actual break duration and whether lunch was interrupted by work.",
+    "Attach facility policy text for working lunches and meal-break exceptions.",
+    "Pull task activity logs (scanner/workstation events) during the disputed break window."
+  ],
+  "data_quality": {
+    "facility_data": "complete",
+    "worker_submission": "complete",
+    "gps_coverage": "complete",
+    "messages": "relevant"
+  },
+  "reasoning_steps": null,
+  "meta": {
+    "rule_applied": "gps_strong",
+    "confidence_override_applied": true,
+    "break_policy_applied": "worker_favor",
+    "secondary_site_visits_count": 0,
+    "gps_coverage_ratio": 1.0
+  }
+}

@@ -1,0 +1,305 @@
+{
+  "shift_id": "SHF-8823X",
+  "worker_id": "W-5023",
+  "facility_location": {
+    "lat": 33.75005,
+    "lng": -84.3874
+  },
+  "events": [
+    {
+      "timestamp": "2026-06-24T08:49:00",
+      "lat": 33.75185,
+      "lng": -84.3856,
+      "activity": "driving"
+    },
+    {
+      "timestamp": "2026-06-24T09:00:00",
+      "lat": 33.750001,
+      "lng": -84.387369,
+      "activity": "walking"
+    },
+    {
+      "timestamp": "2026-06-24T09:10:00",
+      "lat": 33.750171,
+      "lng": -84.387626,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T09:19:00",
+      "lat": 33.750199,
+      "lng": -84.387076,
+      "activity": "walking"
+    },
+    {
+      "timestamp": "2026-06-24T09:24:00",
+      "lat": 33.750058,
+      "lng": -84.387552,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T09:34:00",
+      "lat": 33.75035,
+      "lng": -84.387494,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T09:41:00",
+      "lat": 33.749832,
+      "lng": -84.387161,
+      "activity": "walking"
+    },
+    {
+      "timestamp": "2026-06-24T09:52:00",
+      "lat": 33.749908,
+      "lng": -84.387324,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T09:59:00",
+      "lat": 33.750345,
+      "lng": -84.387598,
+      "activity": "walking"
+    },
+    {
+      "timestamp": "2026-06-24T10:08:00",
+      "lat": 33.749983,
+      "lng": -84.387367,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T10:13:00",
+      "lat": 33.749704,
+      "lng": -84.387343,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T10:21:00",
+      "lat": 33.750228,
+      "lng": -84.387398,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T10:32:00",
+      "lat": 33.749826,
+      "lng": -84.387444,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T10:39:00",
+      "lat": 33.749892,
+      "lng": -84.387692,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T10:45:00",
+      "lat": 33.749839,
+      "lng": -84.387305,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T10:51:00",
+      "lat": 33.750209,
+      "lng": -84.387319,
+      "activity": "walking"
+    },
+    {
+      "timestamp": "2026-06-24T11:00:00",
+      "lat": 33.750068,
+      "lng": -84.387733,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T11:05:00",
+      "lat": 33.750077,
+      "lng": -84.387571,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T11:11:00",
+      "lat": 33.750311,
+      "lng": -84.387423,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T11:20:00",
+      "lat": 33.749823,
+      "lng": -84.38775,
+      "activity": "walking"
+    },
+    {
+      "timestamp": "2026-06-24T11:27:00",
+      "lat": 33.749818,
+      "lng": -84.387399,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T11:38:00",
+      "lat": 33.750034,
+      "lng": -84.387215,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T11:43:00",
+      "lat": 33.749989,
+      "lng": -84.387093,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T11:48:00",
+      "lat": 33.750266,
+      "lng": -84.387216,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T11:57:00",
+      "lat": 33.749733,
+      "lng": -84.387139,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T12:02:00",
+      "lat": 33.750234,
+      "lng": -84.38733,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T12:09:00",
+      "lat": 33.750108,
+      "lng": -84.387209,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T12:19:00",
+      "lat": 33.749704,
+      "lng": -84.387067,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T12:27:00",
+      "lat": 33.750176,
+      "lng": -84.387322,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T12:32:00",
+      "lat": 33.74997,
+      "lng": -84.38774,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T12:40:00",
+      "lat": 33.750082,
+      "lng": -84.387247,
+      "activity": "walking"
+    },
+    {
+      "timestamp": "2026-06-24T12:51:00",
+      "lat": 33.750369,
+      "lng": -84.387471,
+      "activity": "walking"
+    },
+    {
+      "timestamp": "2026-06-24T13:02:00",
+      "lat": 33.750066,
+      "lng": -84.387161,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T13:11:00",
+      "lat": 33.75024,
+      "lng": -84.387355,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T13:17:00",
+      "lat": 33.749784,
+      "lng": -84.387698,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T13:27:00",
+      "lat": 33.749883,
+      "lng": -84.387716,
+      "activity": "walking"
+    },
+    {
+      "timestamp": "2026-06-24T13:34:00",
+      "lat": 33.750215,
+      "lng": -84.387445,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T13:41:00",
+      "lat": 33.750333,
+      "lng": -84.387051,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T13:50:00",
+      "lat": 33.750155,
+      "lng": -84.387222,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T13:56:00",
+      "lat": 33.75034,
+      "lng": -84.387417,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T14:02:00",
+      "lat": 33.750297,
+      "lng": -84.387657,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T14:10:00",
+      "lat": 33.750293,
+      "lng": -84.387133,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T14:20:00",
+      "lat": 33.750272,
+      "lng": -84.387568,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T14:26:00",
+      "lat": 33.749989,
+      "lng": -84.387181,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T14:34:00",
+      "lat": 33.750118,
+      "lng": -84.387663,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T14:43:00",
+      "lat": 33.750374,
+      "lng": -84.387254,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T14:53:00",
+      "lat": 33.749935,
+      "lng": -84.387416,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-06-24T14:59:00",
+      "lat": 33.749815,
+      "lng": -84.387591,
+      "activity": "walking"
+    },
+    {
+      "timestamp": "2026-06-24T15:05:00",
+      "lat": 33.75185,
+      "lng": -84.3856,
+      "activity": "driving"
+    }
+  ],
+  "signal_gaps": []
+}

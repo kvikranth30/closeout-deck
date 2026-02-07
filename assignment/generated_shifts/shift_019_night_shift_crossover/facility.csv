@@ -1,0 +1,2 @@
+shift_id,worker_id,worker_name,position,hourly_rate,scheduled_start,scheduled_end,clock_in,clock_out,break_minutes,notes
+SHF-8819T,W-5019,Hannah Patel,Receiving Clerk,20.50,2026-05-12 22:00,2026-05-13 06:00,22:07,06:03,30,Overnight shift (Apex Distribution - North)

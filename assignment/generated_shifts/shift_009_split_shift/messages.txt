@@ -1,0 +1,2 @@
+[2026-02-03 10:00] SUPERVISOR → WORKER: Take lunch now and return at 10:45.
+[2026-02-03 10:46] WORKER → SUPERVISOR: Back on floor.

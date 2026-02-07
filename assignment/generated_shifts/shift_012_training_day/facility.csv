@@ -1,0 +1,2 @@
+shift_id,worker_id,worker_name,position,hourly_rate,scheduled_start,scheduled_end,clock_in,clock_out,break_minutes,notes
+SHF-8812M,W-5012,Brandon Kim,Team Lead,26.00,2026-03-02 05:30,2026-03-02 13:30,05:55,13:32,30,Clock starts after training (Apex Distribution - North)

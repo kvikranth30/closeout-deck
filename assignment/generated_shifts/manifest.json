@@ -1,0 +1,146 @@
+{
+  "generated_at": "2026-02-07T04:47:36+00:00",
+  "count": 20,
+  "scenarios": [
+    {
+      "folder": "shift_006_early_departure",
+      "shift_id": "SHF-8806G",
+      "scenario": "early_departure",
+      "title": "Early Departure",
+      "expected_conflict": "facility_worker_dispute"
+    },
+    {
+      "folder": "shift_007_late_arrival_traffic",
+      "shift_id": "SHF-8807H",
+      "scenario": "late_arrival_traffic",
+      "title": "Late Arrival Traffic",
+      "expected_conflict": "late_arrival"
+    },
+    {
+      "folder": "shift_008_double_shift",
+      "shift_id": "SHF-8808I",
+      "scenario": "double_shift",
+      "title": "Double Shift",
+      "expected_conflict": "overtime_policy"
+    },
+    {
+      "folder": "shift_009_split_shift",
+      "shift_id": "SHF-8809J",
+      "scenario": "split_shift",
+      "title": "Split Shift",
+      "expected_conflict": "split_shift"
+    },
+    {
+      "folder": "shift_010_equipment_failure",
+      "shift_id": "SHF-8810K",
+      "scenario": "equipment_failure",
+      "title": "Equipment Failure",
+      "expected_conflict": "clock_malfunction"
+    },
+    {
+      "folder": "shift_011_weather_closure",
+      "shift_id": "SHF-8811L",
+      "scenario": "weather_closure",
+      "title": "Weather Closure",
+      "expected_conflict": "weather_exception"
+    },
+    {
+      "folder": "shift_012_training_day",
+      "shift_id": "SHF-8812M",
+      "scenario": "training_day",
+      "title": "Training Day",
+      "expected_conflict": "training_time"
+    },
+    {
+      "folder": "shift_013_injury_incident",
+      "shift_id": "SHF-8813N",
+      "scenario": "injury_incident",
+      "title": "Injury Incident",
+      "expected_conflict": "injury_policy"
+    },
+    {
+      "folder": "shift_014_gps_battery_dead",
+      "shift_id": "SHF-8814O",
+      "scenario": "gps_battery_dead",
+      "title": "GPS Battery Dead",
+      "expected_conflict": "gps_gap"
+    },
+    {
+      "folder": "shift_015_worker_no_submit",
+      "shift_id": "SHF-8815P",
+      "scenario": "worker_no_submit",
+      "title": "Worker No Submit",
+      "expected_conflict": "missing_worker_submission"
+    },
+    {
+      "folder": "shift_016_unapproved_ot",
+      "shift_id": "SHF-8816Q",
+      "scenario": "unapproved_ot",
+      "title": "Unapproved Overtime",
+      "expected_conflict": "overtime_unapproved"
+    },
+    {
+      "folder": "shift_017_multi_site_day",
+      "shift_id": "SHF-8817R",
+      "scenario": "multi_site_day",
+      "title": "Multi-site Day",
+      "expected_conflict": "secondary_site"
+    },
+    {
+      "folder": "shift_018_short_break_dispute",
+      "shift_id": "SHF-8818S",
+      "scenario": "short_break_dispute",
+      "title": "Short Break Dispute",
+      "expected_conflict": "break_dispute"
+    },
+    {
+      "folder": "shift_019_night_shift_crossover",
+      "shift_id": "SHF-8819T",
+      "scenario": "night_shift_crossover",
+      "title": "Night Shift Crossover",
+      "expected_conflict": "cross_midnight"
+    },
+    {
+      "folder": "shift_020_rounding_dispute",
+      "shift_id": "SHF-8820U",
+      "scenario": "rounding_dispute",
+      "title": "Rounding Dispute",
+      "expected_conflict": "rounding"
+    },
+    {
+      "folder": "shift_021_tip_bonus",
+      "shift_id": "SHF-8821V",
+      "scenario": "tip_bonus",
+      "title": "Tip/Bonus",
+      "expected_conflict": "bonus_adjustment"
+    },
+    {
+      "folder": "shift_022_orientation",
+      "shift_id": "SHF-8822W",
+      "scenario": "orientation",
+      "title": "Orientation Partial Day",
+      "expected_conflict": "orientation_time"
+    },
+    {
+      "folder": "shift_023_emergency_evacuation",
+      "shift_id": "SHF-8823X",
+      "scenario": "emergency_evacuation",
+      "title": "Emergency Evacuation",
+      "expected_conflict": "policy_exception"
+    },
+    {
+      "folder": "shift_024_facility_time_dispute",
+      "shift_id": "SHF-8824Y",
+      "scenario": "facility_time_dispute",
+      "title": "Worker Disputes Facility Time",
+      "expected_conflict": "facility_worker_dispute"
+    },
+    {
+      "folder": "shift_025_supervisor_late_entry",
+      "shift_id": "SHF-8825Z",
+      "scenario": "supervisor_late_entry",
+      "title": "Supervisor Late Entry",
+      "expected_conflict": "late_manual_entry"
+    }
+  ]
+}

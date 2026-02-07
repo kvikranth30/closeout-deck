@@ -1,0 +1,2 @@
+shift_id,worker_id,worker_name,position,hourly_rate,scheduled_start,scheduled_end,clock_in,clock_out,break_minutes,notes
+SHF-8806G,W-5006,Tyrone Davis,Dock Coordinator,22.50,2026-01-07 05:30,2026-01-07 13:30,05:36,12:04,30,left early (Oakland Industrial Park)

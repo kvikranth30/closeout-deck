@@ -1,0 +1,2 @@
+[2026-06-03 15:05] SUPERVISOR → AGENT: Please add $40 bonus for excellent performance.
+[2026-06-03 15:08] AGENT → WORKER: Bonus approved and noted.

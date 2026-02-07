@@ -1,0 +1,2 @@
+shift_id,worker_id,worker_name,position,hourly_rate,scheduled_start,scheduled_end,clock_in,clock_out,break_minutes,notes
+SHF-8825Z,W-5025,Hannah Patel,Receiving Clerk,20.50,2026-07-15 06:00,2026-07-15 14:00,06:01,12:59,30,Supervisor entered time next day (South Metro Crossdock)

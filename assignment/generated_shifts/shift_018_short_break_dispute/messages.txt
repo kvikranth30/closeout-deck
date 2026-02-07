@@ -1,0 +1,2 @@
+[2026-05-04 11:50] SUPERVISOR → WORKER: Don't forget lunch.
+[2026-05-04 14:40] WORKER → AGENT: Didn't get full lunch today, kept working.

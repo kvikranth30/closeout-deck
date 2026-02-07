@@ -1,0 +1,2 @@
+shift_id,worker_id,worker_name,position,hourly_rate,scheduled_start,scheduled_end,clock_in,clock_out,break_minutes,notes
+SHF-8818S,W-5018,Darnell Brooks,Shipping Associate,21.00,2026-05-04 05:30,2026-05-04 13:30,05:32,13:35,60,std 60 lunch (Apex Distribution - North)

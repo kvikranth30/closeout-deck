@@ -1,0 +1,2 @@
+[2026-04-01 15:30] AGENT → WORKER: Please submit your timesheet
+[2026-04-01 18:00] AGENT → WORKER: Reminder: missing timesheet for today's shift.

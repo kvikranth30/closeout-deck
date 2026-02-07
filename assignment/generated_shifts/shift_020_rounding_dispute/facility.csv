@@ -1,0 +1,2 @@
+shift_id,worker_id,worker_name,position,hourly_rate,scheduled_start,scheduled_end,clock_in,clock_out,break_minutes,notes
+SHF-8820U,W-5020,Hannah Patel,Receiving Clerk,21.00,2026-05-27 09:00,2026-05-27 17:00,09:02,16:58,30,clock rounds to nearest 15 (Oakland Industrial Park)

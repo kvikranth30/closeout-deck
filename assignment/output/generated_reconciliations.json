@@ -1,0 +1,967 @@
+{
+  "results": [
+    {
+      "shift_id": "SHF-8806G",
+      "worker_id": "W-5006",
+      "worker_name": "Tyrone Davis",
+      "recommendation": {
+        "hours": 5.4,
+        "hourly_rate": 22.5,
+        "payout": 121.5,
+        "break_minutes": 30
+      },
+      "confidence": "medium",
+      "explanation": "Recommended 5.4 hours with 30 break minutes and medium confidence. GPS supports on-site presence for about 5.88 hours. Facility-reported hours: 5.97. Worker-reported hours: 7.22.",
+      "evidence": {
+        "facility_hours": 5.97,
+        "worker_hours": 7.22,
+        "gps_hours": 5.88,
+        "sources_agreement": "none",
+        "gps_on_site_confirmed": true,
+        "overtime_approved": false,
+        "key_messages": []
+      },
+      "flags": [],
+      "confidence_suggestions": [
+        "Collect additional message context (agent/supervisor confirmations) to corroborate exceptions and approvals."
+      ],
+      "data_quality": {
+        "facility_data": "complete",
+        "worker_submission": "complete",
+        "gps_coverage": "complete",
+        "messages": "present"
+      },
+      "reasoning_steps": [
+        "Recommendation computed deterministically: 5.4 payable hours with 30 break minutes.",
+        "GPS corroborates on-site presence for ~5.88 hours.",
+        "Facility vs worker reported hours compared (5.97 vs 7.22); agreement=none.",
+        "Final confidence tier set to medium."
+      ],
+      "meta": {
+        "rule_applied": "gps_strong",
+        "confidence_override_applied": false,
+        "break_policy_applied": "worker_submission",
+        "secondary_site_visits_count": 0,
+        "gps_coverage_ratio": 1.0
+      }
+    },
+    {
+      "shift_id": "SHF-8807H",
+      "worker_id": "W-5007",
+      "worker_name": "Jasmine Lee",
+      "recommendation": {
+        "hours": 7.3,
+        "hourly_rate": 19.5,
+        "payout": 142.35,
+        "break_minutes": 30
+      },
+      "confidence": "high",
+      "explanation": "Recommended 7.3 hours with 30 break minutes and high confidence. GPS supports on-site presence for about 7.85 hours. Facility-reported hours: 7.22. Worker-reported hours: 7.28. Message context considered: [2026-01-14T06:15] WORKER -> AGENT: Running 15-20 minutes late due to accident. Flags: Requires human review - emergency/incident reported",
+      "evidence": {
+        "facility_hours": 7.22,
+        "worker_hours": 7.28,
+        "gps_hours": 7.85,
+        "sources_agreement": "full",
+        "gps_on_site_confirmed": true,
+        "overtime_approved": false,
+        "key_messages": [
+          "[2026-01-14T06:15] WORKER -> AGENT: Running 15-20 minutes late due to accident."
+        ]
+      },
+      "flags": [
+        "Requires human review - emergency/incident reported"
+      ],
+      "confidence_suggestions": [
+        "Attach incident report and supervisor statement to validate emergency exception handling."
+      ],
+      "data_quality": {
+        "facility_data": "complete",
+        "worker_submission": "complete",
+        "gps_coverage": "complete",
+        "messages": "relevant"
+      },
+      "reasoning_steps": [
+        "Recommendation computed deterministically: 7.3 payable hours with 30 break minutes.",
+        "GPS corroborates on-site presence for ~7.85 hours.",
+        "Facility vs worker reported hours compared (7.22 vs 7.28); agreement=full.",
+        "Review flags were added for unresolved policy/data-quality risk.",
+        "Final confidence tier set to high."
+      ],
+      "meta": {
+        "rule_applied": "agreement+emergency_context",
+        "confidence_override_applied": false,
+        "break_policy_applied": "worker_submission",
+        "secondary_site_visits_count": 0,
+        "gps_coverage_ratio": 1.0
+      }
+    },
+    {
+      "shift_id": "SHF-8808I",
+      "worker_id": "W-5008",
+      "worker_name": "Darnell Brooks",
+      "recommendation": {
+        "hours": 9.5,
+        "hourly_rate": 22.0,
+        "payout": 209.0,
+        "break_minutes": 30
+      },
+      "confidence": "high",
+      "explanation": "Recommended 9.5 hours with 30 break minutes and high confidence. GPS supports on-site presence for about 10.00 hours. Facility-reported hours: 7.47. Worker-reported hours: 10.33. Message context considered: [2026-01-29T13:42] WORKER -> SUPERVISOR: Yes, I can stay. Flags: Worker submission significantly differs from facility",
+      "evidence": {
+        "facility_hours": 7.47,
+        "worker_hours": 10.33,
+        "gps_hours": 10.0,
+        "sources_agreement": "none",
+        "gps_on_site_confirmed": true,
+        "overtime_approved": true,
+        "key_messages": [
+          "[2026-01-29T13:42] WORKER -> SUPERVISOR: Yes, I can stay."
+        ]
+      },
+      "flags": [
+        "Worker submission significantly differs from facility"
+      ],
+      "confidence_suggestions": [
+        "Review facility clock audit trail plus access-control/camera records for arrival and departure verification."
+      ],
+      "data_quality": {
+        "facility_data": "complete",
+        "worker_submission": "complete",
+        "gps_coverage": "complete",
+        "messages": "relevant"
+      },
+      "reasoning_steps": [
+        "Recommendation computed deterministically: 9.5 payable hours with 30 break minutes.",
+        "GPS corroborates on-site presence for ~10.00 hours.",
+        "Facility vs worker reported hours compared (7.47 vs 10.33); agreement=none.",
+        "Message context indicates overtime was explicitly approved.",
+        "Review flags were added for unresolved policy/data-quality risk.",
+        "Final confidence tier set to high."
+      ],
+      "meta": {
+        "rule_applied": "gps_strong+ot_approved",
+        "confidence_override_applied": true,
+        "break_policy_applied": "worker_submission",
+        "secondary_site_visits_count": 0,
+        "gps_coverage_ratio": 1.0
+      }
+    },
+    {
+      "shift_id": "SHF-8809J",
+      "worker_id": "W-5009",
+      "worker_name": "Jasmine Lee",
+      "recommendation": {
+        "hours": 7.2,
+        "hourly_rate": 19.0,
+        "payout": 136.8,
+        "break_minutes": 45
+      },
+      "confidence": "low",
+      "explanation": "Recommended 7.2 hours with 45 break minutes and low confidence. GPS supports on-site presence for about 7.88 hours. Facility-reported hours: 7.12. Worker-reported hours: 7.35. Message context considered: [2026-02-03T10:00] SUPERVISOR -> WORKER: Take lunch now and return at 10:45. Break dispute resolved using worker_favor policy (worker=45, facility=60). Flags: Requires human review - break dispute unresolved",
+      "evidence": {
+        "facility_hours": 7.12,
+        "worker_hours": 7.35,
+        "gps_hours": 7.88,
+        "sources_agreement": "full",
+        "gps_on_site_confirmed": true,
+        "overtime_approved": false,
+        "key_messages": [
+          "[2026-02-03T10:00] SUPERVISOR -> WORKER: Take lunch now and return at 10:45."
+        ]
+      },
+      "flags": [
+        "Requires human review - break dispute unresolved"
+      ],
+      "confidence_suggestions": [
+        "Obtain supervisor confirmation of actual break duration and whether lunch was interrupted by work.",
+        "Attach facility policy text for working lunches and meal-break exceptions.",
+        "Pull task activity logs (scanner/workstation events) during the disputed break window."
+      ],
+      "data_quality": {
+        "facility_data": "complete",
+        "worker_submission": "complete",
+        "gps_coverage": "complete",
+        "messages": "relevant"
+      },
+      "reasoning_steps": [
+        "Recommendation computed deterministically: 7.2 payable hours with 45 break minutes.",
+        "GPS corroborates on-site presence for ~7.88 hours.",
+        "Facility vs worker reported hours compared (7.12 vs 7.35); agreement=full.",
+        "Break conflict resolved by worker_favor policy (worker=45, facility=60).",
+        "Review flags were added for unresolved policy/data-quality risk.",
+        "Final confidence tier set to low."
+      ],
+      "meta": {
+        "rule_applied": "agreement",
+        "confidence_override_applied": true,
+        "break_policy_applied": "worker_favor",
+        "secondary_site_visits_count": 0,
+        "gps_coverage_ratio": 1.0
+      }
+    },
+    {
+      "shift_id": "SHF-8810K",
+      "worker_id": "W-5010",
+      "worker_name": "Tyrone Davis",
+      "recommendation": {
+        "hours": 7.4,
+        "hourly_rate": 23.0,
+        "payout": 170.2,
+        "break_minutes": 30
+      },
+      "confidence": "medium",
+      "explanation": "Recommended 7.4 hours with 30 break minutes and medium confidence. GPS supports on-site presence for about 7.87 hours. Facility-reported hours: 5.57. Worker-reported hours: 7.38. Message context considered: [2026-02-11T13:00] FACILITY_SYSTEM: Clock out recorded for worker Flags: Potential time clock malfunction",
+      "evidence": {
+        "facility_hours": 5.57,
+        "worker_hours": 7.38,
+        "gps_hours": 7.87,
+        "sources_agreement": "none",
+        "gps_on_site_confirmed": true,
+        "overtime_approved": false,
+        "key_messages": [
+          "[2026-02-11T13:00] FACILITY_SYSTEM: Clock out recorded for worker",
+          "[2026-02-11T13:05] WORKER -> AGENT: Tablet clocked me out but I am still working."
+        ]
+      },
+      "flags": [
+        "Potential time clock malfunction"
+      ],
+      "confidence_suggestions": [],
+      "data_quality": {
+        "facility_data": "complete",
+        "worker_submission": "complete",
+        "gps_coverage": "complete",
+        "messages": "relevant"
+      },
+      "reasoning_steps": [
+        "Recommendation computed deterministically: 7.4 payable hours with 30 break minutes.",
+        "GPS corroborates on-site presence for ~7.87 hours.",
+        "Facility vs worker reported hours compared (5.57 vs 7.38); agreement=none.",
+        "Review flags were added for unresolved policy/data-quality risk.",
+        "Final confidence tier set to medium."
+      ],
+      "meta": {
+        "rule_applied": "equipment_malfunction",
+        "confidence_override_applied": false,
+        "break_policy_applied": "worker_submission",
+        "secondary_site_visits_count": 0,
+        "gps_coverage_ratio": 1.0
+      }
+    },
+    {
+      "shift_id": "SHF-8811L",
+      "worker_id": "W-5011",
+      "worker_name": "Elena Rivera",
+      "recommendation": {
+        "hours": 5.4,
+        "hourly_rate": 24.0,
+        "payout": 129.6,
+        "break_minutes": 30
+      },
+      "confidence": "medium",
+      "explanation": "Recommended 5.4 hours with 30 break minutes and medium confidence. GPS supports on-site presence for about 5.88 hours. Facility-reported hours: 4.55. Worker-reported hours: 4.45. Message context considered: [2026-02-18T11:10] SUPERVISOR -> WORKER: Severe storm warning, site closing at noon. Flags: Requires human review - emergency/incident reported",
+      "evidence": {
+        "facility_hours": 4.55,
+        "worker_hours": 4.45,
+        "gps_hours": 5.88,
+        "sources_agreement": "partial",
+        "gps_on_site_confirmed": true,
+        "overtime_approved": false,
+        "key_messages": [
+          "[2026-02-18T11:10] SUPERVISOR -> WORKER: Severe storm warning, site closing at noon."
+        ]
+      },
+      "flags": [
+        "Requires human review - emergency/incident reported"
+      ],
+      "confidence_suggestions": [
+        "Attach incident report and supervisor statement to validate emergency exception handling."
+      ],
+      "data_quality": {
+        "facility_data": "complete",
+        "worker_submission": "complete",
+        "gps_coverage": "complete",
+        "messages": "relevant"
+      },
+      "reasoning_steps": [
+        "Recommendation computed deterministically: 5.4 payable hours with 30 break minutes.",
+        "GPS corroborates on-site presence for ~5.88 hours.",
+        "Facility vs worker reported hours compared (4.55 vs 4.45); agreement=partial.",
+        "Review flags were added for unresolved policy/data-quality risk.",
+        "Final confidence tier set to medium."
+      ],
+      "meta": {
+        "rule_applied": "gps_strong+emergency_context",
+        "confidence_override_applied": false,
+        "break_policy_applied": "worker_submission",
+        "secondary_site_visits_count": 0,
+        "gps_coverage_ratio": 1.0
+      }
+    },
+    {
+      "shift_id": "SHF-8812M",
+      "worker_id": "W-5012",
+      "worker_name": "Brandon Kim",
+      "recommendation": {
+        "hours": 7.5,
+        "hourly_rate": 26.0,
+        "payout": 195.0,
+        "break_minutes": 30
+      },
+      "confidence": "high",
+      "explanation": "Recommended 7.5 hours with 30 break minutes and high confidence. GPS supports on-site presence for about 7.97 hours. Facility-reported hours: 7.12. Worker-reported hours: 7.50.",
+      "evidence": {
+        "facility_hours": 7.12,
+        "worker_hours": 7.5,
+        "gps_hours": 7.97,
+        "sources_agreement": "partial",
+        "gps_on_site_confirmed": true,
+        "overtime_approved": false,
+        "key_messages": []
+      },
+      "flags": [],
+      "confidence_suggestions": [],
+      "data_quality": {
+        "facility_data": "complete",
+        "worker_submission": "complete",
+        "gps_coverage": "complete",
+        "messages": "present"
+      },
+      "reasoning_steps": [
+        "Recommendation computed deterministically: 7.5 payable hours with 30 break minutes.",
+        "GPS corroborates on-site presence for ~7.97 hours.",
+        "Facility vs worker reported hours compared (7.12 vs 7.50); agreement=partial.",
+        "Final confidence tier set to high."
+      ],
+      "meta": {
+        "rule_applied": "gps_strong",
+        "confidence_override_applied": false,
+        "break_policy_applied": "worker_submission",
+        "secondary_site_visits_count": 0,
+        "gps_coverage_ratio": 1.0
+      }
+    },
+    {
+      "shift_id": "SHF-8813N",
+      "worker_id": "W-5013",
+      "worker_name": "Elena Rivera",
+      "recommendation": {
+        "hours": 5.5,
+        "hourly_rate": 23.5,
+        "payout": 129.25,
+        "break_minutes": 30
+      },
+      "confidence": "low",
+      "explanation": "Recommended 5.5 hours with 30 break minutes and low confidence. GPS supports on-site presence for about 5.97 hours. Facility-reported hours: 3.58. Worker-reported hours: 3.67. Message context considered: [2026-03-09T10:30] WORKER -> AGENT: I hurt my wrist and supervisor sent me home. Flags: Requires human review - emergency/incident reported",
+      "evidence": {
+        "facility_hours": 3.58,
+        "worker_hours": 3.67,
+        "gps_hours": 5.97,
+        "sources_agreement": "none",
+        "gps_on_site_confirmed": true,
+        "overtime_approved": false,
+        "key_messages": [
+          "[2026-03-09T10:30] WORKER -> AGENT: I hurt my wrist and supervisor sent me home.",
+          "[2026-03-09T10:32] AGENT -> WORKER: Please seek medical care and file an incident report."
+        ]
+      },
+      "flags": [
+        "Requires human review - emergency/incident reported"
+      ],
+      "confidence_suggestions": [
+        "Attach incident report and supervisor statement to validate emergency exception handling."
+      ],
+      "data_quality": {
+        "facility_data": "complete",
+        "worker_submission": "complete",
+        "gps_coverage": "complete",
+        "messages": "relevant"
+      },
+      "reasoning_steps": [
+        "Recommendation computed deterministically: 5.5 payable hours with 30 break minutes.",
+        "GPS corroborates on-site presence for ~5.97 hours.",
+        "Facility vs worker reported hours compared (3.58 vs 3.67); agreement=none.",
+        "Review flags were added for unresolved policy/data-quality risk.",
+        "Final confidence tier set to low."
+      ],
+      "meta": {
+        "rule_applied": "gps_strong+emergency_context",
+        "confidence_override_applied": false,
+        "break_policy_applied": "worker_submission",
+        "secondary_site_visits_count": 0,
+        "gps_coverage_ratio": 1.0
+      }
+    },
+    {
+      "shift_id": "SHF-8814O",
+      "worker_id": "W-5014",
+      "worker_name": "Elena Rivera",
+      "recommendation": {
+        "hours": 7.5,
+        "hourly_rate": 24.0,
+        "payout": 180.0,
+        "break_minutes": 30
+      },
+      "confidence": "medium",
+      "explanation": "Recommended 7.5 hours with 30 break minutes and medium confidence. GPS supports on-site presence for about 7.95 hours. Facility-reported hours: 7.55. Worker-reported hours: 7.48.",
+      "evidence": {
+        "facility_hours": 7.55,
+        "worker_hours": 7.48,
+        "gps_hours": 7.95,
+        "sources_agreement": "full",
+        "gps_on_site_confirmed": true,
+        "overtime_approved": false,
+        "key_messages": []
+      },
+      "flags": [],
+      "confidence_suggestions": [
+        "Collect denser GPS telemetry (higher ping frequency) and device battery/permission diagnostics for this shift window.",
+        "Collect additional message context (agent/supervisor confirmations) to corroborate exceptions and approvals."
+      ],
+      "data_quality": {
+        "facility_data": "complete",
+        "worker_submission": "complete",
+        "gps_coverage": "partial",
+        "messages": "present"
+      },
+      "reasoning_steps": [
+        "Recommendation computed deterministically: 7.5 payable hours with 30 break minutes.",
+        "GPS corroborates on-site presence for ~7.95 hours.",
+        "Facility vs worker reported hours compared (7.55 vs 7.48); agreement=full.",
+        "Final confidence tier set to medium."
+      ],
+      "meta": {
+        "rule_applied": "agreement",
+        "confidence_override_applied": false,
+        "break_policy_applied": "worker_submission",
+        "secondary_site_visits_count": 0,
+        "gps_coverage_ratio": 0.405
+      }
+    },
+    {
+      "shift_id": "SHF-8815P",
+      "worker_id": "W-5015",
+      "worker_name": "Brandon Kim",
+      "recommendation": {
+        "hours": 7.5,
+        "hourly_rate": 26.0,
+        "payout": 195.0,
+        "break_minutes": 30
+      },
+      "confidence": "low",
+      "explanation": "Recommended 7.5 hours with 30 break minutes and low confidence. Facility-reported hours: 7.50. Flags: Requires human review - facility clock conflicts with missing worker submission and no on-site GPS",
+      "evidence": {
+        "facility_hours": 7.5,
+        "worker_hours": null,
+        "gps_hours": null,
+        "sources_agreement": "none",
+        "gps_on_site_confirmed": false,
+        "overtime_approved": false,
+        "key_messages": []
+      },
+      "flags": [
+        "Requires human review - facility clock conflicts with missing worker submission and no on-site GPS"
+      ],
+      "confidence_suggestions": [
+        "Collect denser GPS telemetry (higher ping frequency) and device battery/permission diagnostics for this shift window.",
+        "Request worker attestation or correction submission for clock-in/out and break details.",
+        "Collect additional message context (agent/supervisor confirmations) to corroborate exceptions and approvals."
+      ],
+      "data_quality": {
+        "facility_data": "complete",
+        "worker_submission": "missing",
+        "gps_coverage": "partial",
+        "messages": "present"
+      },
+      "reasoning_steps": [
+        "Recommendation computed deterministically: 7.5 payable hours with 30 break minutes.",
+        "Review flags were added for unresolved policy/data-quality risk.",
+        "Final confidence tier set to low."
+      ],
+      "meta": {
+        "rule_applied": "mixed_fallback",
+        "confidence_override_applied": false,
+        "break_policy_applied": "facility_default",
+        "secondary_site_visits_count": 0,
+        "gps_coverage_ratio": 1.0
+      }
+    },
+    {
+      "shift_id": "SHF-8816Q",
+      "worker_id": "W-5016",
+      "worker_name": "Tyrone Davis",
+      "recommendation": {
+        "hours": 9.3,
+        "hourly_rate": 23.0,
+        "payout": 213.9,
+        "break_minutes": 30
+      },
+      "confidence": "low",
+      "explanation": "Recommended 9.3 hours with 30 break minutes and low confidence. GPS supports on-site presence for about 9.85 hours. Facility-reported hours: 7.40. Worker-reported hours: 9.43. Flags: Overtime not explicitly approved; Worker submission significantly differs from facility",
+      "evidence": {
+        "facility_hours": 7.4,
+        "worker_hours": 9.43,
+        "gps_hours": 9.85,
+        "sources_agreement": "none",
+        "gps_on_site_confirmed": true,
+        "overtime_approved": false,
+        "key_messages": []
+      },
+      "flags": [
+        "Overtime not explicitly approved",
+        "Worker submission significantly differs from facility"
+      ],
+      "confidence_suggestions": [
+        "Capture explicit supervisor OT approval (message, ticket, or signed adjustment) tied to timestamps.",
+        "Review facility clock audit trail plus access-control/camera records for arrival and departure verification.",
+        "Collect additional message context (agent/supervisor confirmations) to corroborate exceptions and approvals."
+      ],
+      "data_quality": {
+        "facility_data": "complete",
+        "worker_submission": "complete",
+        "gps_coverage": "complete",
+        "messages": "present"
+      },
+      "reasoning_steps": [
+        "Recommendation computed deterministically: 9.3 payable hours with 30 break minutes.",
+        "GPS corroborates on-site presence for ~9.85 hours.",
+        "Facility vs worker reported hours compared (7.40 vs 9.43); agreement=none.",
+        "Review flags were added for unresolved policy/data-quality risk.",
+        "Final confidence tier set to low."
+      ],
+      "meta": {
+        "rule_applied": "gps_strong+ot_unapproved",
+        "confidence_override_applied": false,
+        "break_policy_applied": "worker_submission",
+        "secondary_site_visits_count": 0,
+        "gps_coverage_ratio": 1.0
+      }
+    },
+    {
+      "shift_id": "SHF-8817R",
+      "worker_id": "W-5017",
+      "worker_name": "Tyrone Davis",
+      "recommendation": {
+        "hours": 7.4,
+        "hourly_rate": 23.5,
+        "payout": 173.9,
+        "break_minutes": 30
+      },
+      "confidence": "medium",
+      "explanation": "Recommended 7.4 hours with 30 break minutes and medium confidence. GPS supports on-site presence for about 7.88 hours. Facility-reported hours: 6.75. Worker-reported hours: 7.47. Flags: Secondary site visit corroborated by messages",
+      "evidence": {
+        "facility_hours": 6.75,
+        "worker_hours": 7.47,
+        "gps_hours": 7.88,
+        "sources_agreement": "partial",
+        "gps_on_site_confirmed": true,
+        "overtime_approved": false,
+        "key_messages": []
+      },
+      "flags": [
+        "Secondary site visit corroborated by messages"
+      ],
+      "confidence_suggestions": [
+        "Provide dispatch/work-order proof for secondary-site assignment and expected travel window.",
+        "Collect additional message context (agent/supervisor confirmations) to corroborate exceptions and approvals."
+      ],
+      "data_quality": {
+        "facility_data": "complete",
+        "worker_submission": "complete",
+        "gps_coverage": "complete",
+        "messages": "present"
+      },
+      "reasoning_steps": [
+        "Recommendation computed deterministically: 7.4 payable hours with 30 break minutes.",
+        "GPS corroborates on-site presence for ~7.88 hours.",
+        "Facility vs worker reported hours compared (6.75 vs 7.47); agreement=partial.",
+        "Review flags were added for unresolved policy/data-quality risk.",
+        "Final confidence tier set to medium."
+      ],
+      "meta": {
+        "rule_applied": "gps_strong+secondary_site_context",
+        "confidence_override_applied": false,
+        "break_policy_applied": "worker_submission",
+        "secondary_site_visits_count": 7,
+        "gps_coverage_ratio": 1.0
+      }
+    },
+    {
+      "shift_id": "SHF-8818S",
+      "worker_id": "W-5018",
+      "worker_name": "Darnell Brooks",
+      "recommendation": {
+        "hours": 7.5,
+        "hourly_rate": 21.0,
+        "payout": 157.5,
+        "break_minutes": 30
+      },
+      "confidence": "low",
+      "explanation": "Recommended 7.5 hours with 30 break minutes and low confidence. GPS supports on-site presence for about 7.98 hours. Facility-reported hours: 7.05. Worker-reported hours: 7.53. Message context considered: [2026-05-04T11:50] SUPERVISOR -> WORKER: Don't forget lunch. Break dispute resolved using worker_favor policy (worker=30, facility=60). Flags: Requires human review - break dispute unresolved",
+      "evidence": {
+        "facility_hours": 7.05,
+        "worker_hours": 7.53,
+        "gps_hours": 7.98,
+        "sources_agreement": "partial",
+        "gps_on_site_confirmed": true,
+        "overtime_approved": false,
+        "key_messages": [
+          "[2026-05-04T11:50] SUPERVISOR -> WORKER: Don't forget lunch.",
+          "[2026-05-04T14:40] WORKER -> AGENT: Didn't get full lunch today, kept working."
+        ]
+      },
+      "flags": [
+        "Requires human review - break dispute unresolved"
+      ],
+      "confidence_suggestions": [
+        "Obtain supervisor confirmation of actual break duration and whether lunch was interrupted by work.",
+        "Attach facility policy text for working lunches and meal-break exceptions.",
+        "Pull task activity logs (scanner/workstation events) during the disputed break window."
+      ],
+      "data_quality": {
+        "facility_data": "complete",
+        "worker_submission": "complete",
+        "gps_coverage": "complete",
+        "messages": "relevant"
+      },
+      "reasoning_steps": [
+        "Recommendation computed deterministically: 7.5 payable hours with 30 break minutes.",
+        "GPS corroborates on-site presence for ~7.98 hours.",
+        "Facility vs worker reported hours compared (7.05 vs 7.53); agreement=partial.",
+        "Break conflict resolved by worker_favor policy (worker=30, facility=60).",
+        "Review flags were added for unresolved policy/data-quality risk.",
+        "Final confidence tier set to low."
+      ],
+      "meta": {
+        "rule_applied": "gps_strong",
+        "confidence_override_applied": true,
+        "break_policy_applied": "worker_favor",
+        "secondary_site_visits_count": 0,
+        "gps_coverage_ratio": 1.0
+      }
+    },
+    {
+      "shift_id": "SHF-8819T",
+      "worker_id": "W-5019",
+      "worker_name": "Hannah Patel",
+      "recommendation": {
+        "hours": 7.5,
+        "hourly_rate": 20.5,
+        "payout": 153.75,
+        "break_minutes": 30
+      },
+      "confidence": "high",
+      "explanation": "Recommended 7.5 hours with 30 break minutes and high confidence. GPS supports on-site presence for about 7.98 hours. Facility-reported hours: 7.43. Worker-reported hours: 7.45.",
+      "evidence": {
+        "facility_hours": 7.43,
+        "worker_hours": 7.45,
+        "gps_hours": 7.98,
+        "sources_agreement": "full",
+        "gps_on_site_confirmed": true,
+        "overtime_approved": false,
+        "key_messages": []
+      },
+      "flags": [],
+      "confidence_suggestions": [],
+      "data_quality": {
+        "facility_data": "complete",
+        "worker_submission": "complete",
+        "gps_coverage": "complete",
+        "messages": "present"
+      },
+      "reasoning_steps": [
+        "Recommendation computed deterministically: 7.5 payable hours with 30 break minutes.",
+        "GPS corroborates on-site presence for ~7.98 hours.",
+        "Facility vs worker reported hours compared (7.43 vs 7.45); agreement=full.",
+        "Final confidence tier set to high."
+      ],
+      "meta": {
+        "rule_applied": "agreement",
+        "confidence_override_applied": false,
+        "break_policy_applied": "worker_submission",
+        "secondary_site_visits_count": 0,
+        "gps_coverage_ratio": 1.0
+      }
+    },
+    {
+      "shift_id": "SHF-8820U",
+      "worker_id": "W-5020",
+      "worker_name": "Hannah Patel",
+      "recommendation": {
+        "hours": 7.4,
+        "hourly_rate": 21.0,
+        "payout": 155.4,
+        "break_minutes": 30
+      },
+      "confidence": "high",
+      "explanation": "Recommended 7.4 hours with 30 break minutes and high confidence. GPS supports on-site presence for about 7.88 hours. Facility-reported hours: 7.43. Worker-reported hours: 7.47. Message context considered: [2026-05-27T14:10] WORKER -> AGENT: Time clock rounded my times.",
+      "evidence": {
+        "facility_hours": 7.43,
+        "worker_hours": 7.47,
+        "gps_hours": 7.88,
+        "sources_agreement": "full",
+        "gps_on_site_confirmed": true,
+        "overtime_approved": false,
+        "key_messages": [
+          "[2026-05-27T14:10] WORKER -> AGENT: Time clock rounded my times."
+        ]
+      },
+      "flags": [],
+      "confidence_suggestions": [],
+      "data_quality": {
+        "facility_data": "complete",
+        "worker_submission": "complete",
+        "gps_coverage": "complete",
+        "messages": "relevant"
+      },
+      "reasoning_steps": [
+        "Recommendation computed deterministically: 7.4 payable hours with 30 break minutes.",
+        "GPS corroborates on-site presence for ~7.88 hours.",
+        "Facility vs worker reported hours compared (7.43 vs 7.47); agreement=full.",
+        "Final confidence tier set to high."
+      ],
+      "meta": {
+        "rule_applied": "agreement",
+        "confidence_override_applied": false,
+        "break_policy_applied": "worker_submission",
+        "secondary_site_visits_count": 0,
+        "gps_coverage_ratio": 1.0
+      }
+    },
+    {
+      "shift_id": "SHF-8821V",
+      "worker_id": "W-5021",
+      "worker_name": "Robert Nguyen",
+      "recommendation": {
+        "hours": 7.5,
+        "hourly_rate": 22.0,
+        "payout": 165.0,
+        "break_minutes": 30
+      },
+      "confidence": "high",
+      "explanation": "Recommended 7.5 hours with 30 break minutes and high confidence. GPS supports on-site presence for about 7.97 hours. Facility-reported hours: 7.57. Worker-reported hours: 7.58. Message context considered: [2026-06-03T15:08] AGENT -> WORKER: Bonus approved and noted.",
+      "evidence": {
+        "facility_hours": 7.57,
+        "worker_hours": 7.58,
+        "gps_hours": 7.97,
+        "sources_agreement": "full",
+        "gps_on_site_confirmed": true,
+        "overtime_approved": true,
+        "key_messages": [
+          "[2026-06-03T15:08] AGENT -> WORKER: Bonus approved and noted."
+        ]
+      },
+      "flags": [],
+      "confidence_suggestions": [],
+      "data_quality": {
+        "facility_data": "complete",
+        "worker_submission": "complete",
+        "gps_coverage": "complete",
+        "messages": "relevant"
+      },
+      "reasoning_steps": [
+        "Recommendation computed deterministically: 7.5 payable hours with 30 break minutes.",
+        "GPS corroborates on-site presence for ~7.97 hours.",
+        "Facility vs worker reported hours compared (7.57 vs 7.58); agreement=full.",
+        "Message context indicates overtime was explicitly approved.",
+        "Final confidence tier set to high."
+      ],
+      "meta": {
+        "rule_applied": "agreement",
+        "confidence_override_applied": false,
+        "break_policy_applied": "worker_submission",
+        "secondary_site_visits_count": 0,
+        "gps_coverage_ratio": 1.0
+      }
+    },
+    {
+      "shift_id": "SHF-8822W",
+      "worker_id": "W-5022",
+      "worker_name": "Brandon Kim",
+      "recommendation": {
+        "hours": 7.4,
+        "hourly_rate": 26.5,
+        "payout": 196.1,
+        "break_minutes": 30
+      },
+      "confidence": "medium",
+      "explanation": "Recommended 7.4 hours with 30 break minutes and medium confidence. GPS supports on-site presence for about 7.87 hours. Facility-reported hours: 6.58. Worker-reported hours: 7.02.",
+      "evidence": {
+        "facility_hours": 6.58,
+        "worker_hours": 7.02,
+        "gps_hours": 7.87,
+        "sources_agreement": "partial",
+        "gps_on_site_confirmed": true,
+        "overtime_approved": false,
+        "key_messages": []
+      },
+      "flags": [],
+      "confidence_suggestions": [
+        "Collect additional message context (agent/supervisor confirmations) to corroborate exceptions and approvals."
+      ],
+      "data_quality": {
+        "facility_data": "complete",
+        "worker_submission": "complete",
+        "gps_coverage": "complete",
+        "messages": "present"
+      },
+      "reasoning_steps": [
+        "Recommendation computed deterministically: 7.4 payable hours with 30 break minutes.",
+        "GPS corroborates on-site presence for ~7.87 hours.",
+        "Facility vs worker reported hours compared (6.58 vs 7.02); agreement=partial.",
+        "Final confidence tier set to medium."
+      ],
+      "meta": {
+        "rule_applied": "gps_strong",
+        "confidence_override_applied": false,
+        "break_policy_applied": "worker_submission",
+        "secondary_site_visits_count": 0,
+        "gps_coverage_ratio": 1.0
+      }
+    },
+    {
+      "shift_id": "SHF-8823X",
+      "worker_id": "W-5023",
+      "worker_name": "Alicia Gomez",
+      "recommendation": {
+        "hours": 5.5,
+        "hourly_rate": 19.5,
+        "payout": 107.25,
+        "break_minutes": 30
+      },
+      "confidence": "low",
+      "explanation": "Recommended 5.5 hours with 30 break minutes and low confidence. GPS supports on-site presence for about 5.98 hours. Facility-reported hours: 3.98. Worker-reported hours: 4.03. Message context considered: [2026-06-24T09:40] SYSTEM: Facility emergency evacuation in progress. Flags: Requires human review - emergency/incident reported",
+      "evidence": {
+        "facility_hours": 3.98,
+        "worker_hours": 4.03,
+        "gps_hours": 5.98,
+        "sources_agreement": "none",
+        "gps_on_site_confirmed": true,
+        "overtime_approved": false,
+        "key_messages": [
+          "[2026-06-24T09:40] SYSTEM: Facility emergency evacuation in progress."
+        ]
+      },
+      "flags": [
+        "Requires human review - emergency/incident reported"
+      ],
+      "confidence_suggestions": [
+        "Attach incident report and supervisor statement to validate emergency exception handling."
+      ],
+      "data_quality": {
+        "facility_data": "complete",
+        "worker_submission": "complete",
+        "gps_coverage": "complete",
+        "messages": "relevant"
+      },
+      "reasoning_steps": [
+        "Recommendation computed deterministically: 5.5 payable hours with 30 break minutes.",
+        "GPS corroborates on-site presence for ~5.98 hours.",
+        "Facility vs worker reported hours compared (3.98 vs 4.03); agreement=none.",
+        "Review flags were added for unresolved policy/data-quality risk.",
+        "Final confidence tier set to low."
+      ],
+      "meta": {
+        "rule_applied": "gps_strong+emergency_context",
+        "confidence_override_applied": false,
+        "break_policy_applied": "worker_submission",
+        "secondary_site_visits_count": 0,
+        "gps_coverage_ratio": 1.0
+      }
+    },
+    {
+      "shift_id": "SHF-8824Y",
+      "worker_id": "W-5024",
+      "worker_name": "Darnell Brooks",
+      "recommendation": {
+        "hours": 7.4,
+        "hourly_rate": 21.0,
+        "payout": 155.4,
+        "break_minutes": 30
+      },
+      "confidence": "low",
+      "explanation": "Recommended 7.4 hours with 30 break minutes and low confidence. GPS supports on-site presence for about 7.93 hours. Facility-reported hours: 5.47. Worker-reported hours: 7.50. Flags: Worker submission significantly differs from facility",
+      "evidence": {
+        "facility_hours": 5.47,
+        "worker_hours": 7.5,
+        "gps_hours": 7.93,
+        "sources_agreement": "none",
+        "gps_on_site_confirmed": true,
+        "overtime_approved": false,
+        "key_messages": []
+      },
+      "flags": [
+        "Worker submission significantly differs from facility"
+      ],
+      "confidence_suggestions": [
+        "Review facility clock audit trail plus access-control/camera records for arrival and departure verification.",
+        "Collect additional message context (agent/supervisor confirmations) to corroborate exceptions and approvals."
+      ],
+      "data_quality": {
+        "facility_data": "complete",
+        "worker_submission": "complete",
+        "gps_coverage": "complete",
+        "messages": "present"
+      },
+      "reasoning_steps": [
+        "Recommendation computed deterministically: 7.4 payable hours with 30 break minutes.",
+        "GPS corroborates on-site presence for ~7.93 hours.",
+        "Facility vs worker reported hours compared (5.47 vs 7.50); agreement=none.",
+        "Review flags were added for unresolved policy/data-quality risk.",
+        "Final confidence tier set to low."
+      ],
+      "meta": {
+        "rule_applied": "gps_strong",
+        "confidence_override_applied": false,
+        "break_policy_applied": "worker_submission",
+        "secondary_site_visits_count": 0,
+        "gps_coverage_ratio": 1.0
+      }
+    },
+    {
+      "shift_id": "SHF-8825Z",
+      "worker_id": "W-5025",
+      "worker_name": "Hannah Patel",
+      "recommendation": {
+        "hours": 7.5,
+        "hourly_rate": 20.5,
+        "payout": 153.75,
+        "break_minutes": 30
+      },
+      "confidence": "medium",
+      "explanation": "Recommended 7.5 hours with 30 break minutes and medium confidence. GPS supports on-site presence for about 7.95 hours. Facility-reported hours: 6.47. Worker-reported hours: 7.48.",
+      "evidence": {
+        "facility_hours": 6.47,
+        "worker_hours": 7.48,
+        "gps_hours": 7.95,
+        "sources_agreement": "none",
+        "gps_on_site_confirmed": true,
+        "overtime_approved": false,
+        "key_messages": []
+      },
+      "flags": [],
+      "confidence_suggestions": [
+        "Collect additional message context (agent/supervisor confirmations) to corroborate exceptions and approvals."
+      ],
+      "data_quality": {
+        "facility_data": "complete",
+        "worker_submission": "complete",
+        "gps_coverage": "complete",
+        "messages": "present"
+      },
+      "reasoning_steps": [
+        "Recommendation computed deterministically: 7.5 payable hours with 30 break minutes.",
+        "GPS corroborates on-site presence for ~7.95 hours.",
+        "Facility vs worker reported hours compared (6.47 vs 7.48); agreement=none.",
+        "Final confidence tier set to medium."
+      ],
+      "meta": {
+        "rule_applied": "gps_strong",
+        "confidence_override_applied": false,
+        "break_policy_applied": "worker_submission",
+        "secondary_site_visits_count": 0,
+        "gps_coverage_ratio": 1.0
+      }
+    }
+  ]
+}

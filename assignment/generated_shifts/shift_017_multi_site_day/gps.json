@@ -1,0 +1,352 @@
+{
+  "shift_id": "SHF-8817R",
+  "worker_id": "W-5017",
+  "facility_location": {
+    "lat": 33.78175,
+    "lng": -84.3948
+  },
+  "events": [
+    {
+      "timestamp": "2026-04-20T08:17:00",
+      "lat": 33.78355,
+      "lng": -84.393,
+      "activity": "driving"
+    },
+    {
+      "timestamp": "2026-04-20T08:30:00",
+      "lat": 33.781493,
+      "lng": -84.394828,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T08:42:00",
+      "lat": 33.781756,
+      "lng": -84.394661,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T08:50:00",
+      "lat": 33.781973,
+      "lng": -84.394701,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T09:00:00",
+      "lat": 33.781467,
+      "lng": -84.394516,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T09:08:00",
+      "lat": 33.781586,
+      "lng": -84.394842,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T09:14:00",
+      "lat": 33.781968,
+      "lng": -84.394537,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T09:24:00",
+      "lat": 33.781628,
+      "lng": -84.39463,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T09:34:00",
+      "lat": 33.782011,
+      "lng": -84.39484,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T09:44:00",
+      "lat": 33.781812,
+      "lng": -84.394951,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T09:53:00",
+      "lat": 33.782067,
+      "lng": -84.394572,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T10:01:00",
+      "lat": 33.781913,
+      "lng": -84.395123,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T10:11:00",
+      "lat": 33.782078,
+      "lng": -84.394623,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T10:22:00",
+      "lat": 33.781656,
+      "lng": -84.395057,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T10:28:00",
+      "lat": 33.781928,
+      "lng": -84.394462,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T10:35:00",
+      "lat": 33.781673,
+      "lng": -84.394741,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T10:44:00",
+      "lat": 33.781915,
+      "lng": -84.394516,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T10:51:00",
+      "lat": 33.78183,
+      "lng": -84.394488,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T11:03:00",
+      "lat": 33.781612,
+      "lng": -84.394957,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T11:14:00",
+      "lat": 33.781789,
+      "lng": -84.394717,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T11:20:00",
+      "lat": 33.78173,
+      "lng": -84.394849,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T11:25:00",
+      "lat": 33.78425,
+      "lng": -84.3973,
+      "activity": "driving"
+    },
+    {
+      "timestamp": "2026-04-20T11:36:00",
+      "lat": 33.791626,
+      "lng": -84.404625,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T11:44:00",
+      "lat": 33.791829,
+      "lng": -84.404878,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T11:52:00",
+      "lat": 33.791731,
+      "lng": -84.404521,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T11:58:00",
+      "lat": 33.791736,
+      "lng": -84.404504,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T12:09:00",
+      "lat": 33.791776,
+      "lng": -84.404918,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T12:14:00",
+      "lat": 33.792091,
+      "lng": -84.404645,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T12:22:00",
+      "lat": 33.791975,
+      "lng": -84.404831,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T12:23:00",
+      "lat": 33.78355,
+      "lng": -84.396,
+      "activity": "driving"
+    },
+    {
+      "timestamp": "2026-04-20T12:34:00",
+      "lat": 33.782063,
+      "lng": -84.394786,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T12:44:00",
+      "lat": 33.781563,
+      "lng": -84.395048,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T12:50:00",
+      "lat": 33.781511,
+      "lng": -84.395008,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T13:01:00",
+      "lat": 33.78181,
+      "lng": -84.394953,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T13:11:00",
+      "lat": 33.781494,
+      "lng": -84.395135,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T13:19:00",
+      "lat": 33.782073,
+      "lng": -84.394897,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T13:29:00",
+      "lat": 33.781518,
+      "lng": -84.394716,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T13:39:00",
+      "lat": 33.781732,
+      "lng": -84.395031,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T13:50:00",
+      "lat": 33.781723,
+      "lng": -84.394696,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T13:56:00",
+      "lat": 33.782003,
+      "lng": -84.394677,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T14:05:00",
+      "lat": 33.782058,
+      "lng": -84.394689,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T14:14:00",
+      "lat": 33.781759,
+      "lng": -84.39477,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T14:25:00",
+      "lat": 33.781957,
+      "lng": -84.394673,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T14:37:00",
+      "lat": 33.781521,
+      "lng": -84.394739,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T14:48:00",
+      "lat": 33.781494,
+      "lng": -84.394726,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T14:56:00",
+      "lat": 33.781993,
+      "lng": -84.394566,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T15:03:00",
+      "lat": 33.782084,
+      "lng": -84.394872,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T15:12:00",
+      "lat": 33.781691,
+      "lng": -84.395113,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T15:21:00",
+      "lat": 33.781526,
+      "lng": -84.394955,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T15:33:00",
+      "lat": 33.782096,
+      "lng": -84.394483,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T15:39:00",
+      "lat": 33.781615,
+      "lng": -84.394707,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T15:47:00",
+      "lat": 33.781532,
+      "lng": -84.39459,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T15:59:00",
+      "lat": 33.782058,
+      "lng": -84.394967,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T16:11:00",
+      "lat": 33.781773,
+      "lng": -84.395022,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T16:23:00",
+      "lat": 33.781698,
+      "lng": -84.394513,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-04-20T16:38:00",
+      "lat": 33.78355,
+      "lng": -84.393,
+      "activity": "driving"
+    }
+  ],
+  "signal_gaps": [],
+  "secondary_site": {
+    "lat": 33.79175,
+    "lng": -84.4048,
+    "name": "Secondary Site"
+  }
+}

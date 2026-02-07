@@ -1,0 +1,2 @@
+shift_id,worker_id,worker_name,position,hourly_rate,scheduled_start,scheduled_end,clock_in,clock_out,break_minutes,notes
+SHF-8821V,W-5021,Robert Nguyen,Material Handler,22.00,2026-06-03 10:00,2026-06-03 18:00,09:56,18:00,30,Bonus to be added separately (Peachtree Cold Storage)

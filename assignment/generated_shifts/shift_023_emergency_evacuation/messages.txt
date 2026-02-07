@@ -1,0 +1,2 @@
+[2026-06-24 09:40] SYSTEM: Facility emergency evacuation in progress.
+[2026-06-24 09:45] SUPERVISOR → WORKER: Shift cancelled, evacuate now.

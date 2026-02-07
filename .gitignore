@@ -3,3 +3,12 @@ node_modules/
 *.log
 .env
 .env.local
+
+# Python runtime artifacts
+**/__pycache__/
+*.pyc
+.pytest_cache/
+
+# Assignment run artifacts
+assignment/.cache/
+# assignment/output/  # included for submission

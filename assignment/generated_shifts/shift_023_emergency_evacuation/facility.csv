@@ -1,0 +1,2 @@
+shift_id,worker_id,worker_name,position,hourly_rate,scheduled_start,scheduled_end,clock_in,clock_out,break_minutes,notes
+SHF-8823X,W-5023,Alicia Gomez,Warehouse Associate,19.50,2026-06-24 09:00,2026-06-24 17:00,09:04,13:33,30,Fire alarm evacuation (Apex Distribution - North)

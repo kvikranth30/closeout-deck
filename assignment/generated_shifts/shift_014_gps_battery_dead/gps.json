@@ -1,0 +1,179 @@
+{
+  "shift_id": "SHF-8814O",
+  "worker_id": "W-5014",
+  "facility_location": {
+    "lat": 33.70855,
+    "lng": -84.4269
+  },
+  "events": [
+    {
+      "timestamp": "2026-03-21T08:18:00",
+      "lat": 33.71035,
+      "lng": -84.4251,
+      "activity": "driving"
+    },
+    {
+      "timestamp": "2026-03-21T08:30:00",
+      "lat": 33.708312,
+      "lng": -84.427133,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-03-21T08:35:00",
+      "lat": 33.708697,
+      "lng": -84.427089,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-03-21T08:43:00",
+      "lat": 33.708266,
+      "lng": -84.426644,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-03-21T08:50:00",
+      "lat": 33.708448,
+      "lng": -84.426738,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-03-21T08:57:00",
+      "lat": 33.708319,
+      "lng": -84.426598,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-03-21T09:02:00",
+      "lat": 33.708208,
+      "lng": -84.427066,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-03-21T09:09:00",
+      "lat": 33.70852,
+      "lng": -84.427233,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-03-21T09:20:00",
+      "lat": 33.70875,
+      "lng": -84.427187,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-03-21T09:26:00",
+      "lat": 33.708827,
+      "lng": -84.427077,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-03-21T09:33:00",
+      "lat": 33.708611,
+      "lng": -84.427189,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-03-21T09:41:00",
+      "lat": 33.708317,
+      "lng": -84.426664,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-03-21T09:50:00",
+      "lat": 33.70845,
+      "lng": -84.427101,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-03-21T09:57:00",
+      "lat": 33.708546,
+      "lng": -84.42683,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-03-21T10:02:00",
+      "lat": 33.708474,
+      "lng": -84.427249,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-03-21T10:07:00",
+      "lat": 33.708532,
+      "lng": -84.426602,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-03-21T10:16:00",
+      "lat": 33.708665,
+      "lng": -84.426791,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-03-21T10:21:00",
+      "lat": 33.708607,
+      "lng": -84.426563,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-03-21T10:29:00",
+      "lat": 33.708582,
+      "lng": -84.426564,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-03-21T15:27:00",
+      "lat": 33.708363,
+      "lng": -84.427045,
+      "activity": "walking"
+    },
+    {
+      "timestamp": "2026-03-21T15:35:00",
+      "lat": 33.708505,
+      "lng": -84.426691,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-03-21T15:45:00",
+      "lat": 33.708406,
+      "lng": -84.42711,
+      "activity": "walking"
+    },
+    {
+      "timestamp": "2026-03-21T15:53:00",
+      "lat": 33.708594,
+      "lng": -84.42657,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-03-21T16:05:00",
+      "lat": 33.708546,
+      "lng": -84.42656,
+      "activity": "walking"
+    },
+    {
+      "timestamp": "2026-03-21T16:17:00",
+      "lat": 33.708504,
+      "lng": -84.426819,
+      "activity": "stationary"
+    },
+    {
+      "timestamp": "2026-03-21T16:27:00",
+      "lat": 33.708816,
+      "lng": -84.427103,
+      "activity": "walking"
+    },
+    {
+      "timestamp": "2026-03-21T16:39:00",
+      "lat": 33.71055,
+      "lng": -84.4249,
+      "activity": "driving"
+    }
+  ],
+  "signal_gaps": [
+    {
+      "start": "2026-03-21T10:38:00",
+      "end": "2026-03-21T15:27:00",
+      "reason": "battery_dead"
+    }
+  ]
+}

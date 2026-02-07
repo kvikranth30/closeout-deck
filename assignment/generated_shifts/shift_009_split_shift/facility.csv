@@ -1,0 +1,2 @@
+shift_id,worker_id,worker_name,position,hourly_rate,scheduled_start,scheduled_end,clock_in,clock_out,break_minutes,notes
+SHF-8809J,W-5009,Jasmine Lee,Picker/Packer,19.00,2026-02-03 07:00,2026-02-03 15:00,06:54,15:01,60,split shift policy (Apex Distribution - North)

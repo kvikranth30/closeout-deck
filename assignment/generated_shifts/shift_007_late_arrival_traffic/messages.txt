@@ -1,0 +1,2 @@
+[2026-01-14 06:15] WORKER → AGENT: Running 15-20 minutes late due to accident.
+[2026-01-14 06:16] AGENT → WORKER: Noted, please check in when you arrive.
