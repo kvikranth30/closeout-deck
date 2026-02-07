@@ -76,5 +76,6 @@ AI copilot that:
 ### Sprite Animation Technique
 - Two nearly-identical images with subtle differences
 - Differences include: position shifts, glowing/pulsing elements, content changes
+
 - Creates flickering "blinking neon" effect without heavy video
 - Uses CSS animation with `step-end` timing for instant switching
